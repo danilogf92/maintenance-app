@@ -1,0 +1,896 @@
+HISTORIAL Y CONTEXTO PARA CONTINUAR EL DESARROLLO DE ACADEMIA TÉCNICA
+Fecha de consolidación: 9 de octubre de 2026
+Idioma del sistema y documentación: español
+
+Este archivo es un historial consolidado de decisiones y desarrollo, no una transcripción literal de mensajes o de todas las llamadas técnicas. Incluye un prompt de continuidad, las reglas acordadas, el estado de la entrega y el manual original completo como anexo. Permite trasladar el trabajo a otro chat sin repetir el levantamiento de requisitos.
+
+==============================================================================
+1. PROMPT PARA PEGAR EN EL OTRO CHAT
+==============================================================================
+
+Actúa como desarrollador senior de Laravel, Livewire y Filament. Continúa mi proyecto Academia Técnica a partir del código existente y del historial que adjunto. Quiero un sistema independiente de capacitación técnica, en español, para técnicos y clientes, con contenidos y evaluaciones según sus permisos, fotos interactivas, procedimientos, videos, ediciones de cursos e informes por institución y persona.
+
+Adjuntaré Academia_Tecnica_Laravel.zip y este archivo. El ZIP contiene el proyecto en la carpeta academy/. Lee primero README.md, docs/MANUAL.md, docs/ARQUITECTURA.md y docs/VALIDACION.md; luego inspecciona el código y sus pruebas. Usa composer.lock y package-lock.json para conocer las versiones exactas. No reconstruyas desde cero ni reemplaces módulos existentes sin una razón concreta. Conserva los resultados históricos, las versiones publicadas y las decisiones descritas aquí.
+
+Si no recibes el ZIP o no puedes abrirlo, indícalo: este historial no sustituye el código fuente. Distingue lo que realmente verificaste de lo que el historial informa que se verificó antes. No inventes que el proyecto está desplegado, que Docker fue probado o que existe una conexión real a Drive.
+
+Utiliza Laravel, Livewire, Filament para administración, MariaDB como motor de datos y phpMyAdmin para administrar la base. Mantén buenas prácticas, autorización en servidor, transacciones cuando correspondan, documentación de uso y despliegue, y pruebas relevantes. Cada cambio deberá explicar qué modifica, por qué, cómo se comprobó y qué queda pendiente. Actualiza documentación Markdown y Word cuando el cambio lo requiera.
+
+No prometas que dividir un video en chunks hace imposible descargarlo: los videos usan HLS autenticado, sin exponer el enlace original de Drive, pero un usuario autorizado puede capturar segmentos o grabar la pantalla. Esta entrega no incluye DRM.
+
+Ya se definieron los requisitos. Evita repetir las preguntas resueltas en este historial. Mi siguiente mensaje indicará qué quiero cambiar o verificar. Si todavía no doy una tarea adicional, revisa el proyecto y presenta su estado y los pasos concretos para arrancarlo; no inventes nuevas funciones como si las hubiera solicitado.
+
+==============================================================================
+2. OBJETIVO Y ALCANCE ORIGINAL
+==============================================================================
+
+La idea inicial era crear temarios con introducción, tiempo estimado y secciones con fotos. Sobre cada foto se ubican visualmente flechas y botones “+”; al pulsarlos se muestra una explicación del componente y los procedimientos posibles con ese dispositivo. Las lecciones también contienen videos explicativos.
+
+Después de definir el concepto mediante preguntas, se solicitó construir el código completo usando Laravel, Livewire, Filament, MariaDB y phpMyAdmin, con documentación de uso en Word y Markdown y explicación para instalar localmente y desplegar en un servidor.
+
+No se dispuso de las imágenes originales de referencia: sus rutas de carga dieron error de archivo inexistente. Por tanto, no afirmar que se reprodujo exactamente su diseño visual.
+
+El sistema es independiente y tiene sus propios usuarios y administración. No vincularlo a proyectos externos ni suponer integración con otros sistemas.
+
+==============================================================================
+3. DECISIONES FUNCIONALES ACORDADAS
+==============================================================================
+
+3.1 Personas, instituciones, cuentas y roles
+- Los participantes iniciales son técnicos y clientes.
+- El administrador crea las cuentas; no se solicitó registro público.
+- Cada persona pertenece a una institución.
+- Guardar nombre, correo, identificación y teléfono cuando corresponda.
+- Roles iniciales modificables; el administrador puede crear otros.
+- Una persona puede tener varios roles y se combinan sus permisos.
+- Administrador y usuarios con autorización pueden crear y editar contenidos.
+- Publicar exige permiso específico, además de los permisos necesarios para usar el panel.
+- Acceso a cursos por rol y asignaciones adicionales a cursos específicos.
+- También existen permisos por rol dentro de cada lección.
+- Una persona que ve un componente ve todos sus procedimientos. No hay un permiso adicional para ocultar solo un procedimiento de ese componente.
+- Límite configurable de sesiones simultáneas. Al alcanzar el límite se bloquea el nuevo inicio, sin expulsar una sesión anterior.
+- Todo el contenido está en español.
+
+3.2 Cursos, organización y presentación
+- Organización por equipo o modelo y también por tema.
+- Cada curso puede elegir temario plano o módulos con lecciones.
+- Presentación con introducción, objetivos, conocimientos previos, portada, temario, instructores de la edición y fechas.
+- Duración estimada por lección; total calculado automáticamente.
+- El tiempo que ve un participante suma solo las lecciones disponibles para sus roles.
+- Inicio del participante con cursos, avance, continuar donde quedó, vencimientos, consultas y notificaciones pendientes.
+- Navegación por temario, sin buscador de lecciones o procedimientos para el participante.
+- Funcionamiento en computadores, tablets y celulares.
+
+3.3 Editor y publicación
+- Bloques que se añaden y reordenan: texto, foto interactiva y video.
+- Arrastrar visualmente flechas y botones “+” sobre las fotos.
+- Zoom y desplazamiento conservando las marcas en sus posiciones relativas.
+- Previsualizar el curso con un rol elegido antes de publicar.
+- Guardar automáticamente los cambios de bloques del borrador y mostrar el estado.
+- Los metadatos generales se guardan en sus formularios.
+- Solo una persona edita una lección o procedimiento simultáneamente; la otra ve quién tiene el bloqueo.
+- Guardar como borrador y publicar cuando esté listo.
+- Conservar únicamente el último borrador guardado, sin historial recuperable de borradores.
+- Las versiones publicadas sí se conservan para las ediciones y resultados históricos.
+- El administrador o un usuario con permiso específico publica.
+
+3.4 Fotos, componentes y procedimientos
+- Al pulsar “+” se abre un modal superpuesto con explicación del componente y sus procedimientos.
+- El procedimiento puede mostrar todo el contenido o avanzar paso a paso, según su configuración.
+- Se reutiliza un procedimiento en varias lecciones o se crea una copia independiente como plantilla.
+- Deben completarse todos los procedimientos disponibles para el participante.
+- Botón “Completar procedimiento” habilitado al terminar su contenido y todos sus videos.
+- Si la misma versión aparece varias veces en una edición, se reconoce su completado en todas.
+- No trasladar ese reconocimiento a otra edición o versión diferente.
+- Duplicar un curso copia estructura, contenido y banco de preguntas, sin participantes ni resultados.
+- La duplicación crea procedimientos independientes; los medios procesados se reutilizan como referencias inmutables.
+- Se implementaron también procedimientos anidados: la publicación rechaza ciclos y el padre exige completar los hijos.
+
+3.5 Videos y avance
+- Subir videos como archivos o vincularlos desde Drive.
+- El administrador sube manualmente a Drive; la plataforma no gestiona esa subida.
+- El servidor importa y convierte el video a HLS.
+- No mostrar al navegador el ID ni la URL original de Drive.
+- Cada segmento se sirve mediante rutas internas autenticadas y autorizadas.
+- Se configuraron segmentos cercanos a seis segundos, búfer de unos 18 segundos y retención anterior de unos seis segundos.
+- Son valores solicitados al reproductor, no una garantía exacta de memoria o caché del navegador.
+- Los segmentos del servidor se conservan para reproducciones posteriores; no se eliminan mientras cada usuario los reproduce.
+- La copia temporal importada desde Drive se elimina después de convertir. El original local subido permanece privado.
+- Adelantar está permitido, pero deben verse todas las partes para completar.
+- Solo los intervalos reproducidos a velocidad normal o menor cuentan; los saltados quedan pendientes.
+- Se guardan intervalos vistos, lecciones y procedimientos completados y la última lección.
+- Para completar la lección: llegar al final del contenido, terminar los videos y todos los procedimientos.
+- El temario visible se desbloquea secuencialmente.
+
+Límite aceptado técnicamente:
+El usuario pidió originalmente que ningún programa pudiera reconstruir los chunks. Eso no es garantizable para un navegador autorizado. El código controla acceso y exposición del original, pero no implementa DRM ni impide todas las capturas. El seguimiento tampoco es una prueba inviolable de atención humana.
+
+3.6 Ediciones, grupos y vigencia
+- Varias ediciones de un mismo curso, cada una con sus fechas y participantes.
+- Fechas de inicio y vencimiento comunes para todos los participantes de la edición.
+- Ediciones iniciadas conservan su contenido original; cambios para nuevas versiones y ediciones.
+- Inscripción individual y por grupos.
+- Se implementaron también asignaciones automáticas por rol.
+- Añadir una persona a un grupo asignado concede acceso mientras la edición no esté vencida.
+- Retirarla elimina el acceso obtenido por ese grupo y conserva avance y resultados.
+- Otra asignación vigente, individual u otro grupo, mantiene acceso.
+- El vencimiento bloquea contenidos, videos y evaluaciones.
+- El administrador puede ampliar el plazo de toda la edición.
+- Archivar un curso conserva sus ediciones y resultados e impide nuevas ediciones hasta reactivarlo.
+- La institución registrada en una inscripción es histórica; un cambio posterior de institución no la sustituye.
+
+3.7 Evaluaciones y cambios de rol
+- Aprobación obligatoria para completar el curso.
+- Porcentaje mínimo y número de intentos configurables por curso.
+- Selección única, selección múltiple y verdadero/falso.
+- Puntaje configurable por pregunta.
+- Preguntas al azar del banco del curso, configurando una cantidad total.
+- Solo preguntas correspondientes a las lecciones accesibles para los roles de la persona.
+- Sin límite de tiempo.
+- Guardar respuestas y continuar el mismo intento con las mismas preguntas.
+- Respuestas correctas y explicación al finalizar el intento completo.
+- Selección múltiple: puntaje proporcional si selecciona parte de las correctas y ninguna incorrecta; si marca una incorrecta, cero.
+- Administrador o instructor asignado pueden conceder intentos adicionales.
+- El instructor ve avance, notas, intentos y respuestas de sus participantes.
+- Al cambiar roles y obtener nuevas lecciones, se exigen esas lecciones y se adapta la evaluación.
+- Se conservan las aprobaciones anteriores.
+- Si ya aprobó, deberá completar lo añadido y aprobar una evaluación complementaria sobre ese contenido.
+- Un intento abierto con alcance que cambió se sustituye sin consumir un intento entregado.
+- El complemento usa las preguntas elegibles disponibles cuando son menos que la cantidad general configurada.
+- El Excel de Marketing conserva la aprobación anterior e indica contenido/roles aprobados y complemento pendiente.
+- Se corrigió “Continuar” para abrir una nueva lección anterior pendiente cuando cambian los roles.
+
+3.8 Consultas, adjuntos y notificaciones
+- Consultas privadas dentro de cada lección.
+- Varios instructores por edición; cualquiera de los asignados puede responder.
+- Participantes pueden adjuntar fotos y documentos a sus consultas.
+- Hasta cinco adjuntos, de hasta 10 MB cada uno, en los tipos permitidos.
+- Avisos solo dentro del sistema, sin correo.
+- No hay manuales o documentos adjuntos en las lecciones: solo texto, fotos y videos.
+- Las consultas y resultados históricos se conservan al vencer la edición.
+
+3.9 Marketing y auditoría
+- No emitir certificados automáticamente.
+- Marketing elaborará los certificados o piezas posteriormente.
+- Descargar Excel de aprobados filtrando varios cursos y fechas.
+- Una fila por aprobación con persona, institución, identificación, curso, edición, fecha, nota, roles/contenido aprobado y complemento pendiente.
+- No registrar entregas a Marketing ni evitar repetición de exportaciones.
+- Historial administrativo de quién, cuándo y qué modificó: publicación, permisos, fechas, intentos y otros cambios.
+- Contraseñas y tokens no deben aparecer en auditoría.
+- La auditoría no es inviolable frente a alguien con acceso directo a la base de datos.
+
+3.10 Estadísticas de acceso y uso
+Este alcance se añadió después de cerrar el concepto inicial:
+- Atribuir a cada persona una institución.
+- Administrador y usuarios con permiso específico ven estadísticas globales.
+- Instructores solo consultan y exportan sus ediciones asignadas.
+- Panel con gráficos y tablas y descarga Excel.
+- Filtrar por institución, persona, grupo, curso(s), edición y fechas.
+- Inscripciones, avance promedio, personas activas, consultas pendientes y ediciones próximas a vencer.
+- Tiempo activo diario y comparaciones entre instituciones.
+- Por inscripción: avance, minutos activos, última actividad, días activos, videos distintos, procedimientos completados, intentos, aprobaciones y complementos pendientes.
+- Por persona: cantidad de inicios de sesión, último inicio, última actividad, tiempo y días activos, incluso fuera de cursos.
+- Filtro de fechas aplica a los eventos; el avance mostrado es acumulado actual.
+- Inicios de sesión sin edición no se incluyen cuando se filtra por un curso.
+- Eventos atribuidos a la institución de la persona al producirse; inscripciones conservan su institución histórica.
+- Excel de uso con hojas “Avance por edición” y “Acceso persona”.
+- Actividad registrada mediante heartbeat cada 15 segundos: página visible con interacción reciente de hasta 60 segundos o video reproduciéndose.
+- Separar eventos de video para evitar sumar el mismo tiempo dos veces.
+
+==============================================================================
+4. IMPLEMENTACIÓN Y ESTRUCTURA ENTREGADA
+==============================================================================
+
+Versiones de la entrega, no recomendación de actualizar automáticamente:
+- Laravel 12.69.3.
+- Livewire 4.4.7.
+- Filament 5.10.1.
+- PHP probado 8.3.6; requisito ^8.3.
+- Composer 2.
+- Node 22 o superior para reconstruir frontend.
+- Vite 7, hls.js 1.7.3, Google Auth 1.55.1, OpenSpout 4.32.0.
+- composer.lock y package-lock.json fijan dependencias.
+
+Docker:
+- PHP 8.3 FPM, Nginx 1.28, MariaDB 11.4, phpMyAdmin 5.2.
+- Plataforma localhost:8080; phpMyAdmin localhost:8081.
+- MariaDB expuesto solo en loopback, puerto local 3307; puerto interno 3306.
+- Perfiles tools para phpMyAdmin y runtime para worker/planificador.
+- Sesiones, caché y cola en base de datos; archivos privados en storage/app/private.
+- No se incluyen credenciales reales ni .env en la entrega.
+
+Estructura:
+app/Models, app/Services, app/Livewire, app/Filament, app/Jobs, app/Http,
+app/Observers, app/Support, database/migrations, database/seeders, tests,
+resources, docker, deploy, scripts y docs.
+
+Servicios:
+AccessService, ContentService, ProgressService, ExamService, LockService,
+EnrollmentService, MediaAccess, AnalyticsService, ActivityService y Audit.
+
+Componentes Livewire:
+Home, Learn, Exam, Consultations y Preview.
+
+Administración Filament:
+Institution, Role, User, Group, Course, Lesson, Procedure, Media, Question,
+Edition, Enrollment y AuditLog; páginas ContentEditor e Insights y widget Overview.
+
+Entidades principales:
+Usuarios, instituciones, roles, grupos, cursos, lecciones, procedimientos,
+medios, preguntas, versiones de curso, ediciones, inscripciones, avance de
+videos, intentos, aprobaciones, consultas, mensajes, notificaciones,
+eventos de actividad, auditoría, bloqueos de edición y sesiones activas.
+
+Rutas principales:
+- /login, /logout, / y /admin
+- /ediciones/{edition}/lecciones/{lesson}
+- /ediciones/{edition}/evaluacion
+- /consultas/{consultation?}
+- /preview/{course}
+- /media/{enrollment}/{media}/{file}
+- /author/media/{media}/{file?}
+- /attachments/{message}/{index}
+- /activity
+- /export/{type}
+- /results/{enrollment}
+
+Controles:
+Autorización y alcance en servidor; propiedades identificadoras Livewire
+bloqueadas; transacciones y bloqueos de filas para operaciones sensibles;
+respuestas correctas no expuestas antes de entregar; texto escapado;
+medios listos y versiones publicadas inmutables; exportaciones temporales
+eliminadas tras envío; auditoría con secretos redactados.
+
+Editor:
+Bloqueo de dos minutos renovado cada 30 segundos, token exclusivo incluso
+entre dos pestañas del mismo autor; autosave con pausa de aproximadamente
+800 ms; coordenadas relativas de flechas y puntos.
+
+Videos:
+PrepareVideo es un trabajo único por medio; dos intentos; timeout 7200 s,
+retry_after 7500 s. FFmpeg convierte H.264/AAC a HLS con segmentos de unos
+seis segundos. Se configura subida de 1 GB también en Livewire, PHP y Nginx.
+La URL de Drive se valida para aceptar ID o enlaces previstos de drive.google.com,
+sin permitir descargar una URL arbitraria suministrada por el usuario.
+
+==============================================================================
+5. HISTORIAL CONSOLIDADO DEL DESARROLLO
+==============================================================================
+
+Fase 1 — Requisitos
+Se consolidaron las preguntas y respuestas, incluyendo acceso por roles,
+ediciones congeladas, evaluación complementaria, consultas privadas y la
+ampliación de estadísticas por institución y persona.
+
+Fase 2 — Proyecto y dominio
+Se preparó un proyecto real de Laravel con dependencias fijadas, migraciones,
+modelos, roles iniciales, servicios de autorización, contenido, progreso,
+evaluaciones, inscripción, auditoría y estadísticas.
+
+Fase 3 — Interfaces
+Se implementaron el panel Filament y las pantallas Livewire del participante,
+editor de bloques, fotos con marcas arrastrables, zoom, modales de procedimientos,
+evaluaciones, consultas y previsualización por rol.
+
+Fase 4 — Multimedia
+Se añadió carga local, importación de Drive mediante cuenta de servicio,
+trabajos de conversión FFmpeg y reproducción HLS con rutas privadas.
+Se implementó avance por rangos vistos y habilitación de completado.
+
+Fase 5 — Operación y documentación
+Se crearon Docker Compose, instaladores Windows y Linux/macOS, ejemplos de
+Nginx y systemd, respaldo y restauración, README, arquitectura, validación
+y manual en Markdown y Word.
+
+Fase 6 — Verificaciones y correcciones
+La suite creció desde 24 pruebas/69 comprobaciones a 29/100, 30/107,
+32/111 y finalmente 33 pruebas/112 comprobaciones.
+
+Entre los problemas corregidos estuvieron:
+- Nombre requerido por tarea programada con withoutOverlapping.
+- Estado activo por defecto de nuevas cuentas.
+- Directivas Blade comprimidas que provocaban errores de análisis.
+- Contenedor visual del login y doble inicialización de Alpine.
+- Reproducción HLS real en previsualización de autores.
+- Validación de intervalos vistos contra tiempo transcurrido.
+- Botones de completar deshabilitados hasta cumplir videos y procedimientos.
+- Exclusividad del bloqueo de edición.
+- Medios procesados inmutables y trabajos de video únicos.
+- retry_after mayor que timeout de conversión.
+- Instaladores que conservan APP_KEY al reinstalar.
+- Permisos de storage y ejecución del worker con www-data.
+- Límite temporal de Livewire ajustado para videos, antes restringido a 12 MB.
+- Normalización de enlaces completos de Drive.
+- Auditoría administrativa consultable y de solo lectura en la interfaz.
+- Estadísticas por persona incluyendo accesos fuera de cursos.
+- Congelación, autorización y copia de procedimientos anidados y rechazo de ciclos.
+- Continuar tras obtener nuevas lecciones por un cambio de rol.
+- Un dato de prueba de posición negativa incompatible con columna unsigned de MariaDB.
+
+Fase 7 — Entrega
+Se empaquetó el proyecto sin vendor, node_modules, secretos, archivos subidos,
+base de datos de prueba, logs ni cachés. Se incluyeron recursos frontend compilados,
+recursos Filament y manifiesto de archivos. El manual Word tuvo 13 páginas
+renderizadas y revisadas visualmente.
+
+==============================================================================
+6. VALIDACIÓN REAL Y LIMITACIONES
+==============================================================================
+
+Lo informado como verificado al entregar:
+- 33 pruebas y 112 comprobaciones aprobadas con SQLite.
+- Las mismas 33 pruebas y 112 comprobaciones con MariaDB 10.11.14.
+- Formato con Laravel Pint, compilación con Vite.
+- Caché de rutas y vistas.
+- Sintaxis de scripts Bash.
+- Comprobaciones en navegador: login, administración, autosave, recorrido
+  del participante y evaluación con viewport móvil.
+- Foto interactiva, arrastre y guardado de puntos, zoom, modal y pasos.
+- Reproducción de un video HLS de nueve segundos y registro del rango completo.
+- No se registraron errores JavaScript en esas comprobaciones.
+- Revisión visual de las 13 páginas del documento Word.
+
+No confundir lo anterior con pruebas completas en producción:
+- No se pudo ejecutar Docker en el entorno de desarrollo.
+- La configuración Docker usa MariaDB 11.4; la prueba real mencionada fue con 10.11.14.
+- No se probó una cuenta real de Google Drive del usuario.
+- No se desplegó en un servidor con dominio y HTTPS reales.
+- No se probó físicamente Windows ni todos los celulares/tablets.
+- No se hizo prueba de carga, auditoría de seguridad completa o subida real de 1 GB.
+- No se implementó DRM ni protección absoluta contra reconstrucción o captura.
+- Las cifras de avance y actividad no prueban atención humana.
+- Las pruebas anteriores pertenecen a la entrega indicada. El nuevo chat debe
+  ejecutarlas otra vez en su entorno, especialmente después de modificar código.
+
+Estado: implementación funcional inicial entregada, pendiente de configuración
+y verificación operativa en el entorno real del usuario. No declarar que ya
+está instalada o desplegada.
+
+==============================================================================
+7. ARCHIVOS ENTREGADOS Y REFERENCIA DE LA VERSIÓN
+==============================================================================
+
+Academia_Tecnica_Laravel.zip
+- Contiene academy/ como raíz del proyecto.
+- Última entrega registrada: 217 archivos; 2.283.858 bytes.
+- SHA-256:
+  0e889fd1c8c9ecc132d34cc3f0c9326f3a0fd5ba10fb4048f318852b17193791
+- No usar una copia anterior del ZIP si existen varias: comparar la huella.
+- Contiene docs/MANUAL.md, manual Word, docs/ARQUITECTURA.md,
+  docs/VALIDACION.md, README, CONTRIBUTING, licencia MIT y MANIFEST.json.
+
+Manual_Academia_Tecnica.docx
+- Manual Word, 13 páginas.
+
+Manual_Academia_Tecnica.md
+- Manual Markdown; su contenido original se incorpora al final de este archivo.
+
+Este documento no incluye el código del ZIP. En el nuevo chat hay que adjuntar
+el ZIP por separado: no asumir que un chat nuevo puede leer los archivos de otro.
+
+==============================================================================
+8. PRIMER ARRANQUE Y CONTINUIDAD
+==============================================================================
+
+Windows, desde academy/ con Docker Desktop abierto:
+powershell -ExecutionPolicy Bypass -File .\scripts\install-local.ps1
+También existe Instalar.cmd.
+
+Linux/macOS:
+bash scripts/install-local.sh
+
+Crear administrador:
+docker compose exec app php artisan academy:admin administrador@empresa.com
+
+Direcciones:
+http://localhost:8080
+http://localhost:8080/admin
+http://localhost:8081
+
+Arranque diario:
+docker compose --profile tools --profile runtime up -d
+
+Verificación:
+docker compose ps
+docker compose logs --tail=100 app worker scheduler mariadb
+docker compose exec app php artisan test
+
+Configuración Drive pendiente:
+Habilitar Google Drive API; crear cuenta de servicio; proteger clave JSON en
+storage/app/private/credentials/drive.json o ruta privada configurada; compartir
+el video con client_email; vincularlo y procesarlo desde administración.
+Nunca incluir la clave JSON en repositorio o carpeta pública.
+
+Despliegue:
+Consultar el anexo. Incluye Nginx, PHP-FPM, worker systemd, planificador,
+permisos, HTTPS, variables de entorno y respaldos. Mantener APP_KEY,
+APP_DEBUG=false y phpMyAdmin privado. No eliminar volúmenes ni ejecutar
+pruebas de reconstrucción contra la base real.
+
+Orden recomendado para continuar, sin cambiar el alcance funcional:
+1. Obtener y abrir el ZIP correcto.
+2. Revisar documentación, archivos de bloqueo y código.
+3. Instalar en un entorno local limpio.
+4. Ejecutar migraciones y crear cuenta administrativa.
+5. Verificar cola, planificador, conversión de video y recorrido básico.
+6. Configurar Drive real y comprobar permisos de los medios.
+7. Ejecutar pruebas y revisar la tarea nueva que indique el usuario.
+8. Antes de producción, validar despliegue, seguridad operativa y respaldos.
+
+==============================================================================
+9. ANEXO: MANUAL ORIGINAL COMPLETO DE LA ENTREGA
+==============================================================================
+
+El siguiente contenido se recuperó del manual entregado. Mantiene instrucciones
+y detalles de operación que complementan el historial. Si existen discrepancias
+con un ZIP posterior, el código y la documentación de esa versión deben revisarse.
+
+# Manual de la plataforma de capacitación técnica
+
+Guía de instalación, uso y despliegue para administradores, autores, instructores y participantes. El proyecto funciona de forma independiente, en español, con Laravel, Livewire y Filament. MariaDB almacena los datos; phpMyAdmin permite administrarlos y no reemplaza al motor de base de datos.
+
+El paquete contiene código fuente, dependencias fijadas mediante archivos de bloqueo, migraciones, pruebas, recursos del navegador compilados, instaladores para Docker y ejemplos de configuración de un servidor Linux. Las credenciales y los contenidos reales se configuran después de instalarlo.
+
+## 1 Requisitos y versiones
+
+| Componente | Versión incluida o requerida | Función |
+| --- | --- | --- |
+| PHP | 8.3 o superior compatible con composer.lock | Aplicación y tareas de consola |
+| Laravel | 12.69.3 fijado en composer.lock | Backend y seguridad de las solicitudes |
+| Livewire | 4.4.7 fijado | Interfaz del participante y editor |
+| Filament | 5.10.1 fijado | Panel de administración |
+| MariaDB | 11.4 en Docker; pruebas realizadas con 10.11.14 | Datos, sesiones, caché y cola |
+| phpMyAdmin | 5.2 en Docker | Administración visual de MariaDB |
+| Composer | 2 | Instalación de dependencias PHP |
+| Node.js | 22 o superior y npm | Recompilar recursos con Vite |
+| FFmpeg y ffprobe | Disponibles en PATH | Conversión y medición de videos |
+
+PHP necesita mbstring, intl, zip, dom, xml, fileinfo, ctype, tokenizer, PDO MySQL y PDO SQLite para las pruebas por defecto. El contenedor instala los componentes necesarios. Los recursos de producción ya están en public/build; Node no es necesario para el primer arranque con Docker.
+
+Para una instalación piloto se puede comenzar con 2 CPU y 4 GB de RAM. Es una referencia de dimensionamiento, no una garantía de capacidad: convertir videos consume CPU y el almacenamiento depende de sus originales, segmentos y respaldos. Esta entrega usa una conversión de video a la vez por worker.
+
+## 2 Instalación local con Docker
+
+### Windows
+
+Instale Docker Desktop con soporte de contenedores Linux y Docker Compose. Descomprima el proyecto en una ruta corta, por ejemplo C:\academy, y abra Docker Desktop. Abra PowerShell en esa carpeta y ejecute:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\install-local.ps1
+```
+
+También puede abrir Instalar.cmd. El script crea .env si no existe, genera contraseñas distintas para la base de datos y el usuario root, construye la imagen PHP y levanta Nginx, MariaDB y phpMyAdmin. Instala Composer, genera APP_KEY únicamente si está vacía, ejecuta migraciones y roles iniciales, publica los recursos de Filament, ajusta permisos y levanta la cola y el planificador.
+
+Cree su cuenta administrativa con una contraseña de al menos 12 caracteres. La consola la solicita sin mostrarla:
+
+```bash
+docker compose exec app php artisan academy:admin administrador@empresa.com
+```
+
+### Linux y macOS
+
+Instale Docker y el plugin Docker Compose. Para generar las contraseñas, el instalador Linux necesita Python 3. Desde la carpeta del proyecto:
+
+```bash
+bash scripts/install-local.sh
+docker compose exec app php artisan academy:admin administrador@empresa.com
+```
+
+### Direcciones y operación diaria
+
+| Servicio | Dirección local | Acceso |
+| --- | --- | --- |
+| Plataforma | http://localhost:8080 | Cuenta creada por el administrador |
+| Panel administrativo | http://localhost:8080/admin | Rol con admin.access y permisos específicos |
+| phpMyAdmin | http://localhost:8081 | Usuario y contraseña de MariaDB guardados en .env |
+| MariaDB desde la computadora | 127.0.0.1 puerto 3307 | Usuario academy por defecto |
+
+En phpMyAdmin, el servidor es mariadb y el usuario habitual es el valor DB_USERNAME. La contraseña es DB_PASSWORD. Use la cuenta root solo para tareas que requieran sus privilegios. No es necesario importar un SQL manualmente: las migraciones crean las tablas y el seeder crea los roles iniciales.
+
+```bash
+# Arranque después de apagar la computadora
+docker compose --profile tools --profile runtime up -d
+# Detener sin borrar datos
+docker compose stop
+# Revisar servicios y errores
+docker compose ps
+docker compose logs --tail=100 app worker scheduler mariadb
+# Pruebas dentro del contenedor
+docker compose exec app php artisan test
+```
+
+El volumen mariadb_data conserva la base de datos. Los archivos subidos permanecen en storage/app. No use docker compose down -v si quiere conservar los datos: esa opción elimina el volumen de MariaDB.
+
+### Datos de demostración
+
+La demostración es opcional y solo se ejecuta con APP_ENV=local o testing. Ejecútela después del seeder inicial:
+
+```bash
+docker compose exec app php artisan db:seed --class=DemoSeeder
+```
+
+Cuentas de demostración: admin@example.test con DemoAdmin2026! y tecnico@example.test con DemoTecnico2026!. Incluye un curso sencillo, una lección, una evaluación y una inscripción. No habilite estas cuentas en producción. Para un servidor real, utilice una base limpia y cree su propio administrador.
+
+## 3 Instalación sin Docker
+
+Para desarrollar directamente en Linux, instale PHP 8.3 con las extensiones indicadas, Composer 2, MariaDB, FFmpeg y Node. Cree una base academy y un usuario exclusivo con privilegios sobre esa base. Puede hacerlo con phpMyAdmin o la consola de MariaDB.
+
+```sql
+CREATE DATABASE academy CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+CREATE USER 'academy'@'localhost' IDENTIFIED BY 'CAMBIAR_POR_UNA_CLAVE_LARGA';
+GRANT ALL PRIVILEGES ON academy.* TO 'academy'@'localhost';
+```
+
+Copie .env.example a .env y cambie DB_HOST=127.0.0.1, DB_PORT=3306, DB_PASSWORD por su clave, APP_URL=http://127.0.0.1:8000 y DRIVE_SERVICE_ACCOUNT_PATH por una ruta absoluta de su computadora. Configure APP_TIMEZONE con la zona horaria de su organización, por ejemplo America/Bogota. Todos los usuarios de una edición comparten las fechas interpretadas en esa zona.
+
+```bash
+composer install
+php artisan key:generate
+php artisan migrate --seed
+php artisan filament:assets
+php artisan storage:link
+php artisan academy:admin administrador@empresa.com
+php artisan serve
+```
+
+Abra dos terminales adicionales en el proyecto:
+
+```bash
+php artisan queue:work --tries=2 --timeout=7200
+```
+
+```bash
+php artisan schedule:work
+```
+
+Para cambiar el frontend, ejecute npm ci y npm run build. También puede usar npm run dev durante el desarrollo. No abra el index.php como archivo ni apunte el servidor a la raíz del proyecto; el directorio público es public.
+
+## 4 Instituciones usuarios grupos y permisos
+
+Desde el panel, cree primero las instituciones y después las cuentas. Cada participante pertenece a una institución. Registre nombre, correo, identificación y, si corresponde, teléfono. Asigne uno o varios roles y grupos. Puede desactivar una cuenta o establecer su límite de sesiones simultáneas. Si el límite individual está vacío, se utiliza ACADEMY_SESSION_LIMIT de .env, inicialmente 2.
+
+Los roles iniciales son Administrador, Instructor, Técnico y Cliente. Los permisos se combinan cuando una persona tiene varios roles. Los roles Técnico y Cliente no permiten entrar al panel. Instructor puede entrar y trabajar con las consultas, resultados y estadísticas de sus ediciones asignadas. Ser instructor de una edición es una asignación explícita en Ediciones; no depende únicamente del nombre del rol.
+
+| Permiso | Alcance |
+| --- | --- |
+| * | Administración completa |
+| admin.access | Entrada al panel Filament |
+| users.manage | Gestión de cuentas, instituciones y grupos |
+| roles.manage | Creación y modificación de roles y permisos |
+| content.edit | Cursos, lecciones, procedimientos, preguntas y medios |
+| content.publish | Publicación de versiones; debe combinarse con content.edit para utilizar la acción del panel |
+| editions.manage | Ediciones, inscripciones y seguimiento administrativo |
+| analytics.view | Estadísticas globales |
+| analytics.export | Exportación global, combinado con analytics.view |
+| audit.view | Consulta del historial administrativo |
+
+Para que un usuario utilice un permiso del panel, incluya también admin.access. Los instructores asignados pueden consultar y exportar únicamente sus ediciones, y conceder intentos adicionales en ellas. Un gestor de usuarios sin roles.manage solo puede asignar los roles que él mismo posee.
+
+Una inscripción individual da acceso aunque la persona no pertenezca a un grupo asignado. En Ediciones también puede asignar grupos y roles para inscripción automática. Al agregar a una persona a un grupo, obtiene acceso inmediato y su inscripción se materializa al entrar o mediante la sincronización programada cada cinco minutos. Al retirarla, pierde ese acceso, conservando avance y resultados. Si tiene otra vía de acceso vigente, esa vía continúa funcionando.
+
+La institución de una inscripción queda registrada históricamente y no se cambia al trasladar a la persona. Los nuevos eventos de uso se atribuyen a su institución actual. Los informes diferencian estas dos fuentes.
+
+## 5 Crear un curso y su temario
+
+En Cursos cree el borrador con título, equipo, modelo, tema, introducción, objetivos, conocimientos previos y portada. Elija una lista de lecciones o módulos con lecciones. Configure porcentaje mínimo de aprobación, intentos permitidos y cantidad total de preguntas por evaluación.
+
+En Lecciones seleccione el curso, título, módulo cuando corresponda, posición y duración estimada en minutos. Las posiciones ascendentes determinan el orden del temario. Defina los roles que pueden verla; dejar la selección vacía permite verla a todos los participantes con acceso al curso. La duración presentada a cada participante suma únicamente sus lecciones disponibles.
+
+La presentación del curso muestra portada, introducción, objetivos, conocimientos previos, instructores de la edición, fechas, tiempo y temario. La navegación del participante se realiza mediante el temario; no hay buscador de contenidos.
+
+Abra Editar bloques para escribir el contenido. Añada y reordene bloques de texto, foto interactiva y video. El texto y los cambios de bloques se guardan automáticamente después de una breve pausa. La interfaz muestra Guardando y la hora del último guardado. Los campos generales del curso o lección se confirman con Guardar en su formulario.
+
+Solo un editor puede modificar una misma lección o procedimiento al mismo tiempo. Otro editor recibe el nombre de quien lo está editando. El bloqueo se renueva cada 30 segundos y caduca después de dos minutos sin renovación. Guardar y salir libera el bloqueo. No hay recuperación de versiones previas del borrador: se conserva el último borrador guardado, además de las versiones ya publicadas.
+
+## 6 Fotos interactivas y procedimientos
+
+Suba las fotos en Fotos y videos con tipo Foto y origen Archivo. Utilice JPEG, PNG o WebP. Después selecciónelas en un bloque de foto y pulse Añadir componente +. Arrastre el botón + y el extremo de la flecha para posicionarlos visualmente. Escriba el nombre y explicación del componente y seleccione sus procedimientos.
+
+El participante puede ampliar la foto, reducirla y desplazarla. Las flechas y botones permanecen anclados a la imagen mediante coordenadas relativas. Al pulsar + se abre una ventana superpuesta con la explicación y las acciones disponibles. Cada procedimiento se abre también sobre la lección, sin abandonar el curso.
+
+En Procedimientos cree texto, fotos y videos. Elija mostrar todo el contenido o avanzar paso a paso. Todos los participantes que ven un componente ven sus procedimientos; no hay permisos independientes dentro del componente. Para terminar una lección deben completarse todos los procedimientos vinculados a sus componentes.
+
+El botón Completar procedimiento se habilita al alcanzar el final y completar los videos. Una misma versión del procedimiento se reconoce como completada en todas las lecciones de la misma edición. El reconocimiento no se traslada a otras ediciones ni a versiones distintas.
+
+Puede vincular el mismo procedimiento a varias fotos. También puede usar la acción de copia como plantilla: la copia se edita independientemente. Duplicar un curso copia su estructura, contenidos y banco de preguntas; crea procedimientos independientes y no copia participantes ni resultados. Los archivos multimedia ya procesados se reutilizan como referencias inmutables.
+
+## 7 Videos locales y Google Drive
+
+### Subir un archivo
+
+En Fotos y videos cree un registro de tipo Video y origen Archivo. Suba MP4, MOV o WebM, guarde y pulse Procesar video. El worker convierte el archivo a HLS, calcula su duración y cambia su estado de pendiente a processing y finalmente ready. Si ocurre un error, queda failed y puede revisar el log y volver a procesarlo.
+
+El límite configurado de subida es 1 GB. La carga también depende de los límites de Nginx, PHP, Livewire, el proxy y el tiempo disponible en su conexión. Las consultas privadas conservan su propio límite de 10 MB por adjunto, hasta cinco archivos. Para videos grandes utilice Drive.
+
+### Preparar Google Drive
+
+1. En Google Cloud cree un proyecto y habilite Google Drive API.
+2. Cree una cuenta de servicio y descargue su clave JSON. Proteja la clave; no la agregue al repositorio ni a public.
+3. Guarde el archivo como storage/app/private/credentials/drive.json o indique otra ruta absoluta en DRIVE_SERVICE_ACCOUNT_PATH.
+4. Comparta cada video de Drive con el correo client_email de esa cuenta, con permiso de lectura. El video puede permanecer privado para los demás usuarios.
+5. En el panel cree un Video con origen Google Drive. Pegue su enlace de drive.google.com/file/d/ID/view o su ID. Guarde y pulse Procesar video.
+
+```bash
+# Después de configurar credenciales o variables
+docker compose exec app php artisan config:clear
+docker compose restart worker
+```
+
+La aplicación no sube archivos a Drive. El administrador los sube allí y los vincula. El servidor importa el video privado, lo convierte y elimina la copia temporal importada. Los segmentos HLS se conservan en el servidor para poder reproducirlos después; no se borran al reproducirlos. Para actualizar un video listo, cree otro registro y publique una nueva versión del curso.
+
+### Protección y límites
+
+El navegador recibe rutas internas autenticadas, sin el enlace ni el ID original de Drive. Cada solicitud de imagen, manifiesto o segmento comprueba usuario, inscripción, fechas, permisos y acceso a la lección. Los archivos privados no tienen un enlace público de descarga y las respuestas llevan Cache-Control private no-store.
+
+HLS divide el video en segmentos de aproximadamente seis segundos. El reproductor solicita un búfer cercano a 18 segundos y conserva aproximadamente seis segundos anteriores; el navegador puede ajustar su comportamiento, especialmente con reproducción HLS nativa. No es una garantía de memoria o caché exacta.
+
+Ninguna reproducción por chunks impide por completo que un usuario autorizado capture segmentos, reconstruya una copia o grabe la pantalla. Esta entrega no implementa DRM. El sistema controla el acceso y reduce la exposición directa del original, pero no ofrece una promesa de imposibilidad de descarga.
+
+El participante puede adelantar el video. Solo los intervalos reproducidos a velocidad normal o menor cuentan para completar; las partes saltadas deben verse después. El backend limita los intervalos declarados usando el tiempo transcurrido y conserva los rangos vistos. Este seguimiento es un control de avance, no una prueba inviolable de atención.
+
+## 8 Publicación ediciones y vencimiento
+
+Antes de publicar, cree suficientes preguntas y procese todos los archivos utilizados. La publicación comprueba que cada rol con lecciones disponibles tenga un banco suficiente para la cantidad solicitada, que existan respuestas correctas y que las preguntas correspondan al curso. Los medios pendientes impiden publicar.
+
+En Cursos pulse Publicar con un usuario autorizado. Esto crea una versión inmutable de contenidos, procedimientos, permisos por lección, preguntas y configuración de evaluación. Editar el borrador después no cambia esa versión.
+
+En Ediciones cree un nombre, seleccione la versión publicada, configure inicio y vencimiento comunes, asigne instructores, grupos o roles. En Inscripciones agregue participantes individuales cuando necesite una asignación específica. Las ediciones que ya comenzaron no permiten cambiar su versión de contenido.
+
+Al vencer una edición se bloquean lecciones, videos y evaluación. El administrador puede ampliar su fecha de vencimiento para toda la edición y restaurar el acceso de sus participantes. Los resultados y consultas históricas se conservan.
+
+Archive un curso si deja de utilizarlo. Sus ediciones y resultados permanecen, pero no puede crear nuevas ediciones de ese curso hasta reactivarlo.
+
+## 9 Recorrido y evaluaciones del participante
+
+El inicio muestra los cursos asignados, porcentaje de avance, fechas e instructores, además de notificaciones pendientes y acceso a las consultas. Continuar abre la última lección disponible o la primera pendiente. Las lecciones se desbloquean en orden dentro del temario visible para los roles de la persona.
+
+Llegar al final del contenido, ver todas las partes de los videos y completar sus procedimientos habilita Completar lección. La aplicación conserva lecciones completadas, procedimientos, rangos de video y la última lección visitada.
+
+En Preguntas vincule cada pregunta a sus lecciones, escriba el enunciado, seleccione tipo y asigne un puntaje positivo. Los tipos son selección única, selección múltiple y verdadero o falso. Para verdadero o falso cree exactamente esas dos opciones. Cada opción debe tener un ID distinto y estable, por ejemplo verdadero y falso, y un texto visible. Marque las respuestas correctas y escriba su explicación.
+
+La evaluación selecciona al azar una cantidad total de preguntas elegibles del banco publicado. Solo incluye preguntas cuyas lecciones son accesibles y pertenecen al contenido que se está evaluando. No existe límite de tiempo. Las respuestas se guardan automáticamente; al volver se recuperan las mismas preguntas y respuestas del intento vigente.
+
+En selección múltiple, seleccionar una parte de las correctas otorga puntos proporcionales si no se marca ninguna incorrecta. Una selección con una respuesta incorrecta recibe cero para esa pregunta. La nota total suma los puntos obtenidos y los divide por los puntos posibles. La aprobación requiere el porcentaje configurado en el curso publicado.
+
+Las respuestas correctas y explicaciones se muestran al finalizar todo el intento. Si se agotan los intentos, un administrador o un instructor de la edición puede conceder uno adicional desde Estadísticas y seguimiento. Los resultados detallados muestran notas, intentos y respuestas.
+
+Si un nuevo rol habilita otras lecciones, se exige completar esas lecciones y aprobar una evaluación complementaria. La aprobación anterior permanece. La complementaria usa solo el contenido nuevo; si su banco es menor que la cantidad habitual, usa las preguntas elegibles disponibles. Un intento abierto cuyo contenido cambia se reemplaza por uno acorde al nuevo alcance, sin consumirlo como intento entregado.
+
+No se generan certificados. Marketing recibe un Excel de aprobaciones para crear posteriormente sus materiales.
+
+## 10 Consultas privadas y notificaciones
+
+Desde una lección el participante abre una consulta, escribe asunto y mensaje y puede adjuntar fotos o documentos. Cada consulta es privada para su participante, los instructores asignados a la edición y los administradores autorizados. Cualquiera de los instructores puede responder.
+
+Cuando el participante escribe, los instructores reciben una notificación interna. Una respuesta notifica al participante. Las consultas sin respuesta aparecen como pendientes en el seguimiento. Las notificaciones pueden marcarse como leídas. El sistema no envía mensajes por correo ni permite conversaciones entre participantes.
+
+Las lecciones no incluyen manuales o documentos descargables. Los documentos adjuntos solo corresponden a las consultas privadas y se descargan mediante una ruta con autorización.
+
+## 11 Estadísticas y exportaciones
+
+Abra Estadísticas y seguimiento. Puede filtrar institución, persona, grupo, uno o varios cursos, edición y fechas. El administrador y usuarios con analytics.view ven el conjunto permitido globalmente; los instructores ven solo sus ediciones.
+
+El panel incluye inscripciones, avance promedio, personas activas, consultas pendientes, actividad diaria, comparación de avance por institución y ediciones que vencen en los próximos 14 días. La tabla por edición muestra progreso, minutos estimados, última actividad, aprobación, complemento pendiente e intentos. El detalle permite revisar respuestas y conceder intentos.
+
+La tabla de acceso por persona incluye ingresos, tiempo activo estimado, último ingreso, última actividad y días activos. Incluye eventos fuera de los cursos. Al aplicar un filtro de edición o curso, los ingresos generales no se atribuyen a ese curso y se excluyen de ese conjunto.
+
+El tiempo activo se estima mediante señales de actividad cada 15 segundos mientras la página está visible y existe interacción reciente o un video en reproducción. El tiempo de video se registra por separado para no sumarlo dos veces como tiempo total. Las fechas filtran eventos de uso; el avance mostrado sigue siendo el avance acumulado actual de la inscripción.
+
+Descargar uso en Excel genera dos hojas: Avance por edición y Acceso por persona. Descargar aprobados para Marketing genera una fila por aprobación con institución, persona, identificación, curso, edición, fecha, nota, roles y contenido aprobado y estado del complemento pendiente. Puede filtrar varios cursos y un rango de fechas de aprobación. Se conservan las aprobaciones anteriores aunque exista un complemento pendiente. No hay control de entregas a Marketing.
+
+## 12 Despliegue en un servidor Linux
+
+Esta guía describe un servidor Ubuntu 24.04 con Nginx, PHP FPM 8.3 y MariaDB. Necesita dominio, acceso SSH, HTTPS y espacio para medios y respaldos. No se requiere un servicio de correo para las notificaciones actuales.
+
+### Preparar el servidor
+
+Instale los paquetes con una cuenta que tenga permisos de administración:
+
+```bash
+sudo apt update
+sudo apt install nginx mariadb-server composer ffmpeg unzip git \
+  php8.3-fpm php8.3-cli php8.3-mysql php8.3-sqlite3 php8.3-mbstring \
+  php8.3-intl php8.3-xml php8.3-zip php8.3-curl
+```
+
+Cree la base y el usuario como en la instalación sin Docker. Copie el proyecto a /srv/academy. El servidor web solo debe exponer /srv/academy/public. Copie .env.example a .env y configure:
+
+```dotenv
+APP_ENV=production
+APP_DEBUG=false
+APP_URL=https://academia.sudominio.com
+APP_TIMEZONE=America/Bogota
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=academy
+DB_USERNAME=academy
+DB_PASSWORD=SU_CLAVE_PRIVADA
+SESSION_SECURE_COOKIE=true
+SESSION_ENCRYPT=true
+QUEUE_CONNECTION=database
+DB_QUEUE_RETRY_AFTER=7500
+CACHE_STORE=database
+DRIVE_SERVICE_ACCOUNT_PATH=/srv/academy/storage/app/private/credentials/drive.json
+```
+
+Cambie también APP_NAME y ACADEMY_SESSION_LIMIT si corresponde. DB_ROOT_PASSWORD solo se utiliza al arrancar MariaDB con Docker; no es la contraseña de conexión habitual de Laravel.
+
+```bash
+cd /srv/academy
+composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
+php artisan key:generate
+php artisan migrate --seed --force
+php artisan filament:assets
+php artisan storage:link
+php artisan academy:admin administrador@empresa.com
+sudo chown -R www-data:www-data storage bootstrap/cache
+sudo chmod -R ug+rwX storage bootstrap/cache
+sudo chgrp www-data .env
+sudo chmod 640 .env
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+Genere APP_KEY una sola vez en una instalación nueva. Conserve la misma clave en actualizaciones y restauraciones; cambiarla invalida datos cifrados y sesiones. El directorio del código no necesita ser escribible por el servidor web; storage y bootstrap/cache sí.
+
+### Nginx y HTTPS
+
+El ejemplo deploy/nginx.conf incluye redirección HTTP a HTTPS y PHP FPM. Sustituya academia.example.com, la ruta /srv/academy y la ruta de certificados. Obtenga el certificado con el mecanismo habitual de su servidor antes de activar la configuración HTTPS. No cargue el archivo sin cambiar las rutas de certificados, porque nginx -t fallará si no existen.
+
+```bash
+sudo cp deploy/nginx.conf /etc/nginx/sites-available/academy
+sudo ln -s /etc/nginx/sites-available/academy /etc/nginx/sites-enabled/academy
+sudo nginx -t
+sudo systemctl reload nginx
+```
+
+Ajuste upload_max_filesize, post_max_size y max_input_time en PHP FPM de acuerdo con docker/php.ini si quiere conservar el límite de 1 GB. Reinicie PHP FPM después. Restrinja el puerto de MariaDB a conexiones locales. Si instala phpMyAdmin en el servidor, protéjalo mediante una conexión privada o un túnel SSH; no es necesario exponerlo a los participantes.
+
+### Worker y planificador
+
+El ejemplo systemd ejecuta la cola como www-data. La espera para reintentos de la cola debe superar el timeout del worker: 7500 segundos frente a 7200. Esto evita reprocesar un video mientras aún se convierte.
+
+```bash
+sudo cp deploy/academy-worker.service /etc/systemd/system/
+sudo systemctl daemon-reload
+sudo systemctl enable --now academy-worker
+sudo systemctl status academy-worker
+```
+
+Agregue esta entrada al crontab de www-data para el planificador:
+
+```cron
+* * * * * cd /srv/academy && /usr/bin/php artisan schedule:run >> /srv/academy/storage/logs/scheduler.log 2>&1
+```
+
+No utilice simultáneamente cron y schedule:work para la misma instalación. Revise la rotación del log del planificador en su servidor.
+
+### Actualizaciones
+
+Realice un respaldo, revise las migraciones nuevas y pruebe la actualización en una copia de la base. En una ventana de mantenimiento:
+
+```bash
+php artisan down
+composer install --no-dev --prefer-dist --no-interaction --optimize-autoloader
+php artisan migrate --force
+php artisan filament:assets
+php artisan optimize:clear
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+sudo chown -R www-data:www-data storage bootstrap/cache
+php artisan queue:restart
+php artisan up
+```
+
+Si modifica JS o CSS, ejecute npm ci y npm run build durante la construcción de la entrega, y despliegue public/build actualizado. No sobrescriba .env, storage/app ni la base con archivos de una instalación nueva.
+
+## 13 Respaldos y restauración
+
+Respalde la base, storage/app, .env y la clave de Drive. Guarde copias fuera del servidor principal y compruebe periódicamente que se pueden restaurar. El script de Docker conserva permisos restrictivos e incluye archivos y configuración:
+
+```bash
+bash scripts/backup.sh /ruta/privada/respaldos
+```
+
+Para restaurar en Docker, utilice una instalación detenida para participantes y tareas. Sustituya la fecha de los nombres por el respaldo elegido:
+
+```bash
+docker compose exec app php artisan down
+docker compose stop worker scheduler
+docker compose exec -T mariadb sh -c 'exec mariadb -u"$MARIADB_USER" -p"$MARIADB_PASSWORD" "$MARIADB_DATABASE"' < database-FECHA.sql
+tar -xzf storage-FECHA.tar.gz -C /ruta/del/proyecto
+# Si .env restaurado cambia DB_PASSWORD, debe coincidir con el usuario de MariaDB.
+docker compose exec app chown -R www-data:www-data storage bootstrap/cache
+docker compose exec app php artisan optimize:clear
+docker compose --profile runtime up -d worker scheduler
+docker compose exec app php artisan up
+```
+
+La importación reemplaza datos cuando el SQL contiene DROP TABLE. Restaure primero en una instalación de prueba. Para un servidor nativo use mariadb-dump --single-transaction con un archivo privado de credenciales y el mismo conjunto de archivos. Mantenga APP_KEY del respaldo.
+
+## 14 Diagnóstico y comprobaciones
+
+| Síntoma | Revisión y acción |
+| --- | --- |
+| No conecta con MariaDB | Compruebe DB_HOST, puerto, usuario y clave; espere el estado healthy de Docker |
+| Error 500 o falta de escritura | Revise storage/logs/laravel.log y permisos de storage y bootstrap/cache |
+| Error 419 al guardar | Revise dominio, HTTPS, cookies, APP_URL y sesión vencida; vuelva a entrar |
+| Video pendiente indefinidamente | Compruebe que worker está activo y revise queue:failed |
+| Video de Drive falla | Habilite API, revise JSON, ruta y permiso de lectura compartido con client_email |
+| No permite publicar | Procese los medios y complete el banco para cada rol con lecciones |
+| Lección bloqueada | Revise fechas, roles, inscripción y lección anterior sin terminar |
+| Límite de sesiones | Cierre una sesión anterior o espere 30 minutos sin actividad en ella |
+| Editor ocupado | Solicite que el autor use Guardar y salir o espere dos minutos sin renovación |
+| Archivo grande rechazado | Revise los límites de PHP, Nginx, Livewire y el proxy |
+| Cambios de .env sin efecto | Ejecute config:clear o regenere config:cache y reinicie worker |
+
+```bash
+php artisan queue:failed
+php artisan queue:retry ID_DEL_TRABAJO
+php artisan academy:sync
+php artisan academy:reset-password correo@empresa.com
+```
+
+Después de instalar, pruebe crear una institución y cuenta, subir una foto, ubicar un componente, procesar un video, publicar un curso, crear una edición, completar el recorrido y descargar ambos reportes. Compruebe con una segunda cuenta que no puede acceder a consultas o medios ajenos. Revise el vencimiento y su ampliación. Repita las verificaciones en computadora, tablet y celular antes de abrir la instalación a su organización.
+
+## 15 Arquitectura y mantenimiento del código
+
+Los modelos y migraciones definen el dominio. Los servicios concentran permisos, publicación, avance, evaluación, bloqueo de editores, inscripción y analítica. Livewire presenta el recorrido del participante; Filament administra los registros. PrepareVideo realiza conversión en cola. Los controladores validan rutas privadas y generan XLSX mediante OpenSpout.
+
+| Carpeta o archivo | Responsabilidad |
+| --- | --- |
+| app/Models | Entidades y relaciones |
+| app/Services | Reglas de negocio y transacciones |
+| app/Livewire | Cursos, lecciones, evaluaciones, consultas y previsualización |
+| app/Filament | Recursos, editor, seguimiento, auditoría y panel |
+| app/Jobs/PrepareVideo.php | Importación de Drive y conversión a HLS |
+| app/Http | Autenticación, sesiones, medios, adjuntos y exportación |
+| database/migrations | Esquema reproducible de la base |
+| database/seeders | Roles iniciales y demostración local |
+| tests/Feature/AcademyTest.php | Pruebas de las reglas y formularios |
+| resources | Plantillas Blade, CSS y reproductor JS |
+| docker y compose.yaml | Entorno local con MariaDB y phpMyAdmin |
+| deploy y scripts | Servidor, instalación y respaldo |
+
+Las versiones publicadas guardan una instantánea JSON para conservar contenidos y permisos originales. El avance y los resultados tienen identidad de inscripción; las aprobaciones guardan alcance y roles aprobados. Los procedimientos se identifican mediante ID y hash de versión. Los eventos conservan la institución en el momento de la actividad.
+
+Las rutas requieren autenticación; los servicios vuelven a comprobar permisos y pertenencia. Las propiedades identificadoras de Livewire están bloqueadas contra modificación desde el navegador. Los cálculos de evaluación se realizan en servidor; las respuestas correctas no se incluyen en el estado del componente antes de entregar el intento. Las operaciones sensibles usan transacciones y bloqueo de filas. El editor tiene un bloqueo con vencimiento. Los registros de auditoría omiten contraseñas y tokens.
+
+Ejecute las pruebas y el formateador desde la carpeta del proyecto:
+
+```bash
+php artisan test
+vendor/bin/pint --test
+npm ci
+npm run build
+```
+
+Las pruebas por defecto usan SQLite en memoria, sin tocar los datos locales. Para probar MariaDB, cree una base separada llamada academy_test y ejecute con variables de entorno que sustituyan la conexión de PHPUnit:
+
+```bash
+DB_CONNECTION=mysql DB_HOST=127.0.0.1 DB_PORT=3306 \
+DB_DATABASE=academy_test DB_USERNAME=academy_test DB_PASSWORD=CLAVE_DE_PRUEBA \
+php vendor/bin/phpunit
+```
+
+RefreshDatabase reconstruye la base utilizada por las pruebas. Nunca apunte ese comando a la base real. La prueba de conversión requiere FFmpeg y ffprobe y se omite si no están disponibles.
+
+Consulte VALIDACION.md para los resultados exactos de esta entrega y las integraciones que todavía dependen de su entorno. La conexión de Drive, Docker y un despliegue con dominio real deben verificarse después de configurar sus servicios. El código no contiene datos personales reales ni credenciales del cliente.
+
+## 16 Documentación oficial
+
+Las dependencias exactas están fijadas en composer.lock y package-lock.json. Para ampliar o actualizar el proyecto, consulte las fuentes oficiales y vuelva a ejecutar las pruebas:
+
+- Laravel https://laravel.com/docs/12.x
+- Livewire https://livewire.laravel.com/docs
+- Filament https://filamentphp.com/docs/5.x
+- Google Drive API https://developers.google.com/workspace/drive/api/guides/manage-downloads
+- MariaDB https://mariadb.com/docs
+- phpMyAdmin https://docs.phpmyadmin.net
+- HLS.js https://github.com/video-dev/hls.js
+
+FIN DEL HISTORIAL CONSOLIDADO.
+

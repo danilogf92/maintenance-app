@@ -1,0 +1,24 @@
+
+   PASS  Tests\Feature\TemplateTest
+  ✓ guest has no dashboard or public registration                        0.24s  
+  ✓ login and logout                                                     0.47s  
+  ✓ disabled account cannot login                                        0.44s  
+  ✓ disabled existing session is revoked                                 0.24s  
+  ✓ admin access requires flag and permission                            0.24s  
+  ✓ normal user cannot open users admin                                  0.25s  
+  ✓ superadmin can render resources                                      0.48s  
+  ✓ admin can create participant and password is hashed                  0.77s  
+  ✓ admin cannot assign superadmin                                       0.47s  
+  ✓ admin cannot enable panel for participant                            0.46s  
+  ✓ self deactivation is rejected                                        0.24s  
+  ✓ invalid institution does not modify user                             0.46s  
+  ✓ edit preserves password and multiple roles                           0.45s  
+  ✓ filament create and edit use manager                                 0.53s  
+  ✓ role editor is superadmin only and reserved role protected           0.24s  
+  ✓ reserved superadmin role cannot be edited                            0.25s  
+  ✓ branding applies to login and home                                   0.24s  
+  ✓ setup creates superadmin and cannot overwrite                        0.26s  
+
+  Tests:    18 passed (61 assertions)
+  Duration: 6.75s
+
