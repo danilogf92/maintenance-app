@@ -13,6 +13,10 @@ use Filament\Tables\Table;
 
 class InstitutionResource extends Resource
 {
+    protected static string|\UnitEnum|null $navigationGroup = 'Organizaciones';
+
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-building-office-2';
+
     protected static ?string $model = Institution::class;
 
     protected static ?string $pluralModelLabel = 'Instituciones';
@@ -20,6 +24,11 @@ class InstitutionResource extends Resource
     public static function canViewAny(): bool
     {
         return auth()->user()?->can('institutions.manage') ?? false;
+    }
+
+    public static function canEdit($record): bool
+    {
+        return static::canViewAny();
     }
 
     public static function canCreate(): bool
@@ -39,7 +48,7 @@ class InstitutionResource extends Resource
 
     public static function form(Schema $schema): Schema
     {
-        return $schema->components([TextInput::make('name')->label('Nombre')->required()->maxLength(255), TextInput::make('code')->label('Código')->required()->unique(ignoreRecord: true)->maxLength(255), Select::make('type')->label('Tipo')->options(['hospital' => 'Hospital', 'clinic' => 'Clínica', 'university' => 'Universidad', 'company' => 'Empresa', 'other' => 'Otro'])]);
+        return $schema->components([TextInput::make('name')->label('Nombre')->required()->maxLength(255), TextInput::make('code')->label('Código')->required()->unique(ignoreRecord: true)->maxLength(255), TextInput::make('contact_email')->label('Correo de contacto')->email(), TextInput::make('contact_phone')->label('Teléfono'), TextInput::make('city')->label('Ciudad'), Select::make('type')->label('Tipo')->options(['hospital' => 'Hospital', 'clinic' => 'Clínica', 'university' => 'Universidad', 'company' => 'Empresa', 'other' => 'Otro'])]);
     }
 
     public static function table(Table $table): Table

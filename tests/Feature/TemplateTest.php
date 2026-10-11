@@ -7,7 +7,7 @@ use App\Filament\Resources\Users\Pages\EditUser;
 use App\Models\BrandSetting;
 use App\Models\Institution;
 use App\Models\User;
-use App\Services\UserManager;
+use App\Modules\User\UserManager;
 use Database\Seeders\DatabaseSeeder;
 use Filament\Facades\Filament;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -190,7 +190,7 @@ class TemplateTest extends TestCase
     public function test_setup_creates_superadmin_and_cannot_overwrite(): void
     {
         $this->artisan('template:setup', ['email' => 'owner@example.com'])->expectsQuestion('Nombre del superadministrador', 'Danilo')->expectsQuestion('Nombre de su institución', 'Corpomédica')->expectsQuestion('Nombre de la plataforma', 'Academia')->expectsQuestion('Contraseña (mínimo 12 caracteres)', 'setup-password-123')->expectsQuestion('Repita la contraseña', 'setup-password-123')->assertExitCode(0);
-        $this->assertTrue(User::where('email','owner@example.com')->first()->hasRole('SuperAdmin'));
-        $this->artisan('template:setup',['email' => 'other@example.com'])->assertExitCode(1);
+        $this->assertTrue(User::where('email', 'owner@example.com')->first()->hasRole('SuperAdmin'));
+        $this->artisan('template:setup', ['email' => 'other@example.com'])->assertExitCode(1);
     }
 }

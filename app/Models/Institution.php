@@ -3,10 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Institution extends Model
 {
-    protected $fillable = ['name', 'code', 'type'];
+    use HasFactory;
+    protected $fillable = ['name', 'code', 'type', 'contact_email', 'contact_phone', 'city'];
 
     public function users()
     {

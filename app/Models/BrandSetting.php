@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Support\Cache\PageDataCache;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\Storage;
@@ -12,7 +13,9 @@ class BrandSetting extends Model
 
     public static function current(): ?self
     {
-        return Schema::hasTable('brand_settings') ? self::find(1) : null;
+        return app(PageDataCache::class)->remember('brand', [],
+            fn () => Schema::hasTable('brand_settings') ? self::find(1) : null,
+            config('page-cache.settings_seconds', 300));
     }
 
     public static function displayName(): string

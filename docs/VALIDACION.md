@@ -1,4 +1,6 @@
-# Validación v0.1.0
+# Validación histórica v0.1.0
+
+Para esta actualización consulta [VALIDACION_V11.22.md](VALIDACION_V11.22.md). Los resultados siguientes pertenecen a la entrega base.
 
 ## Ejecutado en esta entrega
 

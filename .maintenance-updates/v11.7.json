@@ -1,0 +1,13 @@
+﻿{
+    "version":  "11.7",
+    "installed_at":  "2026-10-10T12:09:51.5412363-05:00",
+    "files":  [
+                  "app/Livewire/Operations/Users.php",
+                  "app/Livewire/Operations/Institutions.php",
+                  "resources/views/livewire/operations/users.blade.php",
+                  "resources/views/livewire/operations/institutions.blade.php",
+                  "app/Livewire/Concerns/HasOperationViews.php",
+                  "resources/views/components/operations/view-settings.blade.php"
+              ],
+    "backup":  "C:\\Users\\danil\\OneDrive\\Documentos\\DevelopmentDanilo\\maintenance-app\\.maintenance-updates\\backups\\v11.7-20261010-120951"
+}

@@ -1,60 +1,91 @@
 
-# Laravel
-*.log
-.DS_Store
+# ==========================================
+# MAINTENANCE APP
+# ==========================================
+
+# Variables de entorno y credenciales
 .env
 .env.*
 !.env.example
-!.env.testing.example
-!.env.docker.example
-.phpactor.json
-.phpunit.result.cache
-/.phpunit.cache
 /auth.json
-/vendor
-/node_modules
+*.pem
+*.key
+*.p12
+*.pfx
 
-# Editores
-/.fleet
-/.idea
-/.nova
-/.vscode
-/.zed
+# Dependencias
+/vendor/
+/node_modules/
 
-# Archivos generados
-/public/build
+# Scripts locales de Windows
+*.cmd
+*.bat
+*.ps1
+
+# Archivos generados por Laravel
+/public/build/
 /public/hot
 /public/storage
+/bootstrap/cache/*.php
 /storage/*.key
 /storage/pail
-/bootstrap/cache/*.php
-
-# Archivos temporales
-*.tmp
-*.temp
-*.bak
-*.swp
-Thumbs.db
+/storage/logs/*
+/storage/framework/cache/*
+/storage/framework/sessions/*
+/storage/framework/views/*
 
 # Bases de datos y respaldos
 *.sqlite
 *.sqlite3
+*.db
 *.sql
 *.sql.gz
 *.dump
+*.bak
+*.backup
 /backups/
 /backup/
-/database/backups/
 
-# Datos locales de Docker
+# Datos persistentes locales de Docker
 /docker/data/
 /docker/mysql-data/
 /docker/mariadb-data/
 /docker/volumes/
 
-# Documentación excluida
-/newDocs
+# Archivos temporales y registros
+*.log
+*.tmp
+*.temp
+*.cache
+.phpactor.json
+.phpunit.result.cache
+/.phpunit.cache
 
-# Configuración antigua de Laravel
+# Editores
+/.fleet/
+/.idea/
+/.nova/
+/.vscode/
+/.zed/
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Documentación local excluida
+/newDocs/
+
+# Archivos comprimidos
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+
+# Configuraciones antiguas
 Homestead.json
 Homestead.yaml
+Detener.cmd
+Inciar.cmd
+/Update

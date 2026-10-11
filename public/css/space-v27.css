@@ -1,0 +1,47 @@
+/* Maintenance APP v2.7 - overrides incremental; does not change functionality */
+.ma-profile {
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    box-sizing: border-box;
+}
+.ma-profile .ma-page-heading {
+    margin: 0 0 12px !important;
+}
+.ma-profile .ma-panel {
+    padding: clamp(14px, 1.35vw, 22px) !important;
+    gap: 12px !important;
+}
+.ma-profile .ma-fields-grid {
+    gap: 12px !important;
+}
+.ma-profile .ma-theme-fieldset {
+    padding-top: 10px !important;
+}
+.ma-profile .ma-theme-grid {
+    margin-top: 8px !important;
+    gap: 8px !important;
+}
+.ma-profile .ma-theme-option {
+    padding: 10px 12px !important;
+}
+.ma-profile .ma-form-actions {
+    padding-top: 10px !important;
+}
+@media (min-width: 900px) {
+    .ma-profile .ma-fields-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    }
+}
+@media (max-width: 639px) {
+    .ma-profile .ma-panel {
+        padding: 14px !important;
+    }
+    .ma-profile .ma-theme-grid {
+        grid-template-columns: 1fr !important;
+    }
+    .ma-profile .ma-fields-grid {
+        grid-template-columns: 1fr !important;
+    }
+}

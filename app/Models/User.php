@@ -5,16 +5,17 @@ namespace App\Models;
 use Filament\Models\Contracts\FilamentUser;
 use Filament\Panel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements FilamentUser
 {
-    use HasRoles, Notifiable;
+    use HasFactory, HasRoles, Notifiable;
 
     protected $attributes = ['is_active' => true, 'can_access_admin' => false];
 
-    protected $fillable = ['institution_id', 'name', 'email', 'identification', 'phone', 'job_title', 'password', 'is_active', 'can_access_admin'];
+    protected $fillable = ['institution_id', 'name', 'email', 'identification', 'phone', 'job_title', 'password', 'is_active', 'can_access_admin', 'theme_preference'];
 
     protected $hidden = ['password', 'remember_token'];
 

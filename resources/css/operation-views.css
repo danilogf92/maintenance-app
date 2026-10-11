@@ -1,0 +1,31 @@
+/* Reusable operations views: shared between institutions and users. */
+.ops-view-tabs{gap:4px!important;padding:0 8px!important;overflow-x:auto!important}
+.ops-view-tab{flex:0 0 auto!important;width:auto!important;min-width:max-content!important;max-width:none!important;padding:8px 14px!important;white-space:nowrap!important}
+.ops-add-tab{min-width:38px!important;width:38px!important}
+.ops-view-actions{flex-shrink:0!important}
+.ops-view-nav{gap:3px!important;flex-wrap:nowrap!important}
+.ops-view-nav button{flex:0 0 32px!important;width:32px!important;min-width:32px!important;height:32px!important}
+.ops-view-nav button svg{width:18px!important;height:18px!important;display:block!important}
+.ops-select-cell{width:42px!important;min-width:42px!important;max-width:42px!important;text-align:center!important}
+.ops-table th:first-child,.ops-table td:first-child{min-width:42px!important;width:42px!important}
+.ops-table th:last-child,.ops-table td:last-child{min-width:92px!important;width:92px!important}
+.ops-modal-backdrop{position:fixed!important;inset:0!important;z-index:9999!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:18px!important;background:rgba(15,23,42,.65)!important}
+.ops-modal{display:flex!important;flex-direction:column!important;position:relative!important;width:min(760px,100%)!important;max-height:90dvh!important;overflow:hidden!important;border-radius:14px!important;background:#fff!important;color:#0f172a!important;box-shadow:0 24px 72px #0005!important}
+.ops-modal-header{display:flex!important;align-items:center!important;justify-content:space-between!important;padding:18px 22px!important;border-bottom:1px solid #e2e8f0!important}
+.ops-modal-content{min-height:0!important;overflow-y:auto!important;padding:20px 22px!important}
+.ops-modal-footer{padding:12px 22px!important;border-top:1px solid #e2e8f0!important}
+.ops-column-panels{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important;gap:12px!important}
+.ops-column-panels>div{min-width:0!important;overflow-y:auto!important;max-height:48vh!important}
+.ops-column-item{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:8px!important}
+.ops-close-button{color:#dc2626!important;border-radius:8px!important}
+.ops-close-button:hover{background:#fee2e2!important;color:#991b1b!important}
+.dark .ops-modal{background:#0f172a!important;color:#f8fafc!important}
+.dark .ops-modal-header,.dark .ops-modal-footer{border-color:#334155!important}
+@media(max-width:640px){.ops-modal-backdrop{padding:0!important}.ops-modal{height:100dvh!important;max-height:100dvh!important;width:100%!important;border-radius:0!important}.ops-column-panels{grid-template-columns:1fr!important}.ops-column-panels>div{max-height:28vh!important}}
+
+.ops-user-modal{width:min(900px,100%)!important;display:flex!important;flex-direction:column!important;gap:0!important;padding:0!important}
+.ops-user-modal .ops-fields{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:16px!important}
+.ops-user-modal .ops-form-title{flex:0 0 auto!important}
+.ops-user-modal .ops-fields label{min-width:0!important}
+.ops-user-modal .ops-role-box{align-self:start!important}
+@media(max-width:640px){.ops-user-modal .ops-fields{grid-template-columns:1fr!important}}

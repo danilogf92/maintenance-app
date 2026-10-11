@@ -1,0 +1,18 @@
+.page-profile { max-width:920px; }
+.page-profile-form { display:grid; gap:24px; }
+.page-section-heading h2,.page-theme legend { font-size:16px; font-weight:700; margin:0 0 6px; }
+.page-fields { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:22px; }
+.page-fields label { display:block; font-size:13px; font-weight:650; min-width:0; }
+.page-fields small { font-size:12px; margin-top:6px; font-weight:400; }
+.page-theme { min-width:0; border:0; border-top:1px solid var(--page-border); padding:22px 0 0; margin:0; }
+.page-theme legend { padding:0 10px 0 0; }
+.page-themes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:16px; }
+.page-theme-option { display:flex; align-items:center; gap:12px; padding:18px 14px; border:1px solid var(--page-border); border-radius:11px; cursor:pointer; }
+.page-theme-option:hover { border-color:#93c5fd; }
+.page-theme-option:has(:checked) { border-color:var(--page-accent); background:#2563eb08; box-shadow:0 0 0 1px var(--page-accent); }
+.page-theme-option:focus-within { outline:3px solid #60a5fa30; outline-offset:2px; }
+.page-theme-option input { width:17px; height:17px; flex:none; accent-color:var(--page-accent); }
+.page-theme-option strong { display:block; font-size:13px; font-weight:700; }
+.page-theme-option small { font-size:12px; }
+.page-form-actions { display:flex; justify-content:flex-end; border-top:1px solid var(--page-border); padding-top:22px; }
+@media(max-width:640px) { .page-fields,.page-themes{grid-template-columns:1fr} .page-form-actions .page-button{width:100%} }

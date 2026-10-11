@@ -1,0 +1,122 @@
+/* Filament v4: conservative compact spacing, preserving built-in mobile navigation. */
+.fi-sidebar {
+    width: 15rem !important;
+}
+.fi-sidebar-nav {
+    padding-inline: 0.45rem !important;
+}
+.fi-sidebar-item-btn {
+    min-height: 36px;
+    padding-block: 0.4rem !important;
+}
+.fi-sidebar-group {
+    gap: 0.15rem !important;
+}
+.fi-sidebar-group-label {
+    font-size: 0.68rem !important;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.fi-main {
+    max-width: none !important;
+    padding-inline: clamp(0.75rem, 1.7vw, 1.6rem) !important;
+}
+.fi-header {
+    gap: 0.6rem !important;
+    padding-top: 0.5rem !important;
+}
+.fi-header-heading {
+    font-size: clamp(1.2rem, 1.7vw, 1.55rem) !important;
+}
+.fi-section-header,
+.fi-section-content {
+    padding: clamp(0.75rem, 1.2vw, 1rem) !important;
+}
+.fi-ta-header {
+    padding-block: 0.5rem !important;
+}
+.fi-ta-cell,
+.fi-ta-header-cell {
+    padding-block: 0.5rem !important;
+}
+.fi-topbar {
+    min-height: 3.25rem !important;
+}
+.fi-sidebar-group + .fi-sidebar-group {
+    margin-top: 0.4rem !important;
+    padding-top: 0.4rem !important;
+}
+@media (max-width: 1023px) {
+    .fi-sidebar {
+        width: 16rem !important;
+    }
+    .fi-main {
+        padding-inline: 0.75rem !important;
+    }
+    .fi-ta-content {
+        overflow-x: auto;
+    }
+}
+@media (max-width: 639px) {
+    .fi-header {
+        align-items: flex-start !important;
+    }
+    .fi-header-heading {
+        font-size: 1.2rem !important;
+    }
+    .fi-section-header,
+    .fi-section-content {
+        padding: 0.7rem !important;
+    }
+    .fi-ta-cell,
+    .fi-ta-header-cell {
+        padding-inline: 0.5rem !important;
+    }
+    .fi-btn {
+        min-height: 40px;
+    }
+}
+
+/* MAINTENANCE APP v2.7 COMPACT ADMIN */
+/* Tighten existing admin controls; preserve Filament responsive navigation. */
+@media (min-width: 1024px) {
+    .fi-main {
+        padding-inline: clamp(0.65rem, 1vw, 1rem) !important;
+    }
+    .fi-sidebar {
+        width: 14rem !important;
+    }
+}
+.fi-page {
+    gap: 0.75rem !important;
+}
+.fi-header {
+    margin-bottom: 0.35rem !important;
+}
+.fi-section-header {
+    padding-block: 0.65rem !important;
+}
+.fi-section-content {
+    padding-block: 0.65rem !important;
+}
+.fi-ta-header {
+    padding-block: 0.35rem !important;
+}
+.fi-ta-cell,
+.fi-ta-header-cell {
+    padding-block: 0.4rem !important;
+}
+.fi-ta-ctn {
+    border-radius: 0.6rem !important;
+}
+@media (max-width: 767px) {
+    .fi-main {
+        padding-inline: 0.6rem !important;
+    }
+    .fi-page {
+        gap: 0.65rem !important;
+    }
+    .fi-sidebar {
+        max-width: min(88vw, 17rem) !important;
+    }
+}

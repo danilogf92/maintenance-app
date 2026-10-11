@@ -1,12 +1,18 @@
 # Arquitectura de la base
 
+Usuarios e Instituciones tienen módulos propios. Consulta `modules/user.md`, `modules/institution.md` y `modules/shared-editor.md` para modificar campos, permisos y navegación.
+
 ## Capas y puntos de extensión
 
 | Carpeta/archivo | Responsabilidad |
 |---|---|
 | app/Models | Usuarios, instituciones y marca; relaciones y tipos |
-| app/Services/UserManager.php | Validación, autorización y transacción al crear/editar personas |
+| app/Modules/User/UserManager.php | Validación, autorización y transacción al crear/editar personas |
 | app/Filament/Resources | Formularios y tablas administrativos; autorización de cada recurso |
+| app/Livewire/User y app/Livewire/Institution | Pantallas del módulo, separadas de Operaciones |
+| app/Modules/User y app/Modules/Institution | Consultas, validación, acceso y persistencia |
+| app/Livewire/Shared | Ciclo del editor, guardado, confirmación y vistas de cada usuario |
+| resources/views/components/record-editor | Resize, navegación, indicador y diálogos compartidos |
 | app/Livewire/Home.php | Pantalla de aplicación normal |
 | app/Http/Controllers/SessionController.php | Inicio/cierre de sesión normal |
 | app/Http/Middleware/EnsureUserIsActive.php | Revocar acceso de usuarios desactivados |

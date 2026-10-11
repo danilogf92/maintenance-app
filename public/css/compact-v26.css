@@ -1,0 +1,5 @@
+/* Entrypoint: ordered modules, original rules preserved. */
+@import url("compact-v26/theme.css?v=11.22");
+@import url("compact-v26/navigation.css?v=11.22");
+@import url("compact-v26/dashboard.css?v=11.22");
+@import url("compact-v26/responsive.css?v=11.22");

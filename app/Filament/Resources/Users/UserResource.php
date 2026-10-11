@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Users;
 
 use App\Models\User;
+use App\Modules\User\UserAccess;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
@@ -12,10 +13,13 @@ use Filament\Schemas\Schema;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
-use Spatie\Permission\Models\Role;
 
 class UserResource extends Resource
 {
+    protected static string|\UnitEnum|null $navigationGroup = 'Usuarios y acceso';
+
+    protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-users';
+
     protected static ?string $model = User::class;
 
     protected static ?string $modelLabel = 'usuario';
@@ -36,7 +40,7 @@ class UserResource extends Resource
     {
         $actor = auth()->user();
 
-        return static::canViewAny() && ($actor->hasRole('SuperAdmin') || (! $record->can_access_admin && ! $record->hasRole('SuperAdmin')));
+        return static::canViewAny() && ($actor->hasRole('SuperAdmin') || ! app(UserAccess::class)->isAdministrative($record));
     }
 
     public static function canDelete($record): bool
@@ -61,7 +65,7 @@ class UserResource extends Resource
             TextInput::make('password')->label('Contraseña')->password()->minLength(12)
                 ->required(fn (string $operation) => $operation === 'create')->dehydrated(fn ($state) => filled($state)),
             Select::make('role_ids')->label('Roles')->multiple()->searchable()->preload()->default([])
-                ->options(fn () => Role::query()->when(! auth()->user()->hasRole('SuperAdmin'), fn ($q) => $q->where('name', '!=', 'SuperAdmin')->whereDoesntHave('permissions', fn ($p) => $p->whereIn('name', ['panel.access', 'users.manage', 'roles.manage', 'branding.manage', 'institutions.manage'])))->pluck('name', 'id')),
+                ->options(fn () => app(UserAccess::class)->rolesFor(auth()->user())->pluck('name', 'id')),
             Toggle::make('is_active')->label('Activo')->default(true),
             Toggle::make('can_access_admin')->label('Acceso administrativo')->default(false)
                 ->helperText('También requiere el permiso panel.access.')->disabled(fn () => ! auth()->user()->hasRole('SuperAdmin'))->dehydrated(),

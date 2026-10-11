@@ -1,1 +1,5 @@
-*{box-sizing:border-box}body{margin:0;background:#f1f5f9;color:#172b4d;font:16px/1.6 system-ui}header{background:white;padding:18px 5%;display:flex;align-items:center;gap:24px;flex-wrap:wrap;border-bottom:1px solid #dce3ed}header a{margin-right:auto;text-decoration:none;color:inherit;font-weight:700}header img{height:42px;vertical-align:middle;max-width:160px;object-fit:contain}main{max-width:1100px;margin:36px auto;padding:0 20px}.card{background:white;border-radius:16px;padding:28px;margin-bottom:24px;box-shadow:0 3px 15px #172b4d08}.narrow{max-width:480px;margin:auto}label{display:block;margin-bottom:18px}input{display:block;width:100%;padding:12px;border:1px solid #b8c5d6;border-radius:8px;font:inherit}button,.button{background:#075985;color:white;border:0;border-radius:8px;padding:10px 18px;font:inherit;text-decoration:none;cursor:pointer}.error{color:#b91c1c}h1{line-height:1.2}
+/* Entrypoint: ordered modules, original rules preserved. */
+@import url("template/layout.css?v=11.22");
+@import url("template/dashboard.css?v=11.22");
+@import url("template/forms.css?v=11.22");
+@import url("template/responsive.css?v=11.22");
