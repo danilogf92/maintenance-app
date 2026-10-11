@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Institutions\Pages;
 
 use App\Filament\Resources\Institutions\InstitutionResource;
-use App\Modules\Institution\InstitutionManager;
+use App\Modules\Institutions\Actions\InstitutionManager;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
 

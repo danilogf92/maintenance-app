@@ -31,7 +31,6 @@ class AdminPanelProvider extends PanelProvider
             ->pages([Dashboard::class])
             ->widgets([AccountWidget::class])
             ->renderHook(PanelsRenderHook::USER_MENU_BEFORE, fn () => view('filament.application-link'))
-            ->renderHook(PanelsRenderHook::STYLES_AFTER, fn (): string => '<link rel="stylesheet" href="' . asset('css/filament-compact-v26.css') . '?v=2.6.1">')
             ->middleware([
                 EncryptCookies::class, AddQueuedCookiesToResponse::class,
                 StartSession::class, AuthenticateSession::class,

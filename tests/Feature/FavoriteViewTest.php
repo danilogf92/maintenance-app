@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Livewire\Institution\InstitutionPage;
 use App\Livewire\User\UserPage;
 use App\Models\Institution;
 use App\Models\OperationView;
 use App\Models\OperationViewPreference;
 use App\Models\User;
+use App\Modules\Institutions\UI\InstitutionPage;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -82,7 +82,7 @@ class FavoriteViewTest extends TestCase
     public function test_settings_show_svg_controls_and_favorite_button(): void
     {
         Livewire::actingAs($this->actor())->test(UserPage::class)->call('openViewSettings')
-            ->assertSee('Mostrar todas')->assertSee('Vista favorita')->assertSee('Subir columna', false)
+            ->assertSee('Mostrar todas')->assertSee('Vista favorita')->assertSee('Subir Usuario', false)->assertSee('ops-column-table', false)
             ->assertSee('ops-column-danger', false)->assertSee('Restablecer columnas');
     }
 }

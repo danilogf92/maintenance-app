@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Modules\Institution;
+namespace App\Modules\Institutions\Actions;
 
 use App\Models\Institution;
 use App\Models\User;
-use App\Modules\Institutions\Actions\DeleteInstitution;
-use App\Modules\Institutions\Actions\SaveInstitution;
 
-/** Compatibility facade for Filament; edit rules in Modules/Institutions. */
+/** Entry point used by Filament; delegates to the same module actions. */
 class InstitutionManager
 {
     public function save(User $actor, array $data, ?Institution $target = null): Institution

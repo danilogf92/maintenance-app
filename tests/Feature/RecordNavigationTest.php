@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Livewire\Institution\InstitutionPage;
 use App\Models\Institution;
 use App\Models\User;
+use App\Modules\Institutions\UI\InstitutionPage;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Livewire;

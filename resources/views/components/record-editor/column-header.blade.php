@@ -1,54 +1,67 @@
-@props(['column', 'label', 'definition', 'options' => [], 'filter' => '', 'sort' => '', 'direction' => 'asc', 'group' => ''])
-<th wire:key="head-{{ $column }}" aria-sort="{{ $sort === $column ? ($direction === 'asc' ? 'ascending' : 'descending') : 'none' }}"
- x-data="{open:false,left:0,top:0,trigger:null,showMenu(event){
- this.trigger=event.currentTarget;
- const rect=this.trigger.getBoundingClientRect();
- this.left=Math.max(8,Math.min(rect.left,window.innerWidth-296));
- this.top=Math.max(8,Math.min(rect.bottom+6,window.innerHeight-320));
- this.open=!this.open;
- if(this.open) this.$nextTick(()=>this.$refs.columnMenu.querySelector('input,select,button')?.focus({preventScroll:true}));
- }}" @resize.window="open=false" @scroll.window="open=false" @keydown.escape.window="open=false">
+@props(['tag' => 'th', 'column', 'label', 'definition', 'options' => [], 'filter' => '', 'sort' => '', 'direction' => 'asc', 'group' => ''])
+<{{ $tag }} wire:key="head-{{ $tag }}-{{ $column }}" aria-sort="{{ $sort === $column ? ($direction === 'asc' ? 'ascending' : 'descending') : 'none' }}"
+ x-data="{open:false,draft:'',query:'',trigger:null,
+ showMenu(event){this.trigger=event.currentTarget;this.draft=this.$wire.tableFilters[@js($column)] || '';this.query='';this.open=true;
+ this.$nextTick(()=>{if(!this.$refs.columnMenu.open)this.$refs.columnMenu.showModal()})},
+ closeMenu(){this.open=false;this.$refs.columnMenu.close();this.trigger?.focus()},
+ async applyFilter(){await this.$wire.filterColumn(@js($column),this.draft);this.closeMenu()},
+ destroy(){this.$refs.columnMenu?.close()}}">
  @if($definition['filterable'] || $definition['sortable'] || $definition['groupable'])
  <button type="button" class="ops-column-trigger" @click="showMenu($event)" :aria-expanded="open"
-  aria-haspopup="dialog" title="Configurar {{ $label }}">
+  aria-haspopup="dialog" title="Opciones de {{ $label }}">
   <span>{{ $label }}</span>
-  @if($sort === $column)<span aria-label="Orden {{ $direction === 'asc' ? 'ascendente' : 'descendente' }}">{{ $direction === 'asc' ? '↑' : '↓' }}</span>@endif
-  @if($filter !== '')<span class="ops-column-mark" title="Filtro activo">●</span>@endif
-  @if($group === $column)<span title="Agrupación activa">≡</span>@endif
-  <span class="ops-column-chevron" aria-hidden="true">⌄</span>
+  @if($sort === $column)<span>{{ $direction === 'asc' ? '↑' : '↓' }}</span>@endif
+  @if($filter !== '')<x-ui.icon name="filter" class="ops-column-mark" />@endif
+  @if($group === $column)<x-ui.icon name="table" class="ops-column-mark" />@endif
+  <x-ui.icon name="chevron-down" class="ops-column-chevron" />
  </button>
  <template x-teleport="body">
- <div x-ref="columnMenu" x-show="open" x-cloak class="ops-column-menu" role="dialog" aria-label="Columna {{ $label }}"
-  :style="{left:left+'px',top:top+'px',maxHeight:Math.max(100,window.innerHeight-top-8)+'px'}" @click.outside="open=false" @keydown.escape.prevent.stop="open=false;trigger?.focus()">
-  <header><strong>{{ $label }}</strong><button type="button" @click="open=false;trigger?.focus()" aria-label="Cerrar menú">×</button></header>
-  @if($definition['filterable'])
-  <label class="ops-column-filter">Filtrar esta columna
-   @if($definition['kind'] === 'category')
-   <select :value="$wire.tableFilters['{{ $column }}'] || ''"
-    @change="$wire.filterColumn('{{ $column }}', $event.target.value)">
-    <option value="">Todos</option>
-    @foreach($options as $option)<option value="{{ $option['value'] }}">{{ $option['label'] }}</option>@endforeach
-   </select>
-   @else
-   <input type="text" maxlength="200" :value="$wire.tableFilters['{{ $column }}'] || ''"
-    placeholder="{{ $definition['kind'] === 'number' ? 'Valor exacto' : ($definition['kind'] === 'date' ? 'AAAA-MM-DD' : 'Contiene…') }}"
-    @input.debounce.400ms="$wire.filterColumn('{{ $column }}', $event.target.value)">
-   @endif
-  </label>
-  @if($filter !== '')<button type="button" class="ops-column-clear" @click="$wire.filterColumn('{{ $column }}', '')">Quitar filtro</button>@endif
-  @endif
-  <div class="ops-column-actions">
+ <dialog x-ref="columnMenu" wire:ignore.self class="ops-column-menu" aria-label="Opciones de {{ $label }}"
+  @cancel.prevent="closeMenu()" @keydown.escape.stop
+  @click="if($event.target===$refs.columnMenu)closeMenu()">
+  <div class="ops-column-card">
+   <header><div><small>Opciones de columna</small><strong>{{ $label }}</strong></div>
+    <button type="button" @click="closeMenu()" aria-label="Cerrar opciones"><x-ui.icon name="x" /></button></header>
    @if($definition['sortable'])
-   <button type="button" @click="$wire.sortColumn('{{ $column }}', 'asc'); open=false" aria-pressed="{{ $sort === $column && $direction === 'asc' ? 'true' : 'false' }}">↑ Ascendente</button>
-   <button type="button" @click="$wire.sortColumn('{{ $column }}', 'desc'); open=false" aria-pressed="{{ $sort === $column && $direction === 'desc' ? 'true' : 'false' }}">↓ Descendente</button>
+   <div class="ops-column-order" aria-label="Ordenar">
+    <button type="button" @click="await $wire.sortColumn('{{ $column }}','asc');closeMenu()" aria-pressed="{{ $sort === $column && $direction === 'asc' ? 'true' : 'false' }}"><x-ui.icon name="arrow-up" />Ascendente</button>
+    <button type="button" @click="await $wire.sortColumn('{{ $column }}','desc');closeMenu()" aria-pressed="{{ $sort === $column && $direction === 'desc' ? 'true' : 'false' }}"><x-ui.icon name="arrow-down" />Descendente</button>
+   </div>
+   @endif
+   @if($definition['filterable'])
+   <div class="ops-column-filter">
+    <label for="filter-{{ $tag }}-{{ $column }}">{{ $definition['kind'] === 'category' ? 'Buscar una opción' : 'Filtrar registros' }}</label>
+    @if($definition['kind'] === 'category')
+    <input id="filter-{{ $tag }}-{{ $column }}" type="search" x-model="query" placeholder="Buscar…" autocomplete="off">
+    <div class="ops-column-options" role="group" aria-label="Valores de {{ $label }}">
+     <button type="button" @click="draft=''" :aria-pressed="draft===''">Todos los valores <span x-show="draft===''">✓</span></button>
+     @foreach($options as $option)
+     <button type="button" x-show="@js(mb_strtolower($option['label'])).includes(query.toLocaleLowerCase())"
+      @click="draft=@js($option['value'])" :aria-pressed="draft===@js($option['value'])">
+      {{ $option['label'] }}<span x-show="draft===@js($option['value'])">✓</span>
+     </button>
+     @endforeach
+    </div>
+    @else
+    <input id="filter-{{ $tag }}-{{ $column }}" type="{{ $definition['kind'] === 'date' ? 'date' : ($definition['kind'] === 'number' ? 'number' : 'text') }}"
+     maxlength="200" x-model="draft" placeholder="{{ $definition['kind'] === 'number' ? 'Valor exacto' : 'Contiene…' }}" @keydown.enter.prevent="applyFilter()">
+    <small>{{ $definition['kind'] === 'date' ? 'Registros de la fecha seleccionada.' : ($definition['kind'] === 'number' ? 'Coincidencia exacta.' : 'Busca este texto dentro del valor.') }}</small>
+    @endif
+   </div>
+   <footer class="ops-column-footer">
+    <button type="button" @click="draft='';await applyFilter()" class="ops-column-clear">Limpiar filtro</button>
+    <button type="button" @click="applyFilter()" class="ops-column-apply" wire:loading.attr="disabled">Aplicar filtro</button>
+   </footer>
    @endif
    @if($definition['groupable'])
-   <button type="button" @click="$wire.groupColumn('{{ $column }}'); open=false" aria-pressed="{{ $group === $column ? 'true' : 'false' }}">≡ {{ $group === $column ? 'Quitar agrupación' : 'Agrupar por '.$label }}</button>
+   <button type="button" class="ops-column-group" @click="await $wire.groupColumn('{{ $column }}');closeMenu()">
+    <x-ui.icon name="table" />{{ $group === $column ? 'Quitar agrupación' : 'Agrupar por '.$label }}
+   </button>
    @endif
   </div>
- </div>
+ </dialog>
  </template>
  @else
  {{ $label }}
  @endif
-</th>
+</{{ $tag }}>

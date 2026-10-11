@@ -11,11 +11,6 @@ trait ConfiguresRecordColumns
         $this->saveViewSettings();
     }
 
-    public function updatedVisibleColumns(): void
-    {
-        $this->saveViewSettings();
-    }
-
     public function saveViewSettings(): void
     {
         $this->validate(['visibleColumns' => 'required|array', 'visibleColumns.*' => 'required|string']);
@@ -70,6 +65,7 @@ trait ConfiguresRecordColumns
 
     public function moveColumn(string $column, int $direction): void
     {
+        abort_unless(in_array($direction, [-1, 1], true), 422);
         $index = array_search($column, $this->visibleColumns, true);
         if ($index === false) {
             return;

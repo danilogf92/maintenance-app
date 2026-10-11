@@ -20,6 +20,7 @@ trait HasRecordViews
 
     public string $viewName = '';
 
+    #[Locked]
     public array $visibleColumns = [];
 
     public bool $viewSettingsOpen = false;
@@ -89,6 +90,9 @@ trait HasRecordViews
         $this->viewName = $view->name;
         $allowed = array_keys($this->viewFields());
         $this->visibleColumns = array_values(array_intersect($view->columns ?? [], $allowed));
+        if ($this->visibleColumns === []) {
+            $this->visibleColumns = $allowed;
+        }
         $this->applyViewFilter($view->filter_value);
         $this->loadTableSettings($view->table_settings ?? []);
         $this->viewSaveState = 'saved';

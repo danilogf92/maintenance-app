@@ -2,10 +2,10 @@
 
 namespace Tests\Feature;
 
-use App\Livewire\Institution\InstitutionPage;
 use App\Livewire\User\UserPage;
 use App\Models\Institution;
 use App\Models\User;
+use App\Modules\Institutions\UI\InstitutionPage;
 use App\Modules\Shared\RecordCreation;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Foundation\Testing\RefreshDatabase;

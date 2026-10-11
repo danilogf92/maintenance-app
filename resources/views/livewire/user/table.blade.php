@@ -4,15 +4,11 @@
  :definition="$tableColumns[$column]" :options="$columnOptions[$column] ?? []"
  :filter="$tableFilters[$column] ?? ''" :sort="$tableSort" :direction="$tableDirection" :group="$tableGroup" />
 @endforeach
-</tr></thead><tbody>
+</tr></thead>
 @foreach($tableGroups as $group)
-@if($group['label'] !== null)
-<tr class="ops-group-heading" wire:key="group-{{ md5($tableGroup.'|'.$group['key']) }}"><td colspan="{{ count($visibleColumns) }}">
-{{ $availableColumns[$tableGroup] }}: {{ $group['label'] }} <span>({{ $group['items']->count() }})</span>
-</td></tr>
-@endif
+<x-record-editor.group-body :group="$group" :column="$tableGroup" :label="$availableColumns[$tableGroup] ?? ''" :span="count($visibleColumns)" :view-id="$currentViewId">
 @foreach($group['items'] as $item)
-<tr wire:ignore.self wire:key="user-{{ $item->id }}" wire:click="edit({{ $item->id }})" class="ops-record-row cursor-pointer" data-record-id="{{ $item->id }}" :class="{'ops-record-selected': $wire.formOpen && Number($wire.editingId) === {{ $item->id }}}" :aria-selected="$wire.formOpen && Number($wire.editingId) === {{ $item->id }} ? 'true' : 'false'" tabindex="0" @keydown.enter="$wire.edit({{ $item->id }})">
+<tr x-show.important="!grouped || expanded" @if($group['label'] !== null) x-cloak @endif wire:ignore.self wire:key="user-{{ $item->id }}" wire:click="edit({{ $item->id }})" class="ops-record-row cursor-pointer" data-record-id="{{ $item->id }}" :class="{'ops-record-selected': $wire.formOpen && Number($wire.editingId) === {{ $item->id }}}" :aria-selected="$wire.formOpen && Number($wire.editingId) === {{ $item->id }} ? 'true' : 'false'" tabindex="0" @keydown.enter="$wire.edit({{ $item->id }})">
 @foreach($visibleColumns as $column)
 <td wire:key="cell-{{ $item->id }}-{{ $column }}" data-label="{{ $availableColumns[$column] ?? $column }}">
 @switch($column)
@@ -37,6 +33,7 @@
 
 </tr>
 @endforeach
+</x-record-editor.group-body>
 @endforeach
-@if($items->isEmpty())<tr><td colspan="{{ count($visibleColumns) }}" class="ops-empty">No se encontraron registros.</td></tr>@endif
-</tbody></table><div class="ops-record-count">{{ $items->count() }} registro(s) en esta vista</div></div>
+@if($items->isEmpty())<tbody><tr><td colspan="{{ count($visibleColumns) }}" class="ops-empty">No se encontraron registros.</td></tr></tbody>@endif
+</table><div class="ops-record-count">{{ $items->count() }} registro(s) en esta vista</div></div>

@@ -2,13 +2,13 @@
 
 namespace Tests\Feature;
 
-use App\Livewire\Institution\InstitutionPage;
 use App\Livewire\User\UserPage;
 use App\Models\Institution;
 use App\Models\OperationView;
 use App\Models\UiColorSetting;
 use App\Models\User;
-use App\Modules\Institution\InstitutionManager;
+use App\Modules\Institutions\Actions\InstitutionManager;
+use App\Modules\Institutions\UI\InstitutionPage;
 use Database\Seeders\DatabaseSeeder;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\RefreshDatabase;

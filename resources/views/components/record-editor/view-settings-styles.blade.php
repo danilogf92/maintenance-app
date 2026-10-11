@@ -8,12 +8,11 @@
 .ops-modal .ops-column-button.ops-column-danger,.ops-modal .ops-column-actions .ops-column-danger{background:#fff1f2;border-color:#fecdd3;color:#e11d48}
 .ops-modal .ops-column-button.ops-column-danger:hover:not(:disabled),.ops-modal .ops-column-actions .ops-column-danger:hover:not(:disabled){background:#dc2626;border-color:#dc2626;color:#fff}
 .ops-modal .ops-column-actions button:disabled,.ops-modal .ops-column-button:disabled{opacity:.3;cursor:not-allowed}
-.ops-modal .ops-column-actions button:focus-visible,.ops-modal .ops-column-button:focus-visible,.ops-modal .ops-add-column:focus-visible{outline:3px solid #93c5fd;outline-offset:3px}
+.ops-modal .ops-column-actions button:focus-visible,.ops-modal .ops-column-button:focus-visible{outline:3px solid #93c5fd;outline-offset:3px}
 .ops-modal .ops-column-button svg,.ops-modal .ops-column-actions svg{width:19px;height:19px;flex:none;stroke-width:2}
 .ops-modal .ops-favorite-button{margin-bottom:16px}
 .ops-modal .ops-favorite-button.is-favorite{background:#fffbeb;border-color:#fbbf24;color:#92400e}
 .ops-modal .ops-favorite-button.is-favorite svg{fill:#fbbf24;stroke:#92400e}
-.ops-modal .ops-add-column:hover{background:#eff6ff;border-color:#60a5fa;color:#1d4ed8}
 .ops-view-tab{display:inline-flex;align-items:center;gap:7px}
 .ops-tab-star{color:#d97706;fill:#fbbf24;width:16px;height:16px}
 .dark .ops-modal .ops-column-button{background:#1e293b;border-color:#475569;color:#e2e8f0}

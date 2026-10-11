@@ -1,6 +1,7 @@
 @props(['name' => 'panel'])
 @php
 $paths = [
+    'table' => '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 9v12M15 9v12M3 15h18"/>',
     'arrow-right' => '<path d="M5 12h14m-6-6 6 6-6 6"/>',
     'check' => '<path d="m5 12 4 4L19 6"/>',
     'arrow-up' => '<path d="M12 19V5m-6 6 6-6 6 6"/>',

@@ -18,9 +18,7 @@
 <div class="ops-view-actions" aria-label="Herramientas de tabla">
     <div class="ops-tools-left">
         <button type="button" class="ops-icon-button" wire:click="openViewSettings"
-            title="Configurar vista" aria-label="Configurar vista"><x-ui.icon name="settings" /></button>
-        <button type="button" class="ops-icon-button" @click="showFilters = !showFilters"
-            title="Filtros" aria-label="Filtros"><x-ui.icon name="filter" /></button>
+            title="Configurar vista" aria-label="Configurar vista"><x-ui.icon name="table" /></button>
         <div class="ops-quick-search">{{ $search }}</div>
     </div>
     <div class="ops-view-nav">

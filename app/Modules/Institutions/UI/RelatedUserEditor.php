@@ -3,8 +3,8 @@
 namespace App\Modules\Institutions\UI;
 
 use App\Livewire\User\UserPage;
-use App\Modules\Institution\InstitutionQuery;
 use App\Modules\Institutions\Configuration\Permissions;
+use App\Modules\Institutions\Queries\InstitutionQuery;
 use App\Modules\Institutions\Queries\InstitutionUsersQuery;
 use App\Modules\User\UserAccess;
 use Illuminate\Support\Facades\Gate;

@@ -111,6 +111,8 @@
   const table = this.$refs.records;
   const row = table?.querySelector('[data-record-id=&quot;' + Number(recordId) + '&quot;]');
   if (!row) return;
+  row.dispatchEvent?.(new CustomEvent('table-record-reveal', {bubbles:true, detail:{id:Number(recordId)}}));
+  this.$nextTick(() => {
   const viewport = table.getBoundingClientRect();
   const bounds = row.getBoundingClientRect();
   const header = table.querySelector('thead')?.getBoundingClientRect().height || 0;
@@ -119,6 +121,7 @@
   const bottom = viewport.top + table.clientHeight - footer;
   if (bounds.top < top) table.scrollTop += bounds.top - top;
   else if (bounds.bottom > bottom) table.scrollTop += bounds.bottom - bottom;
+  });
  },
  destroy() {
   this.finishResize();

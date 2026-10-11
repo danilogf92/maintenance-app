@@ -2,12 +2,12 @@
 
 namespace Tests\Feature;
 
-use App\Livewire\Institution\InstitutionPage;
 use App\Livewire\User\UserPage;
 use App\Models\Institution;
 use App\Models\OperationView;
 use App\Models\User;
-use App\Modules\Institution\InstitutionTableColumns;
+use App\Modules\Institutions\Configuration\TableColumns;
+use App\Modules\Institutions\UI\InstitutionPage;
 use App\Modules\Shared\RecordTable;
 use App\Modules\User\UserTableColumns;
 use Database\Seeders\DatabaseSeeder;
@@ -56,7 +56,7 @@ class RecordTableToolsTest extends TestCase
         Livewire::test(InstitutionPage::class)->call('sortColumn', 'name', 'sideways')->assertStatus(422);
         Livewire::test(InstitutionPage::class)->call('groupColumn', 'contact_email')->assertStatus(422);
         Livewire::test(InstitutionPage::class)->call('filterColumn', 'password', 'x')->assertStatus(422);
-        $columns = InstitutionTableColumns::definitions();
+        $columns = TableColumns::definitions();
         $columns['city']['filterable'] = false;
         $settings = app(RecordTable::class)->normalize(['filters' => ['city' => 'Quito']], $columns);
         $this->assertSame([], $settings['filters']);
@@ -76,15 +76,15 @@ class RecordTableToolsTest extends TestCase
         $service = app(RecordTable::class);
         DB::enableQueryLog();
         DB::flushQueryLog();
-        $result = $service->prepare($records, InstitutionTableColumns::definitions(),
+        $result = $service->prepare($records, TableColumns::definitions(),
             ['filters' => ['city' => 'Quito'], 'sort' => 'id', 'direction' => 'desc']);
         $this->assertSame([10, 2], $result['items']->pluck('id')->all());
-        $grouped = $service->prepare($records, InstitutionTableColumns::definitions(),
+        $grouped = $service->prepare($records, TableColumns::definitions(),
             ['group' => 'type', 'sort' => 'id', 'direction' => 'desc']);
         $this->assertSame(['Empresa', 'Hospital'], array_column($grouped['tableGroups'], 'label'));
         $this->assertSame([2, 10, 3], $grouped['items']->pluck('id')->all());
         $this->assertCount(2, $grouped['tableGroups'][1]['items']);
-        $descendingGroups = $service->prepare($records, InstitutionTableColumns::definitions(),
+        $descendingGroups = $service->prepare($records, TableColumns::definitions(),
             ['group' => 'type', 'sort' => 'type', 'direction' => 'desc']);
         $this->assertSame(['Hospital', 'Empresa'], array_column($descendingGroups['tableGroups'], 'label'));
         $this->assertCount(0, DB::getQueryLog());
@@ -104,7 +104,7 @@ class RecordTableToolsTest extends TestCase
         $this->assertSame([999], $result['items']->pluck('id')->all());
         $roles = $service->prepare(collect([$actor, $other]), UserTableColumns::definitions(), ['group' => 'roles']);
         $this->assertSame(['Sin dato', 'SuperAdmin'], array_column($roles['tableGroups'], 'label'));
-        Livewire::actingAs($actor)->test(UserPage::class)->call('groupColumn', 'status')->assertSee('Estado: Activo');
+        Livewire::actingAs($actor)->test(UserPage::class)->call('groupColumn', 'status')->assertSee('Activo')->assertSee('ops-group-toggle', false)->assertSee('expanded:false', false);
     }
 
     public function test_other_users_view_settings_are_not_accessible(): void

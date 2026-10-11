@@ -1,4 +1,20 @@
-# Institutions — primera prueba v11.35
+# Institutions — módulo configurable v11.37
+
+## Corrección v11.36: apertura del ítem
+
+La página principal ahora tiene el alias explícito `institutions-page` en
+`InstitutionModule::register()`. Al vivir fuera de `App\Livewire`, necesita ese
+registro para que Livewire pueda resolver el componente durante la siguiente petición.
+Faltaba en v11.35: el GET dibujaba la tabla, pero abrir un ítem provocaba el aviso
+«This page has expired» por un componente no encontrado, aunque el token CSRF fuera válido.
+
+`Tests/InstitutionHttpTest.php` prueba el GET y el POST reales a `/livewire/update`,
+apertura y autoguardado, con CSRF activo. También comprueba que un token incorrecto
+se rechace. Las pruebas habituales `Livewire::test()` no habían detectado este fallo
+porque registran automáticamente la clase al iniciar la prueba.
+
+Después de actualizar, recarga con Ctrl+F5 para recibir el snapshot con el nuevo alias.
+No requiere cambiar `.env`, las cookies, la sesión ni las reglas de seguridad.
 
 ## Qué probar
 
@@ -91,9 +107,9 @@ un borrador incompleto no crea filas ni carga relaciones.
 apunta a UI/InstitutionPage.php. El modelo App/Models/Institution y las migraciones
 existentes conservan su ubicación para mantener relaciones, caché y datos actuales.
 
-Los archivos anteriores en Livewire/Institution y Modules/Institution son puentes
-explícitos de compatibilidad. Filament delega mediante InstitutionManager hacia las
-acciones nuevas. No hay una segunda validación de instituciones en esos puentes.
+Se retiraron Livewire/Institution, Modules/Institution y las vistas puente antiguas.
+Filament usa Actions/InstitutionManager, que delega a SaveInstitution/DeleteInstitution.
+UI/InstitutionEditor prepara y valida la configuración de pestañas sin duplicar el guardado.
 La documentación de configuración anterior debe leerse ahora con las rutas nuevas.
 
 RecordEditor, record-form y componentes del editor siguen en sus carpetas compartidas;
@@ -118,8 +134,40 @@ aislamiento de usuarios relacionados y preservación de contraseñas.
 La prueba JS tests/Frontend/institution-tabs.cjs comprueba el controlador de pestañas.
 No se realizó prueba visual en navegador.
 
-La actualización usa Actualizar.cmd, conserva datos y no agrega migraciones nuevas
-para esta prueba. No genera respaldos ni ejecuta seeders. El instalador conserva su
+La v11.37 usa Actualizar.cmd y no agrega migraciones nuevas. En esta actualización
+se reemplazan una sola vez los usuarios e instituciones de prueba, por solicitud del
+usuario; se conservan los SuperAdmin y sus instituciones. No genera respaldos. El instalador conserva su
 comprobación de hashes: no sobrescribe silenciosamente código modificado localmente.
 Agregar una columna nueva a la DB requiere una migración y su correspondiente modelo;
 Fields.php organiza controles, no cambia el esquema por sí solo.
+
+
+## Columnas y filtros de tabla
+
+- `Configuration/Columns.php`: nombre y etiqueta de cada columna y las pestañas iniciales.
+- `Configuration/TableColumns.php`: campo origen, tipo, filtro, orden y agrupación.
+- `UI/Views/table.blade.php`: cómo se dibuja el valor de cada columna.
+- `Configuration/Fields.php`: controles del editor, distintos de las columnas de tabla.
+
+Ejemplo de permitir filtro y agrupación para Ciudad:
+
+```php
+$columns['city']['kind'] = 'category';
+$columns['city']['filterable'] = true;
+$columns['city']['groupable'] = true;
+```
+
+`kind` admite text, category, number y date. `filterable`, `sortable` y `groupable`
+son listas de acciones permitidas y se comprueban también en PHP. La interfaz no
+permite convertir un campo desconocido en una consulta ni mostrar datos privados.
+
+Los filtros usan un borrador local hasta pulsar Aplicar filtro. Al cancelar se
+mantiene el filtro anterior. La tabla de Configurar vista permite mostrar/ocultar,
+ordenar columnas y abrir las mismas opciones, también en móvil.
+La agrupación comienza cerrada; expandir/cerrar es visual y no consulta al servidor.
+La navegación abre el grupo del registro seleccionado antes de medir su posición.
+
+Las pruebas específicas ahora se separan en InstitutionRulesTest,
+InstitutionPermissionsTest, InstitutionEditorTest e InstitutionHttpTest.
+`LinkRelatedRecord` se agregará al implementar vincular relaciones; esta versión
+no declara una acción vacía ni habilita una funcionalidad inexistente.

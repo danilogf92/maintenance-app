@@ -4,7 +4,7 @@ namespace App\Livewire\User;
 
 use App\Livewire\Shared\RecordEditor;
 use App\Models\User;
-use App\Modules\Institution\InstitutionQuery;
+use App\Modules\Institutions\Queries\InstitutionQuery;
 use App\Modules\User\DeleteUser;
 use App\Modules\User\UserAccess;
 use App\Modules\User\UserData;
@@ -16,8 +16,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserPage extends RecordEditor
 {
-    public string $institutionFilter = '';
-
     public string $activeFilter = '';
 
     public string $name = '';
@@ -106,7 +104,7 @@ class UserPage extends RecordEditor
 
     public function render()
     {
-        $items = app(UserQuery::class)->records(auth()->id(), $this->search, $this->institutionFilter, $this->activeFilter);
+        $items = app(UserQuery::class)->records(auth()->id(), $this->search, '', $this->activeFilter);
         $institutions = app(InstitutionQuery::class)->options();
         $roles = app(UserAccess::class)->rolesFor(auth()->user())->orderBy('name')->get(['id', 'name']);
 

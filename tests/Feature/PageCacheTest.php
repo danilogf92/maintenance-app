@@ -6,7 +6,7 @@ use App\Models\BrandSetting;
 use App\Models\Institution;
 use App\Models\UiColorSetting;
 use App\Models\User;
-use App\Modules\Institution\InstitutionQuery;
+use App\Modules\Institutions\Queries\InstitutionQuery;
 use App\Modules\User\UserQuery;
 use App\Support\Cache\PageDataCache;
 use Database\Seeders\DatabaseSeeder;

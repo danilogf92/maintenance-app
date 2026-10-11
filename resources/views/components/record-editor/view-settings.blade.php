@@ -1,9 +1,8 @@
-@props(['open', 'columns', 'visible', 'currentView', 'viewSaveState', 'favoriteId'])
+@props(['open', 'columns', 'visible', 'currentView', 'viewSaveState', 'favoriteId','tableColumns','columnOptions','tableFilters','tableSort','tableDirection','tableGroup'])
 @if($open)
-<div class="ops-modal-backdrop" role="presentation" wire:key="view-settings-modal"
-    wire:click.self="closeViewSettings"
-    x-on:keydown.escape.window="$wire.closeViewSettings()">
-    <section class="ops-modal" role="dialog" aria-modal="true" aria-labelledby="ops-view-settings-title">
+<div wire:key="view-settings-modal" x-data="{init(){this.$nextTick(()=>{if(!this.$refs.viewDialog.open)this.$refs.viewDialog.showModal()})},destroy(){this.$refs.viewDialog?.close()}}">
+    <dialog x-ref="viewDialog" wire:ignore.self class="ops-modal ops-view-dialog" aria-labelledby="ops-view-settings-title"
+     @cancel.prevent="$wire.closeViewSettings()" @keydown.escape.stop @click="if($event.target===$refs.viewDialog)$wire.closeViewSettings()">
         <header class="ops-modal-header">
             <div><h2 id="ops-view-settings-title">Configurar vista</h2><p>Columnas y nombre de la pestaña</p></div>
             <button type="button" wire:click="closeViewSettings" aria-label="Cerrar configuración" title="Cerrar (Esc)"
@@ -25,29 +24,28 @@
                 aria-pressed="{{ $favoriteId === $currentView?->id ? 'true' : 'false' }}">
                 <x-ui.icon name="star" />{{ $favoriteId === $currentView?->id ? 'Vista favorita · abre al entrar' : 'Abrir esta vista al entrar' }}
             </button>
-            <div class="ops-column-panels">
-                <div><h3>Columnas visibles</h3>
-                    @foreach($visible as $index => $key)
-                        @if(isset($columns[$key]))
-                        <div class="ops-column-item" wire:key="visible-{{ $key }}">
-                            <span>{{ $columns[$key] }}</span>
-                            <div class="ops-column-actions">
-                                <button type="button" wire:click="moveColumn('{{ $key }}', -1)" aria-label="Subir {{ $columns[$key] }}" title="Subir columna" @disabled($index === 0)><x-ui.icon name="arrow-up" /></button>
-                                <button type="button" wire:click="moveColumn('{{ $key }}', 1)" aria-label="Bajar {{ $columns[$key] }}" title="Bajar columna" @disabled($index === count($visible) - 1)><x-ui.icon name="arrow-down" /></button>
-                                <button type="button" wire:click="toggleColumn('{{ $key }}')" class="ops-column-danger" aria-label="Ocultar {{ $columns[$key] }}" title="Ocultar columna" @disabled(count($visible) === 1)><x-ui.icon name="eye-off" /></button>
-                            </div>
-                        </div>
-                        @endif
-                    @endforeach
-                </div>
-                <div><h3>Columnas disponibles</h3>
-                    @foreach($columns as $key => $label)
-                        @unless(in_array($key, $visible, true))
-                            <button type="button" class="ops-column-item ops-add-column" wire:key="available-{{ $key }}"
-                                wire:click="toggleColumn('{{ $key }}')"><span>{{ $label }}</span><x-ui.icon name="plus" /></button>
-                        @endunless
-                    @endforeach
-                </div>
+            <div class="ops-column-table-wrap">
+             <table class="ops-column-table"><thead><tr><th>Columna</th><th>Visible</th><th>Orden</th></tr></thead><tbody>
+              @foreach(array_unique([...$visible,...array_keys($columns)]) as $key)
+               @if(isset($columns[$key]))
+               @php($position = array_search($key,$visible,true))
+               <tr wire:key="column-setting-{{ $key }}">
+                <x-record-editor.column-header tag="td" :column="$key" :label="$columns[$key]" :definition="$tableColumns[$key]"
+                 :options="$columnOptions[$key] ?? []" :filter="$tableFilters[$key] ?? ''" :sort="$tableSort" :direction="$tableDirection" :group="$tableGroup" />
+                <td><button type="button" class="ops-column-visibility" role="switch" aria-checked="{{ $position !== false ? 'true' : 'false' }}"
+                 wire:click="toggleColumn('{{ $key }}')" aria-label="Mostrar {{ $columns[$key] }}" @disabled(count($visible)===1 && $position!==false)>
+                 <x-ui.icon :name="$position !== false ? 'eye' : 'eye-off'" /></button></td>
+                <td><div class="ops-column-actions">
+                 @if($position!==false)
+                 <span class="ops-column-position">{{ $position+1 }}</span>
+                 <button type="button" wire:click="moveColumn('{{ $key }}',-1)" aria-label="Subir {{ $columns[$key] }}" @disabled($position===0)><x-ui.icon name="arrow-up" /></button>
+                 <button type="button" wire:click="moveColumn('{{ $key }}',1)" aria-label="Bajar {{ $columns[$key] }}" @disabled($position===count($visible)-1)><x-ui.icon name="arrow-down" /></button>
+                 @else<span>—</span>@endif
+                </div></td>
+               </tr>
+               @endif
+              @endforeach
+             </tbody></table>
             </div>
             @error('visibleColumns')<p class="ops-field-error">{{ $message }}</p>@enderror
         </div>
@@ -61,7 +59,7 @@
                 <button type="button" class="ops-delete-view ops-column-button ops-column-danger" @click="$dispatch('confirm-operation', { title: 'Eliminar vista', message: 'Los datos de la tabla no se eliminarán.', action: 'deleteView' })">Eliminar vista</button>
             @endif
         </footer>
-    </section>
+    </dialog>
     <x-record-editor.confirm-dialog />
 </div>
 @endif
