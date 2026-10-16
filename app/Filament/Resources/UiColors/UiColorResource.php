@@ -4,7 +4,7 @@ namespace App\Filament\Resources\UiColors;
 
 use App\Models\UiColorSetting;
 use Filament\Actions\EditAction;
-use Filament\Forms\Components\ColorPicker;
+use App\Support\Forms\HexColor;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\TextColumn;
@@ -50,10 +50,10 @@ class UiColorResource extends Resource
     public static function form(Schema $schema): Schema
     {
         return $schema->components([
-            ColorPicker::make('primary')->label('Primario / confirmar')->required()->rules(['regex:/^#[0-9A-Fa-f]{6}$/']),
-            ColorPicker::make('success')->label('Éxito / guardado')->required()->rules(['regex:/^#[0-9A-Fa-f]{6}$/']),
-            ColorPicker::make('danger')->label('Peligro / eliminar / cerrar')->required()->rules(['regex:/^#[0-9A-Fa-f]{6}$/']),
-            ColorPicker::make('secondary')->label('Cancelar / secundario')->required()->rules(['regex:/^#[0-9A-Fa-f]{6}$/']),
+            HexColor::make('primary')->label('Primario / confirmar')->required()->rules(['regex:/^#[0-9A-Fa-f]{6}$/']),
+            HexColor::make('success')->label('Éxito / guardado')->required()->rules(['regex:/^#[0-9A-Fa-f]{6}$/']),
+            HexColor::make('danger')->label('Peligro / eliminar / cerrar')->required()->rules(['regex:/^#[0-9A-Fa-f]{6}$/']),
+            HexColor::make('secondary')->label('Cancelar / secundario')->required()->rules(['regex:/^#[0-9A-Fa-f]{6}$/']),
         ]);
     }
 

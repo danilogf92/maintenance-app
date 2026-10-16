@@ -17,3 +17,4 @@ Route::put('/profile', [ProfileController::class, 'update'])->middleware('auth')
 
 require __DIR__.'/modules/user.php';
 require __DIR__.'/modules/institution.php';
+require __DIR__.'/modules/report.php';

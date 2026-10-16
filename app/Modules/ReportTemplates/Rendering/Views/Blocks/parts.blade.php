@@ -1,0 +1,4 @@
+@include('report-print::Blocks.title')
+<table>@if($block['show_table_header'] ?? true)<thead><tr><th style="{{ \App\Modules\ReportTemplates\Configuration\TextStyle::css($block['table_header_style'] ?? []) }}">Descripción</th><th style="{{ \App\Modules\ReportTemplates\Configuration\TextStyle::css($block['table_header_style'] ?? []) }}">Código</th><th style="{{ \App\Modules\ReportTemplates\Configuration\TextStyle::css($block['table_header_style'] ?? []) }}">Cantidad</th><th style="{{ \App\Modules\ReportTemplates\Configuration\TextStyle::css($block['table_header_style'] ?? []) }}">Estado</th></tr></thead>@endif<tbody>
+@foreach($data['parts'] ?? [] as $part)<tr><td>{{ $part['description'] }}</td><td>{{ $part['code'] }}</td><td>{{ $part['quantity'] }}</td><td>{{ $part['status'] }}</td></tr>@endforeach
+</tbody></table>

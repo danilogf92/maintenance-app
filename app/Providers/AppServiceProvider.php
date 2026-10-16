@@ -22,6 +22,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         InstitutionModule::register();
+        \App\Modules\ReportTemplates\ReportTemplateModule::register();
         foreach ([User::class, Institution::class,
             BrandSetting::class, UiColorSetting::class,
             Role::class] as $model) {

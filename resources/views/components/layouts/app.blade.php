@@ -43,6 +43,9 @@
    @foreach(['Equipos'=>'briefcase','Tickets'=>'ticket','Bitácoras'=>'clipboard','Mantenimientos'=>'wrench','Reportes'=>'chart'] as $module=>$symbol)
    <span class="nav-item nav-disabled" title="{{ $module }} (próximamente)"><span class="nav-icon"><x-ui.icon :name="$symbol" class="h-5 w-5" /></span><span class="sidebar-label" x-show="!collapsed || mobileOpen">{{ $module }} <small class="ml-auto text-[10px]">Próximamente</small></span></span>
    @endforeach
+   @if(\App\Modules\ReportTemplates\Configuration\Permissions::allows(auth()->user()))
+   <a href="{{ url('/admin/report-templates') }}" class="nav-item" title="Plantillas de informes"><span class="nav-icon"><x-ui.icon name="clipboard" class="h-5 w-5" /></span><span class="sidebar-label" x-show="!collapsed || mobileOpen">Plantillas de informes ↗</span></a>
+   @endif
   </nav>
  </aside>
  <div class="app-shell-content flex h-dvh min-w-0 flex-col overflow-hidden">

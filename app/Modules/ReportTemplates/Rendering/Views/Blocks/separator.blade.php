@@ -1,0 +1,1 @@
+<h2 class="section-separator" style="background:{{ $block['separator_background'] ?? '#00858b' }};color:{{ $block['separator_color'] ?? '#ffffff' }};text-align:{{ $block['separator_alignment'] ?? 'center' }}">{{ $block['title'] }}</h2>

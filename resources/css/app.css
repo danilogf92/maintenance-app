@@ -93,7 +93,7 @@ html,body{height:100%;overflow:hidden!important}
 .ops-page{gap:0.35rem!important}
 .ops-view-tabs{display:flex;align-items:center;flex:0 0 auto;min-width:0;max-width:100%;height:36px;overflow-x:auto;overflow-y:hidden;gap:1px;background:#1665ef;border-radius:7px 7px 0 0;padding:0 5px;scrollbar-width:thin}
 .ops-view-tab{display:inline-flex;align-items:center;gap:7px;flex:0 0 auto;padding:7px 13px;color:white;font-size:12px;font-weight:600;white-space:nowrap;border-radius:6px 6px 0 0;opacity:.88}
-.ops-view-tab:hover{background:rgba(255,255,255,.15);opacity:1}
+.ops-view-tab:hover{background:#ffffff26;opacity:1}
 .ops-view-tab-active{background:white!important;color:#1d4ed8!important;opacity:1}
 .ops-view-actions{display:flex;align-items:center;justify-content:space-between;flex:0 0 auto;height:30px;padding:0 7px;background:white;border:1px solid #e2e8f0;border-top:0;border-radius:0 0 7px 7px}
 .ops-view-label{display:inline-flex;align-items:center;gap:5px;color:#64748b;font-size:11px}
@@ -137,8 +137,8 @@ html,body{height:100%;overflow:hidden!important}
 .ops-add-tab{min-width:36px;width:36px!important}
 .ops-view-nav button{flex:0 0 32px;min-width:32px;width:32px!important;display:inline-flex;align-items:center;justify-content:center}
 .ops-view-nav svg{width:18px!important;height:18px!important;flex-shrink:0}
-.ops-modal-backdrop{position:fixed;inset:0;z-index:100;background:rgba(15,23,42,.55);display:flex;justify-content:center;align-items:center;padding:18px}
-.ops-modal{display:flex;flex-direction:column;width:min(700px,100%);max-height:min(86vh,820px);overflow:hidden;border-radius:10px;background:#fff;color:#0f172a;box-shadow:0 20px 60px rgba(0,0,0,.22)}
+.ops-modal-backdrop{position:fixed;inset:0;z-index:100;background:#0f172a8c;display:flex;justify-content:center;align-items:center;padding:18px}
+.ops-modal{display:flex;flex-direction:column;width:min(700px,100%);max-height:min(86vh,820px);overflow:hidden;border-radius:10px;background:#fff;color:#0f172a;box-shadow:0 20px 60px #00000038}
 .ops-modal-header{display:flex;justify-content:space-between;align-items:center;padding:16px 20px;border-bottom:1px solid #e2e8f0}
 .ops-modal-header h2{font-size:17px;font-weight:700}.ops-modal-header p{font-size:12px;color:#64748b}
 .ops-modal-header button{padding:7px;border-radius:6px}.ops-modal-header svg{width:20px;height:20px}

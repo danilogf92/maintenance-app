@@ -26,8 +26,10 @@ class AdminPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel->default()->id('admin')->path('admin')->login(Login::class)
+            ->sidebarCollapsibleOnDesktop()->sidebarFullyCollapsibleOnDesktop()
             ->brandName(fn () => BrandSetting::displayName())->brandLogo(fn () => BrandSetting::logoUrl())
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
+            ->resources([\App\Modules\ReportTemplates\UI\ReportTemplateResource::class])
             ->pages([Dashboard::class])
             ->widgets([AccountWidget::class])
             ->renderHook(PanelsRenderHook::USER_MENU_BEFORE, fn () => view('filament.application-link'))
