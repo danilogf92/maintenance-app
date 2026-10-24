@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Institution extends Model
 {
     use HasFactory;
-    protected $fillable = ['name', 'code', 'type', 'contact_email', 'contact_phone', 'city'];
+    protected $fillable = ['name', 'code', 'type', 'contact_email', 'contact_phone', 'city', 'address'];
 
     public function users()
     {

@@ -3,19 +3,19 @@
 #app-sidebar .desktop-collapse-control {
     display:inline-flex; flex:0 0 44px; width:44px; height:40px;
     align-items:center; justify-content:center; padding:0;
-    border:1px solid #93c5fd; border-radius:10px;
-    background:#eff6ff; color:#1d4ed8; cursor:pointer;
+    border:1px solid var(--ui-focus); border-radius:10px;
+    background:var(--ui-wash); color:var(--ui-primary); cursor:pointer;
     box-shadow:0 2px 5px #1e40af12;
     transition:background .15s, color .15s, border-color .15s, box-shadow .15s;
 }
 #app-sidebar .desktop-collapse-control svg { width:28px; height:28px; flex:none; }
 #app-sidebar .desktop-collapse-control:hover {
-    background:#2563eb; border-color:#2563eb; color:#fff;
+    background:var(--ui-primary); border-color:var(--ui-primary); color:#fff;
     box-shadow:0 3px 9px #2563eb33;
 }
-#app-sidebar .desktop-collapse-control:focus-visible { outline:3px solid #93c5fd; outline-offset:2px; }
-.dark #app-sidebar .desktop-collapse-control { background:#1e293b; border-color:#3b82f6; color:#bfdbfe; }
-.dark #app-sidebar .desktop-collapse-control:hover { background:#2563eb; color:#fff; }
+#app-sidebar .desktop-collapse-control:focus-visible { outline:3px solid var(--ui-focus); outline-offset:2px; }
+.dark #app-sidebar .desktop-collapse-control { background:#1e293b; border-color:var(--ui-primary); color:var(--ui-focus); }
+.dark #app-sidebar .desktop-collapse-control:hover { background:var(--ui-primary); color:#fff; }
 @media(max-width:1023px) { #app-sidebar .desktop-collapse-control { display:none!important; } }
 
 /* Override the former thin scrollbar without changing any scroll behavior. */
@@ -38,7 +38,7 @@
 }
 #contenido .ops-table-wrap::-webkit-scrollbar-thumb:hover,
 #contenido .ops-fields::-webkit-scrollbar-thumb:hover,
-#app-sidebar nav::-webkit-scrollbar-thumb:hover { background:#2563eb; }
+#app-sidebar nav::-webkit-scrollbar-thumb:hover { background:var(--ui-primary); }
 #contenido .ops-table-wrap::-webkit-scrollbar-corner { background:#e2e8f0; }
 .dark #contenido .ops-table-wrap::-webkit-scrollbar-track,
 .dark #contenido .ops-fields::-webkit-scrollbar-track,
@@ -48,7 +48,7 @@
 .dark #app-sidebar nav::-webkit-scrollbar-thumb { background:#94a3b8; border-color:#1e293b; }
 .dark #contenido .ops-table-wrap::-webkit-scrollbar-thumb:hover,
 .dark #contenido .ops-fields::-webkit-scrollbar-thumb:hover,
-.dark #app-sidebar nav::-webkit-scrollbar-thumb:hover { background:#60a5fa; }
+.dark #app-sidebar nav::-webkit-scrollbar-thumb:hover { background:var(--ui-focus); }
 @supports not selector(::-webkit-scrollbar) {
     #contenido .ops-table-wrap, #contenido .ops-fields, #app-sidebar nav { scrollbar-color:#64748b #e2e8f0; }
     .dark #contenido .ops-table-wrap, .dark #contenido .ops-fields, .dark #app-sidebar nav { scrollbar-color:#94a3b8 #1e293b; }

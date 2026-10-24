@@ -21,5 +21,13 @@ class DatabaseSeeder extends Seeder
         // Idempotente: agregar el mínimo del administrador sin borrar permisos personalizados.
         Role::findByName('Administrador', 'web')->givePermissionTo(['panel.access', 'users.manage', 'institutions.manage']);
         $this->call(ReportTemplatesSeeder::class);
+        $this->call(WorkflowSeeder::class);
+        $this->call(CatalogPermissionsSeeder::class);
+        $this->call(ContactPermissionsSeeder::class);
+        $this->call(PlanningPermissionsSeeder::class);
+        $this->call(ContractPermissionsSeeder::class);
+        $this->call(ProtocolPermissionsSeeder::class);
+        $this->call(DataManagementPermissionsSeeder::class);
+        $this->call(FieldEngineerPermissionsSeeder::class);
     }
 }

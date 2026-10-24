@@ -14,10 +14,22 @@
             else if (direction === 'previous') index = current < 0 ? ids.length - 1 : Math.max(current - 1, 0);
             const targetId = ids[index];
             if (this.$wire.formOpen && Number(this.$wire.editingId) === targetId) return;
+            const selectedTabId = this.$wire.formOpen
+                ? page.querySelector('.ops-detail-panel [role=tab][aria-selected=true]')?.id
+                : null;
             this.navigationBusy = true;
             try {
                 // edit() saves and validates the current record in one request.
                 await this.$wire.edit(targetId);
+                if (selectedTabId && this.$wire.formOpen && Number(this.$wire.editingId) === targetId) {
+                    await this.$nextTick();
+                    const tabs = page.querySelectorAll('.ops-detail-panel [role=tab]');
+                    const tab = Array.from(tabs).find(tab => tab.id === selectedTabId);
+                    if (tab) {
+                        tab.dispatchEvent(new CustomEvent('record-navigation-select'));
+                        if (tab.dataset.recordRelation) await this.$wire.loadEditorRelation(tab.dataset.recordRelation);
+                    }
+                }
             } finally {
                 this.navigationBusy = false;
             }

@@ -18,8 +18,7 @@ class UiColorSetting extends Model
 
     private static function loadPalette(): array
     {
-        $defaults = ['primary' => '#2563EB', 'success' => '#16A34A',
-            'danger' => '#DC2626', 'secondary' => '#64748B'];
+        $defaults = config('identity.operations');
         if (! Schema::hasTable('ui_color_settings')) {
             return $defaults;
         }

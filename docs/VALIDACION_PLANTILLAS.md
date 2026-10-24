@@ -53,3 +53,11 @@ Chromium: elegir izquierda/centro/derecha en tres filas, sangría de 5 mm, guard
 PDF real: firma en servicio y firma independiente visibles en primera página; tabla de 60 datos conserva todos sus valores en cinco páginas. Primera página revisada visualmente. Docker/PowerShell requieren prueba en Windows.
 
 Chromium: configuración avanzada cerrada inicialmente; selección de columna e ítem desde iframe, añadir firma al servicio, configurar 45 × 15 mm, nombre, color HEX y tamaño, guardar/recargar conservando valores, añadir firma independiente y obtener dos campos. PDF por cola abierto HTTP 200; editor compacto móvil sin desbordamiento ni errores JS. El panel se deshabilita brevemente durante cambios de selección para evitar editar el elemento anterior.
+
+## Validación v11.39.0 — flujo con datos registrados
+
+141 pruebas / 545 comprobaciones aprobadas. Incluye 17 pruebas de flujo: relaciones, serie repetida, concurrencia, protección de historial, permisos de técnico/CEO, rechazo de padres ajenos, versiones publicadas, snapshot cifrado/estable, revisiones, fotos privadas y rechazo de rutas ajenas, cola y PDF real, enlace PDF ligado al informe, seis pantallas y edición repetida.
+
+Chromium creó los seis registros mediante formularios: cliente, equipo, ticket, servicio, actividad con foto e informe. Subida privada y descarga autorizada de foto HTTP 200; PDF por cola database/reports HTTP 200; lista con estado Listo; móvil sin desbordamiento ni errores JavaScript. PDF real de dos páginas revisado visualmente y mediante extracción: cliente/equipo/actividad registrados y estado BORRADOR presentes; cliente de ejemplo ausente.
+
+Pruebas con PHP 8.3, SQLite, Chromium y WeasyPrint. Docker/MariaDB/PowerShell deben verificarse en Windows; no se ejecutaron aquí.

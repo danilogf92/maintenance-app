@@ -1,0 +1,3 @@
+﻿# Carpeta principal que contiene 1 Equipos, 2 Bitácora Servicio, Otros, etc.
+# Solo se leen las carpetas llamadas exactamente DataSanitized.
+dir="C:\Users\danil\OneDrive\Documentos\DevelopmentDanilo\ninox-app\storage\app\ninox\files"

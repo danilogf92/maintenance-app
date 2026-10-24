@@ -1,0 +1,990 @@
+{
+  "version": 1,
+  "run_id": "20261023-004515-1326b1cc",
+  "operation": "inventario",
+  "source": "C:\\Users\\danil\\OneDrive\\Documentos\\DevelopmentDanilo\\ninox-app\\storage\\app\\ninox\\files",
+  "data_directory": "DataSanitized",
+  "imported_records": 0,
+  "tables": [
+    {
+      "name": "Equipos",
+      "folder": "1 Equipos/Equipos/DataSanitized",
+      "source_table_ids": [
+        "C"
+      ],
+      "records_valid": 204,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "annual_visits",
+        "bayer_status",
+        "brand_id",
+        "calendar_summary",
+        "calibrations",
+        "company_id",
+        "conctacts_users",
+        "contract_associated",
+        "contract_schedule",
+        "corpomedica_asset_id",
+        "customer_history",
+        "date_last_maintenance",
+        "dev_erase_visit",
+        "discount_applied",
+        "documentation_ok",
+        "ec_cost",
+        "equipment_components",
+        "equipment_destination_loan",
+        "equipment_img",
+        "equipment_list_to_transfer",
+        "equipment_medical_centers_history",
+        "equipment_rating",
+        "equipment_rental",
+        "garrantee_or_corpomedica",
+        "globan_configuration",
+        "gtin",
+        "installation_percentage",
+        "main_component",
+        "manufactured_at",
+        "model_id",
+        "ninox_id",
+        "ninox_table",
+        "overhaul_percentage",
+        "owner",
+        "percentage_corrective",
+        "percentage_inspection",
+        "preventive_percentage",
+        "pvp_ecu",
+        "report_pdf",
+        "report_type",
+        "results",
+        "sales_advisor",
+        "serial_number",
+        "service_report",
+        "signature",
+        "spare_parts",
+        "start_date_schedule",
+        "status_commercial",
+        "tickets",
+        "value_10",
+        "value_11",
+        "value_17",
+        "value_25",
+        "value_26",
+        "value_33",
+        "value_40",
+        "value_7"
+      ],
+      "status": "detectado"
+    },
+    {
+      "name": "Modificación_Manual_de_Estatus_de_Ticket",
+      "folder": "10 Tickets/Subtablas/Modificación_Manual_de_Estatus_de_Ticket/DataSanitized",
+      "source_table_ids": [
+        "XB"
+      ],
+      "records_valid": 12,
+      "records_invalid": 0,
+      "attachments": 6,
+      "fields": [
+        "date",
+        "file_attachments",
+        "ninox_id",
+        "ninox_table",
+        "observation",
+        "responsible",
+        "signature",
+        "status_new",
+        "status_previous",
+        "ticket_id"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Visita",
+      "folder": "10 Tickets/Subtablas/Visita/DataSanitized",
+      "source_table_ids": [
+        "V"
+      ],
+      "records_valid": 1214,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "certified_technicians",
+        "ninox_id",
+        "ninox_table",
+        "ticket_id",
+        "visit_date"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Tickets",
+      "folder": "10 Tickets/Tickets/DataSanitized",
+      "source_table_ids": [
+        "F"
+      ],
+      "records_valid": 625,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "contact_on_site",
+        "field_service_engineer",
+        "is_email_sent",
+        "ninox_id",
+        "ninox_table",
+        "observations",
+        "observations_decisions",
+        "report_client",
+        "service_type",
+        "service_type_2",
+        "status",
+        "technical_info",
+        "ticket_code",
+        "ticket_date",
+        "value_12",
+        "value_13",
+        "value_14",
+        "value_15",
+        "value_16",
+        "value_17",
+        "value_18",
+        "value_19",
+        "value_22",
+        "value_23",
+        "value_24",
+        "value_26",
+        "value_27",
+        "value_28",
+        "value_29",
+        "value_6",
+        "value_9"
+      ],
+      "status": "detectado"
+    },
+    {
+      "name": "Clientes",
+      "folder": "13 Clientes/Clientes/DataSanitized",
+      "source_table_ids": [
+        "A"
+      ],
+      "records_valid": 92,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "address",
+        "annual_corporate_discount",
+        "asociated_contacts",
+        "asociated_contracts",
+        "associated_center",
+        "authorized_purchase_orders",
+        "billing_email",
+        "client_name_or_business_name",
+        "company_id",
+        "is_billing_data",
+        "location_id",
+        "ninox_id",
+        "ninox_table",
+        "phone",
+        "ruc_or_identification"
+      ],
+      "status": "detectado"
+    },
+    {
+      "name": "Autorizan_Orden_de_Compra",
+      "folder": "13 Clientes/Subtablas/Autorizan_Orden_de_Compra/DataSanitized",
+      "source_table_ids": [
+        "RD"
+      ],
+      "records_valid": 3,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "client_id",
+        "contact_id",
+        "ninox_id",
+        "ninox_table"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Clientes_-_Contactos",
+      "folder": "13 Clientes/Subtablas/Clientes_-_Contactos/DataSanitized",
+      "source_table_ids": [
+        "X"
+      ],
+      "records_valid": 30,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "client_id",
+        "contact_id",
+        "ninox_id",
+        "ninox_table"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "FSE_(Ingenieros_de_Campo)",
+      "folder": "14 FSE (Ingenieros de Campo)/FSE_(Ingenieros_de_Campo)/DataSanitized",
+      "source_table_ids": [
+        "T"
+      ],
+      "records_valid": 8,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "bonus_percentage",
+        "certifications",
+        "city",
+        "company_id",
+        "contract_schedule",
+        "cost_per_hour",
+        "country",
+        "email",
+        "id_number",
+        "name",
+        "ninox_id",
+        "ninox_table",
+        "phone",
+        "photo",
+        "siglas",
+        "tasks",
+        "visits"
+      ],
+      "status": "detectado"
+    },
+    {
+      "name": "Protocolos",
+      "folder": "15 Protocolos/Protocolos/DataSanitized",
+      "source_table_ids": [
+        "GB"
+      ],
+      "records_valid": 55,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "brand_and_model_info",
+        "company_id",
+        "component_specification_or_system",
+        "components",
+        "is_obsolete",
+        "is_possible_edit",
+        "model_options",
+        "ninox_id",
+        "ninox_table",
+        "protocol_code",
+        "protocol_description",
+        "protocol_name",
+        "protocol_steps",
+        "protocol_type",
+        "protocol_version"
+      ],
+      "status": "detectado"
+    },
+    {
+      "name": "Pasos_del_protocolo",
+      "folder": "15 Protocolos/Subtablas/Pasos_del_protocolo/DataSanitized",
+      "source_table_ids": [
+        "HB"
+      ],
+      "records_valid": 675,
+      "records_invalid": 0,
+      "attachments": 189,
+      "fields": [
+        "code",
+        "image_suggested_report",
+        "instruction",
+        "is_add_to_report",
+        "ninox_id",
+        "ninox_table",
+        "protocol_id",
+        "range_min_max",
+        "reports_indication",
+        "step_number",
+        "type"
+      ],
+      "status": "detectado"
+    },
+    {
+      "name": "Bitácora_Servicio",
+      "folder": "2 Bitácora Servicio/Bitácora_Servicio/DataSanitized",
+      "source_table_ids": [
+        "K"
+      ],
+      "records_valid": 369,
+      "records_invalid": 0,
+      "attachments": 366,
+      "fields": [
+        "activities_findings",
+        "city",
+        "client_name",
+        "company_id",
+        "engineer_assigned",
+        "equipment_components",
+        "equipment_location",
+        "final_system_status",
+        "institution_name",
+        "is_send_report",
+        "last_visit_reason",
+        "mantenance_type_classification",
+        "next_step",
+        "ninox_id",
+        "ninox_table",
+        "report_code",
+        "report_pdf",
+        "report_type",
+        "responsible_signatures",
+        "service_date",
+        "service_provider",
+        "service_type",
+        "service_type_realized",
+        "service_type_requested",
+        "technician_assigned",
+        "technician_signature",
+        "tickets_associated",
+        "value_1",
+        "value_10",
+        "value_11",
+        "value_12",
+        "value_13",
+        "value_19",
+        "value_21",
+        "value_22",
+        "value_23",
+        "value_24",
+        "value_25",
+        "value_26",
+        "value_27",
+        "value_28",
+        "value_29",
+        "value_30",
+        "value_31",
+        "value_32",
+        "value_35",
+        "value_37",
+        "value_38",
+        "value_40",
+        "value_41",
+        "value_42",
+        "value_43",
+        "value_44",
+        "value_45",
+        "value_46",
+        "value_47",
+        "value_49",
+        "value_5",
+        "value_52",
+        "value_53",
+        "value_55",
+        "value_56",
+        "value_57",
+        "value_58",
+        "value_59",
+        "value_60",
+        "value_61",
+        "value_62",
+        "value_65",
+        "value_66",
+        "value_69",
+        "value_70",
+        "value_8",
+        "value_9",
+        "visit_reason"
+      ],
+      "status": "detectado"
+    },
+    {
+      "name": "1Lista_de_Repuestos_Requeridos_(ST)",
+      "folder": "2 Bitácora Servicio/Subtablas/1Lista_de_Repuestos_Requeridos_(ST)/DataSanitized",
+      "source_table_ids": [
+        "VC"
+      ],
+      "records_valid": 1,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "ninox_id",
+        "ninox_table",
+        "value_1",
+        "value_10",
+        "value_11",
+        "value_12",
+        "value_13",
+        "value_2",
+        "value_3",
+        "value_4",
+        "value_5",
+        "value_6",
+        "value_7",
+        "value_8",
+        "value_9"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Actividades___hallazgos",
+      "folder": "2 Bitácora Servicio/Subtablas/Actividades___hallazgos/DataSanitized",
+      "source_table_ids": [
+        "LB"
+      ],
+      "records_valid": 627,
+      "records_invalid": 0,
+      "attachments": 529,
+      "fields": [
+        "activity_photo",
+        "description",
+        "issue_description",
+        "issue_photo",
+        "ninox_id",
+        "ninox_table",
+        "report_id"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Componentes_del_Equipo_En_Bitácora",
+      "folder": "2 Bitácora Servicio/Subtablas/Componentes_del_Equipo_En_Bitácora/DataSanitized",
+      "source_table_ids": [
+        "OE"
+      ],
+      "records_valid": 1814,
+      "records_invalid": 0,
+      "attachments": 1339,
+      "fields": [
+        "component_type",
+        "description",
+        "fixed_asset_id",
+        "image",
+        "importation_description",
+        "local_part_number",
+        "ninox_id",
+        "ninox_table",
+        "part_number",
+        "principal_item",
+        "quantity",
+        "sap",
+        "serial_number",
+        "service_report",
+        "state"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Firmas_de_Responsabilidad_Cliente",
+      "folder": "2 Bitácora Servicio/Subtablas/Firmas_de_Responsabilidad_Cliente/DataSanitized",
+      "source_table_ids": [
+        "SC"
+      ],
+      "records_valid": 770,
+      "records_invalid": 0,
+      "attachments": 339,
+      "fields": [
+        "block_post_signature",
+        "client_comment",
+        "contact",
+        "email_with_copy",
+        "is_email_with_copy",
+        "name",
+        "ninox_id",
+        "ninox_table",
+        "phone",
+        "position",
+        "service_classification",
+        "service_report",
+        "signature",
+        "title"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Recomendaciones",
+      "folder": "2 Bitácora Servicio/Subtablas/Recomendaciones/DataSanitized",
+      "source_table_ids": [
+        "WB"
+      ],
+      "records_valid": 164,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "ninox_id",
+        "ninox_table",
+        "value_1",
+        "value_2",
+        "value_3"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Repuestos_Instalados",
+      "folder": "2 Bitácora Servicio/Subtablas/Repuestos_Instalados/DataSanitized",
+      "source_table_ids": [
+        "AD"
+      ],
+      "records_valid": 85,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "bayer_list_price",
+        "components_per_item",
+        "description",
+        "globan",
+        "item_status",
+        "local_part_number",
+        "lot_serial_number",
+        "ninox_id",
+        "ninox_table",
+        "quantity",
+        "service_report",
+        "units_of_sale"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Rubros",
+      "folder": "2 Bitácora Servicio/Subtablas/Rubros/DataSanitized",
+      "source_table_ids": [],
+      "records_valid": 0,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Parámetros_Empresa",
+      "folder": "3 Parámetros Empresa/Parámetros_Empresa/DataSanitized",
+      "source_table_ids": [
+        "PC"
+      ],
+      "records_valid": 2,
+      "records_invalid": 0,
+      "attachments": 8,
+      "fields": [
+        "address",
+        "ninox_id",
+        "ninox_table",
+        "phone",
+        "value_1",
+        "value_10",
+        "value_11",
+        "value_12",
+        "value_13",
+        "value_14",
+        "value_15",
+        "value_16",
+        "value_17",
+        "value_18",
+        "value_19",
+        "value_2",
+        "value_20",
+        "value_21",
+        "value_22",
+        "value_23",
+        "value_24",
+        "value_25",
+        "value_26",
+        "value_27",
+        "value_28",
+        "value_29",
+        "value_3",
+        "value_30",
+        "value_31",
+        "value_32",
+        "value_33",
+        "value_34",
+        "value_35",
+        "value_36",
+        "value_37",
+        "value_38",
+        "value_39",
+        "value_4",
+        "value_5",
+        "value_6",
+        "value_7",
+        "value_8",
+        "value_9"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "DESTINOS",
+      "folder": "3 Parámetros Empresa/Subtablas/DESTINOS/DataSanitized",
+      "source_table_ids": [
+        "AG"
+      ],
+      "records_valid": 4,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "city",
+        "company_id",
+        "ninox_id",
+        "ninox_table"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "RESPONSABLES",
+      "folder": "3 Parámetros Empresa/Subtablas/RESPONSABLES/DataSanitized",
+      "source_table_ids": [],
+      "records_valid": 0,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Tipos_de_Servicio_(Tickets___Bitácora)",
+      "folder": "3 Parámetros Empresa/Subtablas/Tipos_de_Servicio_(Tickets___Bitácora)/DataSanitized",
+      "source_table_ids": [
+        "WE"
+      ],
+      "records_valid": 35,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "color",
+        "company_id",
+        "description",
+        "icon",
+        "ninox_id",
+        "ninox_table",
+        "short_name",
+        "type"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Contratos",
+      "folder": "4 Contratos/Contratos/DataSanitized",
+      "source_table_ids": [
+        "D"
+      ],
+      "records_valid": 10,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "associated_document",
+        "associated_equipment",
+        "clients",
+        "company_id",
+        "constract_signature_date",
+        "contract_code",
+        "contract_manager",
+        "contract_name",
+        "contract_type",
+        "date",
+        "duration",
+        "duration_contract",
+        "duration_days",
+        "is_blocked",
+        "minimum_notice",
+        "ninox_id",
+        "ninox_table",
+        "previous_contract_end_date",
+        "responsibility_signature",
+        "responsibility_signature_name",
+        "table_items",
+        "time_interval"
+      ],
+      "status": "detectado"
+    },
+    {
+      "name": "Documento_Asociado_al_Contrato",
+      "folder": "4 Contratos/Subtablas/Documento_Asociado_al_Contrato/DataSanitized",
+      "source_table_ids": [
+        "MD"
+      ],
+      "records_valid": 4,
+      "records_invalid": 0,
+      "attachments": 3,
+      "fields": [
+        "contracts_id",
+        "document_attachments",
+        "document_files",
+        "ninox_id",
+        "ninox_table"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Equipos_Asociados_a_Contrato",
+      "folder": "4 Contratos/Subtablas/Equipos_Asociados_a_Contrato/DataSanitized",
+      "source_table_ids": [
+        "DB"
+      ],
+      "records_valid": 104,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "contracts_id",
+        "equipment_id",
+        "ninox_id",
+        "ninox_table"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Rubros_de_Contrato",
+      "folder": "4 Contratos/Subtablas/Rubros_de_Contrato/DataSanitized",
+      "source_table_ids": [
+        "TD"
+      ],
+      "records_valid": 48,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "bayer_expense_report_table",
+        "code_type",
+        "contract_code",
+        "contract_final_value",
+        "contracts_id",
+        "detail",
+        "discount",
+        "initial_value",
+        "is_facturable",
+        "items",
+        "line_item",
+        "master",
+        "ninox_id",
+        "ninox_table",
+        "quantity",
+        "serial_part_number",
+        "service",
+        "type",
+        "values_to_invoice"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Centros_Medicos",
+      "folder": "5 Centros Medicos/Centros_Medicos/DataSanitized",
+      "source_table_ids": [
+        "B"
+      ],
+      "records_valid": 193,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "address",
+        "city_id",
+        "company_id",
+        "contact_id",
+        "name",
+        "ninox_id",
+        "ninox_table"
+      ],
+      "status": "detectado"
+    },
+    {
+      "name": "Calificación_Centro",
+      "folder": "5 Centros Medicos/Subtablas/Calificación_Centro/DataSanitized",
+      "source_table_ids": [
+        "YB"
+      ],
+      "records_valid": 3,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "brand_fidelity",
+        "calification_date",
+        "centers_id",
+        "consumables_usage",
+        "correct_usage",
+        "equipment_city",
+        "ninox_id",
+        "ninox_table",
+        "practices"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Gira",
+      "folder": "6 Gira/Gira/DataSanitized",
+      "source_table_ids": [
+        "MF"
+      ],
+      "records_valid": 2,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "ninox_id",
+        "ninox_table",
+        "value_1",
+        "value_2",
+        "value_3",
+        "value_4",
+        "value_5",
+        "value_6",
+        "value_7",
+        "value_8",
+        "value_9"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Bitacoras_Relacionadas_a_Gira",
+      "folder": "6 Gira/Subtablas/Bitacoras_Relacionadas_a_Gira/DataSanitized",
+      "source_table_ids": [
+        "NF"
+      ],
+      "records_valid": 3,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "credit_status",
+        "gira_id",
+        "ninox_id",
+        "ninox_table",
+        "service_report"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Facturacion",
+      "folder": "6 Gira/Subtablas/Facturacion/DataSanitized",
+      "source_table_ids": [],
+      "records_valid": 0,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Gastos_de_Gira",
+      "folder": "6 Gira/Subtablas/Gastos_de_Gira/DataSanitized",
+      "source_table_ids": [
+        "QF"
+      ],
+      "records_valid": 11,
+      "records_invalid": 0,
+      "attachments": 9,
+      "fields": [
+        "base_consumption_0",
+        "base_consumption_12",
+        "bill_photo",
+        "expense_type",
+        "gira_id",
+        "ninox_id",
+        "ninox_table",
+        "payment_method",
+        "tip"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Rubros_por_Facturar",
+      "folder": "6 Gira/Subtablas/Rubros_por_Facturar/DataSanitized",
+      "source_table_ids": [
+        "OF"
+      ],
+      "records_valid": 6,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "contract_item_id",
+        "gira_id",
+        "ninox_id",
+        "ninox_table",
+        "status"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Reportería",
+      "folder": "7 Reportería/Reportería/DataSanitized",
+      "source_table_ids": [
+        "LE"
+      ],
+      "records_valid": 24,
+      "records_invalid": 0,
+      "attachments": 0,
+      "fields": [
+        "brand_type_schedule",
+        "brand_type_tf",
+        "brand_type_ts",
+        "end_schedule",
+        "failure_type",
+        "ninox_id",
+        "ninox_table",
+        "resume_reports_by_corrective_type",
+        "resume_reports_by_service_type",
+        "resume_schedule_by_date",
+        "service_type",
+        "start_schedule",
+        "until_date_tf",
+        "until_date_ts",
+        "value_10",
+        "value_9"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Modelo",
+      "folder": "9 Modelo/Modelo/DataSanitized",
+      "source_table_ids": [
+        "O"
+      ],
+      "records_valid": 53,
+      "records_invalid": 0,
+      "attachments": 29,
+      "fields": [
+        "certification_engineer",
+        "description",
+        "documentation_equipment",
+        "equipments",
+        "model_image",
+        "model_name",
+        "ninox_id",
+        "ninox_table",
+        "time_corrective_maintenance",
+        "time_overhaul",
+        "time_preventive_maintenance",
+        "value_10",
+        "value_12",
+        "value_13",
+        "visits_recommended_per_year"
+      ],
+      "status": "detectado"
+    },
+    {
+      "name": "Documentación_del_Equipo",
+      "folder": "9 Modelo/Subtablas/Documentación_del_Equipo/DataSanitized",
+      "source_table_ids": [
+        "P"
+      ],
+      "records_valid": 55,
+      "records_invalid": 0,
+      "attachments": 51,
+      "fields": [
+        "code",
+        "document_files",
+        "model_id",
+        "name",
+        "ninox_id",
+        "ninox_table"
+      ],
+      "status": "con_observaciones"
+    },
+    {
+      "name": "Marca",
+      "folder": "Otros/Marca/DataSanitized",
+      "source_table_ids": [
+        "N"
+      ],
+      "records_valid": 41,
+      "records_invalid": 0,
+      "attachments": 30,
+      "fields": [
+        "brand_name",
+        "distributor",
+        "equipment_id",
+        "logo",
+        "ninox_id",
+        "ninox_table",
+        "origin",
+        "supplier"
+      ],
+      "status": "detectado"
+    }
+  ]
+}

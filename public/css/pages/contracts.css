@@ -1,0 +1,8 @@
+.contract-summary{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0;padding:14px;background:var(--page-bg);border:1px solid var(--page-border);border-radius:8px;font-size:12px}
+.contract-summary strong{font-size:18px;display:block;color:var(--page-accent)}
+.contract-summary>span{flex:1;min-width:110px}.contract-coverages .planning-link{display:block;margin-top:8px}.contract-coverages>.planning-button{display:inline-flex;gap:8px;align-items:center}
+.calendar-controls select,.calendar-controls input[type=date]{border:1px solid var(--cal-line);background:var(--cal-bg);color:var(--cal-ink);padding:8px;border-radius:6px;font-size:12px;max-width:100%}
+.calendar-origin{display:inline-block!important;font-size:9px!important;font-weight:600!important;color:var(--page-muted)!important;margin-bottom:6px;text-transform:uppercase;letter-spacing:.5px}
+.calendar-agenda{min-height:0;flex:1;overflow:auto;display:flex;flex-direction:column;gap:10px}.calendar-agenda article{padding:16px;border:1px solid var(--cal-line);border-radius:8px;background:var(--cal-bg)}
+.calendar-agenda article>button{display:block;text-align:left;width:100%}.calendar-agenda strong{font-size:13px}.calendar-agenda p{font-size:12px;margin:8px 0;color:var(--cal-muted)}
+.calendar-agenda .calendar-state{display:inline-block;padding:4px 8px;border-radius:5px;font-size:11px}.calendar-mode-label{font-size:11px;color:var(--cal-muted)}

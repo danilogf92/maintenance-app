@@ -8,7 +8,7 @@ class ReportGeneration extends Model
 {
     public $incrementing = false;
     protected $keyType = 'string';
-    protected $fillable = ['id', 'user_id', 'report_template_id', 'status', 'snapshot', 'expires_at', 'error'];
+    protected $fillable = ['id', 'user_id', 'report_template_id', 'status', 'snapshot', 'expires_at', 'error', 'technical_report_id', 'report_revision'];
 
     protected function casts(): array
     {

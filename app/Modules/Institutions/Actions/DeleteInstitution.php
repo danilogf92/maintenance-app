@@ -19,6 +19,12 @@ class DeleteInstitution
             if ($record->users()->exists()) {
                 throw ValidationException::withMessages(['deletion' => 'No se pueden eliminar instituciones que tengan usuarios asociados.']);
             }
+            if (\App\Modules\Equipment\Models\Equipment::where('institution_id', $id)->exists()) {
+                throw ValidationException::withMessages(['deletion' => 'La institución tiene equipos asociados. Conserva su historial.']);
+            }
+            if (\App\Modules\Contacts\Models\ContactLink::where('institution_id', $id)->exists()) {
+                throw ValidationException::withMessages(['deletion' => 'La institución tiene contactos vinculados. Conserva su historial.']);
+            }
             $record->delete();
         });
     }

@@ -1,0 +1,10 @@
+/* Related ticket context, within the shared record editor. */
+.service-editor .record-editor-field input[type=date] { height:var(--record-editor-control-height); }
+.service-context { display:grid; gap:12px; margin:8px 0 0; padding:14px; background:var(--ui-wash); border:1px solid var(--ui-wash); border-radius:8px; }
+.service-context dt { color:#526782; font-size:11px; margin-bottom:5px; }
+.service-context dd { margin:0; color:#183554; font-size:13px; overflow-wrap:anywhere; }
+.dark .service-context { background:#172b46; border-color:#355273; }
+.dark .service-context dt { color:#a7bedb; }
+.dark .service-context dd { color:#e2edfc; }
+.service-editor-relations .record-editor-hint { font-size:12px; color:#64748b; line-height:1.6; }
+.dark .service-editor-relations .record-editor-hint { color:#94a3b8; }

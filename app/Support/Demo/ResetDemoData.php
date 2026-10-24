@@ -13,7 +13,7 @@ final class ResetDemoData
 {
     public function execute(int $count = 500): array
     {
-        abort_unless(app()->environment('local', 'testing'), 403, 'Solo disponible en desarrollo local.');
+        abort_unless(app()->environment('testing'), 403, 'La generación de demostraciones está deshabilitada.');
         abort_unless($count >= 1 && $count <= 500, 422);
         $result = DB::transaction(fn () => $this->replace($count));
         app(PageDataCache::class)->invalidate('users', 'institutions', 'institution-options');

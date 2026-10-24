@@ -17,6 +17,9 @@ class DeleteUser
             if ($user->is($actor) || app(UserAccess::class)->isAdministrative($user)) {
                 throw ValidationException::withMessages(['deletion' => 'No se permite eliminar tu cuenta ni cuentas administrativas.']);
             }
+            if (\App\Modules\Tickets\Models\Ticket::where('technician_id', $id)->exists() || \App\Modules\Services\Models\Service::where('technician_id', $id)->exists()) {
+                throw ValidationException::withMessages(['deletion' => 'El usuario tiene historial técnico. Desactívalo en vez de eliminarlo.']);
+            }
             $user->delete();
         });
     }

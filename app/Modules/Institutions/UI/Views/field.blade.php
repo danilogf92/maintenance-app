@@ -1,4 +1,4 @@
-<label class="institution-field {{ $width === 'full' ? 'institution-field-full' : '' }}" wire:key="institution-field-{{ $field }}">
+<label class="record-editor-field {{ $width === 'full' ? 'record-editor-field-full' : '' }}" wire:key="record-editor-field-{{ $field }}">
  <span>{{ $definition['label'] }}{{ $definition['required'] ? ' *' : '' }}</span>
  @if($definition['type'] === 'select')
  <select wire:model="{{ $field }}" @required($definition['required'])>

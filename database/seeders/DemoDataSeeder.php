@@ -8,6 +8,8 @@ use Illuminate\Support\Str;
 use Spatie\Permission\Models\Role;
 class DemoDataSeeder extends Seeder {
     public function run(): void {
+        if (!app()->environment('testing')) { $this->command?->warn('La carga de demostraciones está deshabilitada.'); return; }
+
         $companies = [
             ['code'=>'DEMO-EMP-01','name'=>'Empresa Demo Industrial','type'=>'company','city'=>'Quito'],
             ['code'=>'DEMO-HOS-01','name'=>'Hospital Demo Central','type'=>'hospital','city'=>'Guayaquil'],

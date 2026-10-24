@@ -1,0 +1,7 @@
+/* Shared original-data card in imported record editors. */
+.record-source-details { display:grid; gap:12px; margin:12px 0; padding:14px; background:var(--ui-wash); border:1px solid var(--ui-wash); border-radius:8px; }
+.record-source-details dt { color:#526782; font-size:11px; margin-bottom:5px; }
+.record-source-details dd { margin:0; color:#183554; font-size:13px; overflow-wrap:anywhere; }
+.dark .record-source-details { background:#172b46; border-color:#355273; }
+.dark .record-source-details dt { color:#a7bedb; }
+.dark .record-source-details dd { color:#e2edfc; }

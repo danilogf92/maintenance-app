@@ -112,8 +112,8 @@ class RecordEditorSecurityTest extends TestCase
         UiColorSetting::updateOrCreate(['id' => 1], ['primary' => '#ffffff; background:url(https://example.com)',
             'success' => '#123456', 'danger' => '</style><script>alert(1)</script>', 'secondary' => '#abcdef']);
         $palette = UiColorSetting::currentPalette();
-        $this->assertSame('#2563EB', $palette['primary']);
-        $this->assertSame('#DC2626', $palette['danger']);
+        $this->assertSame(config('identity.operations.primary'), $palette['primary']);
+        $this->assertSame(config('identity.operations.danger'), $palette['danger']);
         $this->assertSame('#123456', $palette['success']);
     }
 }

@@ -15,9 +15,9 @@
 .ma-field input[aria-invalid=true] { border-color:#dc2626; }
 .ma-button { width:100%; display:flex; align-items:center; justify-content:center; gap:12px; min-height:46px; border:0; border-radius:9px; padding:10px 18px; background:var(--page-accent); color:#fff; font-size:14px; font-weight:650; cursor:pointer; }
 .ma-button:hover { filter:brightness(.92); }
-.ma-button:focus-visible { outline:3px solid #93c5fd; outline-offset:3px; }
+.ma-button:focus-visible { outline:3px solid var(--ui-focus); outline-offset:3px; }
 .ma-alert { border:1px solid #fecaca; border-radius:10px; padding:12px 15px; margin-bottom:20px; font-size:13px; line-height:1.6; background:#fff1f2; color:#9f1239; }
 .ma-alert ul { padding-left:18px; }
 .ma-alert-success { background:#ecfdf5; border-color:#a7f3d0; color:#065f46; }
-.dark .ma-kicker { color:#93c5fd; }
+.dark .ma-kicker { color:var(--ui-focus); }
 @media(max-width:640px) { .ma-auth-panel{padding:24px} .guest-header{padding:16px 20px} .guest-main{padding:20px 14px} }

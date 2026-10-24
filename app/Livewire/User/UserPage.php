@@ -105,10 +105,10 @@ class UserPage extends RecordEditor
     public function render()
     {
         $items = app(UserQuery::class)->records(auth()->id(), $this->search, '', $this->activeFilter);
-        $institutions = app(InstitutionQuery::class)->options();
-        $roles = app(UserAccess::class)->rolesFor(auth()->user())->orderBy('name')->get(['id', 'name']);
+        $institutions = $this->formOpen ? app(InstitutionQuery::class)->options() : collect();
+        $roles = $this->formOpen ? app(UserAccess::class)->rolesFor(auth()->user())->orderBy('name')->get(['id', 'name']) : collect();
 
-        return view('livewire.user.index', array_merge(compact('items', 'institutions', 'roles'), $this->operationViewsData(), $this->prepareTable($items)))
+        return view('users::page', array_merge(compact('items', 'institutions', 'roles'), $this->operationViewsData(), $this->prepareTable($items), \App\Modules\Users\UI\UserEditor::configuration()))
             ->layout('components.layouts.app');
     }
 }

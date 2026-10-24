@@ -1,9 +1,0 @@
-﻿{
-    "files":  [
-                  "resources/views/livewire/operations/users.blade.php",
-                  "resources/views/livewire/operations/institutions.blade.php",
-                  "resources/views/components/ui/icon.blade.php"
-              ],
-    "version":  "11.10",
-    "installed_at":  "2026-10-10T12:39:01.4526153-05:00"
-}

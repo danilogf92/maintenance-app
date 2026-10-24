@@ -18,16 +18,23 @@
   }
 })();
 </script>
-<meta name="theme-color" content="#0f172a"><title>{{ \App\Models\BrandSetting::displayName() }}</title>
+<meta name="theme-color" content="#BE4128"><title>{{ \App\Models\BrandSetting::displayName() }}</title>
 @vite(['resources/css/app.css','resources/js/app.js'])
-@foreach(['shared','auth','dashboard','profile','table-navigation','mobile-workspace','deletion-modal'] as $stylesheet)
-<link rel="stylesheet" href="{{ asset('css/pages/'.$stylesheet.'.css') }}?v=11.28">
+@foreach(['shared','auth','dashboard','profile','google-access','table-navigation','mobile-workspace','deletion-modal'] as $stylesheet)
+<link rel="stylesheet" href="{{ asset('css/pages/'.$stylesheet.'.css') }}?v=11.61.0">
 @endforeach
+<link rel="stylesheet" href="{{ asset('css/pages/sidebar-feedback.css') }}?v=11.61.0">
+<link rel="stylesheet" href="{{ asset('css/pages/contacts.css') }}?v=11.61.0">
+<link rel="stylesheet" href="{{ asset('css/pages/planning.css') }}?v=11.61.0">
+<link rel="stylesheet" href="{{ asset('css/pages/planning-calendar.css') }}?v=11.61.0">
+<link rel="stylesheet" href="{{ asset('css/pages/operations-identity.css') }}?v=11.61.0">
+<link rel="stylesheet" href="{{ asset('css/pages/contracts.css') }}?v=11.61.0">
 @livewireStyles
+ <x-layouts.favicon />
 </head>
 @php($palette = \App\Models\UiColorSetting::currentPalette())
 <style>:root{--ui-primary:{{ $palette['primary'] }};--ui-success:{{ $palette['success'] }};--ui-danger:{{ $palette['danger'] }};--ui-secondary:{{ $palette['secondary'] }};}</style>
-<body class="min-h-full bg-slate-50 text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-100">
+<body class="operations-app min-h-full bg-slate-50 text-slate-800 antialiased dark:bg-slate-950 dark:text-slate-100">
 <a class="sr-only focus:not-sr-only focus:absolute focus:z-[80] focus:bg-white focus:p-3" href="#contenido">Saltar al contenido</a>
 @auth
 <div x-data="{mobileOpen:false,profileOpen:false,collapsed:document.documentElement.dataset.sidebarCollapsed==='1',saveCollapse(){const value=this.collapsed?'1':'0';document.documentElement.dataset.sidebarCollapsed=value;try{localStorage.setItem('maintenance-sidebar-collapsed',value)}catch(error){}}}" @keydown.escape.window="mobileOpen=false; profileOpen=false" class="h-dvh overflow-hidden">
@@ -36,21 +43,13 @@
   <x-layouts.sidebar-brand />
   <nav class="min-h-0 flex-1 space-y-1 overflow-y-auto px-2 py-4" aria-label="Módulos">
    <span x-show="!collapsed || mobileOpen" class="sidebar-label block px-3 pb-2 text-[11px] font-bold uppercase tracking-widest text-slate-400">Operaciones</span>
-   <a href="{{ route('dashboard') }}" @click="mobileOpen=false" class="nav-item {{ request()->routeIs('dashboard') ? 'nav-active' : '' }}" title="Inicio"><span class="nav-icon"><x-ui.icon name="home" class="h-5 w-5" /></span><span class="sidebar-label" x-show="!collapsed || mobileOpen">Inicio</span></a>
-   @can('institutions.manage')<a href="{{ route('operations.institutions') }}" @click="mobileOpen=false" class="nav-item {{ request()->routeIs('operations.institutions') ? 'nav-active' : '' }}" title="Instituciones"><span class="nav-icon"><x-ui.icon name="building" class="h-5 w-5" /></span><span class="sidebar-label" x-show="!collapsed || mobileOpen">Instituciones</span></a>@endcan
-   <span class="nav-item nav-disabled" title="Clientes (próximamente)"><span class="nav-icon"><x-ui.icon name="briefcase" class="h-5 w-5" /></span><span class="sidebar-label" x-show="!collapsed || mobileOpen">Clientes <small class="ml-auto text-[10px]">Próximamente</small></span></span>
-   @can('users.manage')<a href="{{ route('operations.users') }}" @click="mobileOpen=false" class="nav-item {{ request()->routeIs('operations.users') ? 'nav-active' : '' }}" title="Usuarios"><span class="nav-icon"><x-ui.icon name="users" class="h-5 w-5" /></span><span class="sidebar-label" x-show="!collapsed || mobileOpen">Usuarios</span></a>@endcan
-   @foreach(['Equipos'=>'briefcase','Tickets'=>'ticket','Bitácoras'=>'clipboard','Mantenimientos'=>'wrench','Reportes'=>'chart'] as $module=>$symbol)
-   <span class="nav-item nav-disabled" title="{{ $module }} (próximamente)"><span class="nav-icon"><x-ui.icon :name="$symbol" class="h-5 w-5" /></span><span class="sidebar-label" x-show="!collapsed || mobileOpen">{{ $module }} <small class="ml-auto text-[10px]">Próximamente</small></span></span>
-   @endforeach
-   @if(\App\Modules\ReportTemplates\Configuration\Permissions::allows(auth()->user()))
-   <a href="{{ url('/admin/report-templates') }}" class="nav-item" title="Plantillas de informes"><span class="nav-icon"><x-ui.icon name="clipboard" class="h-5 w-5" /></span><span class="sidebar-label" x-show="!collapsed || mobileOpen">Plantillas de informes ↗</span></a>
-   @endif
+   @include('components.layouts.operations-navigation')
   </nav>
  </aside>
  <div class="app-shell-content flex h-dvh min-w-0 flex-col overflow-hidden">
   <header class="relative z-30 flex h-12 shrink-0 items-center justify-between border-b border-slate-200 bg-white/95 px-4 backdrop-blur sm:px-6 dark:border-slate-800 dark:bg-slate-900/95">
    <div class="flex min-w-0 items-center gap-3"><button @click="mobileOpen=true" type="button" class="rounded-lg p-2 hover:bg-slate-100 lg:hidden dark:hover:bg-slate-800" aria-label="Abrir menú" :aria-expanded="mobileOpen" aria-controls="app-sidebar"><x-ui.icon name="menu" /></button><div class="flex min-w-0 items-center gap-2">
+     <x-ui.project-mark :size="30" />
      <span class="truncate text-sm font-semibold sm:text-base">{{ \App\Models\BrandSetting::displayName() }}</span>
     </div></div>
    <div class="relative" @click.outside="profileOpen=false">

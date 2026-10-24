@@ -21,6 +21,15 @@ class InstitutionPage extends RecordEditor
     #[Locked]
     public array $loadedEditorRelations = [];
 
+    public function mount(): void
+    {
+        parent::mount();
+        if (request()->filled('record')) {
+            $id = filter_var(request('record'), FILTER_VALIDATE_INT, ['options' => ['min_range' => 1]]);
+            abort_unless($id, 404); $this->edit($id);
+        }
+    }
+
     public function create(): void
     {
         parent::create();
@@ -40,6 +49,7 @@ class InstitutionPage extends RecordEditor
 
     public function loadEditorRelation(string $relation): void
     {
+        if ($relation === 'contacts') { \App\Modules\Contacts\Configuration\Permissions::authorize(); }
         $definition = Relations::definitions()[$relation] ?? null;
         abort_unless($definition, 422);
         Gate::authorize($definition['permission']);
@@ -62,6 +72,8 @@ class InstitutionPage extends RecordEditor
     public string $contact_phone = '';
 
     public string $city = '';
+
+    public string $address = '';
 
     public string $type = 'company';
 

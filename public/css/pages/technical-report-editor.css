@@ -1,0 +1,25 @@
+/* Related ticket context, within the shared record editor. */
+.report-editor .record-editor-field input[type=date] { height:var(--record-editor-control-height); }
+.report-context { display:grid; gap:12px; margin:8px 0 0; padding:14px; background:var(--ui-wash); border:1px solid var(--ui-wash); border-radius:8px; }
+.report-context dt { color:#526782; font-size:11px; margin-bottom:5px; }
+.report-context dd { margin:0; color:#183554; font-size:13px; overflow-wrap:anywhere; }
+.dark .report-context { background:#172b46; border-color:#355273; }
+.dark .report-context dt { color:#a7bedb; }
+.dark .report-context dd { color:#e2edfc; }
+.report-editor-relations .record-editor-hint { font-size:12px; color:#64748b; line-height:1.6; }
+.dark .report-editor-relations .record-editor-hint { color:#94a3b8; }
+
+.report-context { grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); }
+.report-review details { margin:16px 0; padding:12px; border:1px solid #cbd5e1; border-radius:8px; }
+.report-review summary { cursor:pointer; font-weight:600; }
+.report-review p { white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.6; }
+.report-activity { padding:12px 0; border-bottom:1px solid #cbd5e1; }
+.report-pdf-status { margin:16px 0; padding:16px; border:1px solid #cbd5e1; border-radius:8px; }
+.report-pdf .ops-button svg { width:16px; height:16px; }
+.dark .report-review details, .dark .report-activity, .dark .report-pdf-status { border-color:#475569; }
+.technical-report-editor .record-editor-hint { color:#64748b; font-size:12px; line-height:1.6; }
+.technical-report-editor .ops-button { display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:40px; padding:9px 14px; border:1px solid var(--ui-primary); border-radius:8px; background:var(--ui-primary); color:#ffffff; font-size:13px; font-weight:600; text-decoration:none; cursor:pointer; }
+.technical-report-editor .ops-button:hover { background:var(--ui-primary); }
+.technical-report-editor .ops-button:focus-visible { outline:3px solid var(--ui-focus); outline-offset:2px; }
+.technical-report-editor .ops-button:disabled { opacity:.6; cursor:wait; }
+.dark .technical-report-editor .record-editor-hint { color:#94a3b8; }

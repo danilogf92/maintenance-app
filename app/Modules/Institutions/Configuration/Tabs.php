@@ -7,13 +7,14 @@ class Tabs
     public static function definitions(): array
     {
         return [
-            'general' => ['label' => 'General', 'sections' => [
-                ['title' => 'Datos de la institución', 'fields' => ['name', 'code', 'type', 'city']],
+            'general' => ['label' => 'General', 'icon' => 'info', 'sections' => [
+                ['title' => 'Datos de la institución', 'fields' => ['name', 'code', 'type', 'city', 'address']],
             ]],
-            'contact' => ['label' => 'Contacto', 'sections' => [
+            'contact' => ['label' => 'Comunicación', 'icon' => 'phone', 'sections' => [
                 ['title' => 'Información de contacto', 'fields' => ['contact_email', 'contact_phone']],
             ]],
-            'users' => ['label' => 'Usuarios', 'relation' => 'users'],
+            'contacts' => ['label' => 'Contactos', 'icon' => 'users', 'relation' => 'contacts'],
+            'users' => ['label' => 'Usuarios', 'icon' => 'users', 'relation' => 'users'],
         ];
     }
 }

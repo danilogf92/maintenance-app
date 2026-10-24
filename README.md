@@ -30,3 +30,7 @@ Las migraciones proceden de la plantilla Corpo Training: instituciones, usuarios
 
 ## Comprobacion
 No se ha ejecutado Docker Desktop en este entorno de generacion; el paquete se ha revisado estaticamente. Si el arranque falla, comparta el log completo.
+
+## Flujo operativo v11.39.0
+
+Panel: http://localhost:8611/operations/clients. Clientes → Equipos → Tickets → Servicios → Actividades → Informes técnicos. Usa las cuentas existentes y los permisos del nuevo flujo. Guía: [docs/FLUJO_OPERATIVO.md](docs/FLUJO_OPERATIVO.md). Entidades pendientes: [docs/PENDIENTES_ENTIDADES.md](docs/PENDIENTES_ENTIDADES.md). Arquitectura: [app/Modules/Workflow/README.md](app/Modules/Workflow/README.md). Los informes son borradores y sus PDF se generan siempre por cola.

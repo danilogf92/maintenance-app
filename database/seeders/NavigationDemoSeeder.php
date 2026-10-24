@@ -19,6 +19,8 @@ class NavigationDemoSeeder extends Seeder
 
     public function run(): void
     {
+        if (!app()->environment('testing')) { $this->command?->warn('La carga de demostraciones está deshabilitada.'); return; }
+
         $this->validateSchema();
         $role = Role::where('name', 'Cliente')->where('guard_name', 'web')->first();
         // Unknown random password: demo accounts receive no shared public credential.

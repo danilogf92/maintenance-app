@@ -1,0 +1,8 @@
+<div class="dm-note"><strong>Relaciones que existen en la base de datos</strong><p>Se leen las claves foráneas instaladas. “Sin vínculo” cuenta valores nulos, que pueden ser válidos cuando la relación es opcional. “Origen detectado” solo indica que el inventario tiene una correspondencia guardada para ese destino.</p></div>
+<div class="dm-table-wrap"><table class="dm-table"><thead><tr><th>Entidad</th><th>Relación</th><th>Destino</th><th>Tipo</th><th>Con vínculo</th><th>Sin vínculo</th><th>Origen detectado</th></tr></thead><tbody>
+ @forelse($relations as $relation)<tr><td>{{ $relation['child_label'] }}<small><code>{{ $relation['child'] }}</code></small></td>
+ <td><code>{{ $relation['column'] }}</code></td><td>{{ $relation['parent_label'] }}<small><code>{{ $relation['parent'] }}</code></small></td>
+ <td>{{ $relation['nullable'] ? 'Opcional' : 'Obligatoria' }}</td><td>{{ $relation['linked'] }}</td><td>{{ $relation['unlinked'] }}</td><td>{{ $relation['source_parent_present'] ? 'Sí' : 'No / pendiente' }}</td></tr>
+ @empty<tr><td colspan="7">No hay relaciones disponibles para revisar.</td></tr>@endforelse
+</tbody></table></div>
+<section class="dm-panel"><h3>Diferencias que debemos conservar</h3><ul class="dm-steps"><li>Los ingenieros de servicio son personas del historial; no equivalen automáticamente a usuarios con acceso.</li><li>Las visitas históricas FSE no equivalen a visitas del calendario de mantenimiento.</li><li>Una asociación contrato/equipo no determina su período de cobertura.</li><li>Las recomendaciones del servicio se guardan como un campo; su tabla de origen requiere transformación.</li><li>Las firmas y componentes del historial necesitan revisar su entidad y pertenencia antes de cargarlos.</li></ul></section>

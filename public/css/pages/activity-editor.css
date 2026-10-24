@@ -1,0 +1,28 @@
+/* Activity context and private evidence gallery. */
+.activity-context { display:grid; gap:12px; margin:8px 0 0; padding:14px; background:var(--ui-wash); border:1px solid var(--ui-wash); border-radius:8px; }
+.activity-context dt { color:#526782; font-size:11px; margin-bottom:5px; }
+.activity-context dd { margin:0; color:#183554; font-size:13px; overflow-wrap:anywhere; }
+.evidence-hint { color:#64748b; font-size:12px; line-height:1.6; }
+.evidence-upload { display:grid; gap:12px; padding:16px; border:1px dashed #94a3b8; border-radius:9px; margin-bottom:18px; }
+.evidence-upload input { font-size:13px; max-width:100%; }
+.evidence-status { font-size:12px; line-height:1.6; margin-bottom:14px; }
+.evidence-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+.evidence-card { min-width:0; border:1px solid #cbd5e1; border-radius:9px; overflow:hidden; background:#fff; margin:0; }
+.evidence-image { display:block; background:#e2e8f0; }
+.evidence-image img { width:100%; height:155px; object-fit:contain; }
+.evidence-card figcaption { display:flex; align-items:center; flex-wrap:wrap; justify-content:space-between; gap:6px; padding:10px; font-size:12px; }
+.evidence-actions { display:flex; gap:4px; }
+.evidence-actions button { display:grid; place-items:center; min-width:36px; min-height:36px; border:1px solid #cbd5e1; border-radius:5px; color:#334155; }
+.evidence-actions button:disabled { opacity:.35; cursor:not-allowed; }
+.evidence-actions button:hover:enabled { background:var(--ui-wash); }
+.evidence-actions button:focus-visible { outline:2px solid var(--ui-primary); outline-offset:2px; }
+.evidence-actions svg { width:16px; height:16px; }
+.dark .activity-context { background:#172b46; border-color:#355273; }
+.dark .activity-context dt,.dark .evidence-hint { color:#a7bedb; }
+.dark .activity-context dd { color:#e2edfc; }
+.dark .evidence-card { background:#0f172a; border-color:#475569; }
+.dark .evidence-image { background:#1e293b; }
+.dark .evidence-actions button { color:#e2e8f0; border-color:#475569; }
+.dark .evidence-actions button:hover:enabled { background:#1e293b; }
+@container record-editor-content (max-width:360px) { .evidence-grid { grid-template-columns:1fr; } }
+@media(max-width:819px) { .evidence-actions button { min-width:44px; min-height:44px; } }

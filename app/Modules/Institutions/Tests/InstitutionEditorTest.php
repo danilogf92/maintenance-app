@@ -44,7 +44,7 @@ class InstitutionEditorTest extends TestCase
         $editor = InstitutionModule::editor($tabs);
         $this->assertContains('contact_email', $editor['editorTabs']['general']['sections'][0]['fields']);
         $this->assertSame(Fields::definitions(), $editor['editorFields']);
-        $this->assertStringContainsString('--institution-gap:16px', $editor['editorLayoutStyle']);
+        $this->assertStringContainsString('--record-editor-gap:16px', $editor['editorLayoutStyle']);
     }
 
     public function test_duplicate_fields_fail_with_an_explicit_configuration_error(): void

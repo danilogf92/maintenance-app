@@ -1,0 +1,23 @@
+.operations-app{--ui-wash:#FBECE7;--ui-focus:#D9A393;--page-bg:#FAF9F6;--page-surface:#FFFFFF;--page-border:#DEDCD6;--page-text:#26343B;--page-muted:#647078;background:var(--page-bg);color:var(--page-text)}
+.operations-app .nav-item.nav-active{background:var(--ui-wash);color:var(--ui-primary)}
+.operations-app .nav-item:hover{color:var(--ui-primary)}
+.operations-app .ops-view-tabs,.operations-app .ops-primary{background:var(--ui-primary)!important;color:#FFFFFF}
+.operations-app .ops-view-tab-active{background:var(--page-surface)!important;color:var(--ui-primary)!important}
+.operations-app :is(.ops-eyebrow,.ops-column-mark,.record-editor-tabs button.is-active){color:var(--ui-primary)}
+.operations-app .ops-primary:hover{filter:brightness(.9)}
+.operations-app :is(.bg-blue-700,.bg-blue-600){background:var(--ui-primary)}
+.operations-app :is(.text-blue-500,.text-blue-600,.text-blue-700,.text-blue-800){color:var(--ui-primary)}
+.operations-app :is(.bg-blue-50,.bg-blue-100){background:var(--ui-wash)}
+.operations-app :is(.focus\:ring-blue-500:focus,.focus\:border-blue-500:focus){--tw-ring-color:var(--ui-focus);border-color:var(--ui-primary)}
+.operations-app input[type=checkbox]{accent-color:var(--ui-primary)}
+.operations-app :is(.page-icon,.ops-column-actions button,.ops-icon-button:hover){color:var(--ui-primary)}
+.operations-app .ops-resize-grip{color:var(--ui-primary);border-color:var(--ui-focus);background:var(--ui-wash)}
+.operations-app :is(.ops-record-row.ops-record-selected>td,.ops-record-row.ops-record-selected:hover>td){background:var(--ui-wash)!important}
+.operations-app .record-editor-field :is(input,select,textarea):focus{outline-color:var(--ui-focus);border-color:var(--ui-primary)}
+.operations-app .plan-calendar{--cal-bg:var(--page-surface);--cal-ink:var(--page-text);--cal-muted:var(--page-muted);--cal-line:var(--page-border);background:var(--page-bg)}
+.operations-app .calendar-state.state-completed{--state:#247255;--wash:#EAF6EF}.operations-app .calendar-state.state-overdue{--state:#A05A15;--wash:#FFF5E5}
+.operations-app .calendar-card.state-completed{--state:#247255;--wash:#EAF6EF}
+.dark .operations-app{--ui-wash:#492A25;--ui-focus:#E6AA96;--page-bg:#171A1C;--page-surface:#23282B;--page-border:#42494B;--page-text:#F0EEE9;--page-muted:#B2B8B8}
+.dark .operations-app .nav-item.nav-active,.dark .operations-app .ops-view-tab-active{color:#F0B39E!important}
+.dark .operations-app :is(.bg-blue-700,.bg-blue-600){background:var(--ui-primary);color:#FFFFFF}
+.dark .operations-app .calendar-state.state-completed,.dark .operations-app .calendar-card.state-completed{--state:#8BD4AE;--wash:#1C3D31}

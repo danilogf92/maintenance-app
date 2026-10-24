@@ -10,34 +10,35 @@
  @keydown.escape.window="if ($wire.formOpen && !document.querySelector('.institution-user-dialog[open]')) $wire.closeForm()">
  <x-record-editor.record-form novalidate :style="'min-height:0;'"
   x-bind:style="{height:isRelationTab()?'auto':'100%',flex:isRelationTab()?'0 0 auto':'1 1 0%'}">
-  <header class="institution-editor-header">
+  <header class="record-editor-header">
    <x-record-editor.mobile-title label="Institución" :record-id="$editingId" />
    <x-record-editor.drawer-handle />
    <x-record-editor.record-save-status />
    <x-record-editor.drawer-close />
   </header>
-  <nav class="institution-editor-tabs" role="tablist" aria-label="Información de la institución">
+  <nav class="record-editor-tabs" role="tablist" aria-label="Información de la institución">
   @foreach($editorTabs as $key => $tab)
-   @if(!isset($tab['relation']) || auth()->user()->can($editorRelations[$tab['relation']]['permission']))
+   @if(!isset($tab['relation']) || auth()->user()->can($editorRelations[$tab['relation']]['permission']) && ($tab['relation'] !== 'contacts' || \App\Modules\Contacts\Configuration\Permissions::allows()))
    @php($hasErrors = collect($tab['sections'] ?? [])->pluck('fields')->flatten()->contains(fn($field) => $errors->has($field)))
    <button type="button" role="tab" id="institution-tab-{{ $key }}" aria-controls="institution-pane-{{ $key }}"
+    data-record-relation="{{ $tab['relation'] ?? '' }}" @record-navigation-select.stop="activeTab='{{ $key }}'"
     :aria-selected="activeTab==='{{ $key }}'" :tabindex="activeTab==='{{ $key }}'?0:-1"
     :class="{'is-active':activeTab==='{{ $key }}'}" @click="selectTab('{{ $key }}')"
     @keydown.arrow-right.prevent="$el.nextElementSibling?.focus()" @keydown.arrow-left.prevent="$el.previousElementSibling?.focus()">
-    {{ $tab['label'] }} @if($hasErrors)<span class="institution-tab-error" title="Campos pendientes">●</span>@endif
+    <x-ui.icon :name="$tab['icon'] ?? 'info'" class="record-tab-icon" /><span>{{ $tab['label'] }}</span> @if($hasErrors)<span class="record-editor-tab-error" title="Campos pendientes">●</span>@endif
    </button>
    @endif
   @endforeach
   </nav>
-  <div class="institution-editor-content" x-show="!isRelationTab()">
+  <div class="record-editor-content" x-show="!isRelationTab()">
    <x-record-editor.validation-summary />
    @foreach($editorTabs as $key => $tab)
     @if(!isset($tab['relation']))
     <div id="institution-pane-{{ $key }}" role="tabpanel" aria-labelledby="institution-tab-{{ $key }}" x-show="activeTab==='{{ $key }}'">
      @foreach($tab['sections'] as $section)
-     <section class="institution-section">
+     <section class="record-editor-section">
       @if($section['title'] ?? '')<h3>{{ $section['title'] }}</h3>@endif
-      <div class="institution-field-grid" @if(isset($section['columns'])) style="--institution-columns:{{ (int)$section['columns'] }}" @endif>
+      <div class="record-editor-field-grid" @if(isset($section['columns'])) style="--record-editor-columns:{{ (int)$section['columns'] }}" @endif>
       @foreach($section['fields'] as $field)
        @include('institutions::field', ['definition' => $editorFields[$field], 'width' => $section['widths'][$field] ?? 'auto'])
       @endforeach
@@ -51,12 +52,14 @@
  </x-record-editor.record-form>
  <div class="institution-editor-relations" x-show="isRelationTab()">
  @foreach($editorTabs as $key => $tab)
-  @if(isset($tab['relation']) && auth()->user()->can($editorRelations[$tab['relation']]['permission']))
+  @if(isset($tab['relation']) && auth()->user()->can($editorRelations[$tab['relation']]['permission']) && ($tab['relation'] !== 'contacts' || \App\Modules\Contacts\Configuration\Permissions::allows()))
   <div id="institution-pane-{{ $key }}" role="tabpanel" aria-labelledby="institution-tab-{{ $key }}" x-show="activeTab==='{{ $key }}'">
    @if(!$editingId)<p>Completa los datos obligatorios en General para guardar la institución y ver sus relaciones.</p>
    @elseif($formOpen && in_array($tab['relation'], $loadedEditorRelations, true))
     @if($tab['relation'] === 'users')
      @livewire('institution-related-users', ['institutionId' => $editingId], key('institution-users-'.$editingId))
+    @elseif($tab['relation'] === 'contacts')
+     @livewire('contact-links', ['institutionId' => $editingId], key('institution-contacts-'.$editingId))
     @endif
    @else<p>Abre esta pestaña para cargar sus registros.</p>@endif
   </div>

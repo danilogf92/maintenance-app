@@ -19,9 +19,29 @@ use Spatie\Permission\Models\Role;
 
 class AppServiceProvider extends ServiceProvider
 {
+    public function register(): void
+    {
+        $this->app->scoped(\App\Support\Cache\PageDataCache::class);
+    }
+
     public function boot(): void
     {
         InstitutionModule::register();
+        \App\Modules\DataManagement\DataManagementModule::register();
+        \App\Modules\MaintenanceProtocols\MaintenanceProtocolModule::register();
+        \App\Modules\Contracts\ContractsModule::register();
+        \App\Modules\FieldEngineers\FieldEngineerModule::register();
+        \App\Modules\MaintenancePlans\MaintenancePlanModule::register();
+        \App\Modules\Contacts\ContactsModule::register();
+        \App\Modules\Catalogs\CatalogModule::register();
+        \App\Modules\TechnicalReports\TechnicalReportModule::register();
+        \App\Modules\Clients\ClientModule::register();
+        \App\Modules\Equipment\EquipmentModule::register();
+        \App\Modules\Tickets\TicketModule::register();
+        \App\Modules\Services\ServiceModule::register();
+        \App\Modules\Activities\ActivityModule::register();
+        view()->addNamespace('users', app_path('Modules/Users/UI/Views'));
+        \Livewire\Livewire::component('workflow-operations', \App\Modules\Workflow\UI\OperationsPage::class);
         \App\Modules\ReportTemplates\ReportTemplateModule::register();
         foreach ([User::class, Institution::class,
             BrandSetting::class, UiColorSetting::class,

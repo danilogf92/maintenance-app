@@ -18,7 +18,7 @@ class HeaderRenderer
             $column['image'] = array_key_exists($source, $images) ? $images[$source] : ($images[$legacySource] ?? null);
             $column['fallback'] = match ($source) {
                 'company', 'company_custom' => $branding['name'],
-                'factory', 'factory_custom' => (string) data_get($data, 'equipment.brand', ''),
+                'factory', 'factory_custom' => (string) (data_get($data, 'equipment.manufacturer') ?: data_get($data, 'equipment.brand', '')),
                 default => '',
             };
             foreach ($column['lines'] as &$line) {

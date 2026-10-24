@@ -99,12 +99,6 @@ return [
         'failover' => [
             'driver' => 'failover',
             'stores' => [
-                'page-data' => [
-                    'driver' => 'file',
-                    'path' => storage_path('framework/cache/page-data'),
-                    'lock_path' => storage_path('framework/cache/page-data'),
-                ],
-
                 'database',
                 'array',
             ],

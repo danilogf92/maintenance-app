@@ -8,7 +8,7 @@
 .page-theme legend { padding:0 10px 0 0; }
 .page-themes { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin-top:16px; }
 .page-theme-option { display:flex; align-items:center; gap:12px; padding:18px 14px; border:1px solid var(--page-border); border-radius:11px; cursor:pointer; }
-.page-theme-option:hover { border-color:#93c5fd; }
+.page-theme-option:hover { border-color:var(--ui-focus); }
 .page-theme-option:has(:checked) { border-color:var(--page-accent); background:#2563eb08; box-shadow:0 0 0 1px var(--page-accent); }
 .page-theme-option:focus-within { outline:3px solid #60a5fa30; outline-offset:2px; }
 .page-theme-option input { width:17px; height:17px; flex:none; accent-color:var(--page-accent); }

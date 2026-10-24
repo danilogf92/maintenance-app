@@ -1,0 +1,17 @@
+{
+  "Equipos": "equipment",
+  "Bitácora Servicio": "services",
+  "Contratos": "maintenance_contracts",
+  "Centros Medicos": "institutions",
+  "Modelo": "equipment_models",
+  "Tickets": "tickets",
+  "Clientes": "clients",
+  "FSE (Ingenieros de Campo)": "field_engineers",
+  "Ingenieros de Servicio": "field_engineers",
+  "Protocolos": "maintenance_protocols",
+  "Pasos del protocolo": "maintenance_protocol_steps",
+  "Marca": "brands",
+  "Contactos": "contacts",
+  "Centro Asociado": "equipment_institution_histories",
+  "Clientes Asociados": "equipment_client_histories"
+}

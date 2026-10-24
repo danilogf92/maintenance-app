@@ -1,0 +1,15 @@
+/* Google access controls shared by public login and authenticated profile. */
+.google-button { display:flex; align-items:center; justify-content:center; gap:12px; min-height:44px; padding:11px 16px; border:1px solid #747775; border-radius:4px; background:#fff; color:#1f1f1f; font-family:Arial,"Segoe UI",sans-serif; font-size:14px; font-weight:500; cursor:pointer; text-decoration:none; }
+.google-button svg { width:20px; height:20px; flex:none; }
+.google-button:hover { background:#f6f8fb; border-color:#3c4043; }
+.google-button:focus-visible { outline:3px solid #93b9f7; outline-offset:3px; }
+.google-button:disabled { cursor:not-allowed; background:#f8f9fa; color:#62676e; border-color:#c4c7c5; }
+.google-login { margin-top:23px; }
+.google-login .google-button { width:100%; }
+.google-divider { display:flex; align-items:center; gap:13px; margin:0 0 18px; color:#64748b; font-size:11px; }
+.google-divider::before,.google-divider::after { content:""; flex:1; height:1px; background:#dce4ed; }
+.google-login-hint { margin:12px 0 0; color:#5c6c7f; font-size:11px; line-height:1.7; }
+.google-profile { display:grid; gap:18px; margin-top:24px; }
+.google-profile .page-help { margin:0; overflow-wrap:anywhere; }
+.google-profile form { margin:0; }
+@media(max-width:640px) { .google-profile .google-button { width:100%; } }

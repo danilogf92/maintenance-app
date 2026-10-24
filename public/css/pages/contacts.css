@@ -1,0 +1,79 @@
+/* Responsive contact links inside the native record drawer. */
+.contact-links{display:flex;flex-direction:column;gap:18px;min-width:0;color:var(--page-text);font-family:"Segoe UI",Arial,sans-serif;font-size:13px;line-height:1.5;container-type:inline-size}
+.contact-links *{box-sizing:border-box;min-width:0}
+.contact-links svg{width:17px;height:17px;flex:none}
+.contact-links-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.contact-links-heading h3{margin:0;font-size:16px;font-weight:700;letter-spacing:-.02em}
+.contact-links-heading p{margin:5px 0 0;font-size:12px;color:var(--page-muted);max-width:36ch}
+.contact-links-count{flex:none;border:1px solid var(--page-border);padding:4px 8px;border-radius:6px;font-size:11px;color:var(--page-muted);white-space:nowrap}
+.contact-links-toolbar,.contact-links-form-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px}
+.contact-links button,.contact-links a{font-family:inherit;cursor:pointer;transition:border-color .15s}
+.contact-links :is(button,a,input,select,summary):focus-visible{outline:2px solid var(--page-accent);outline-offset:3px}
+.contact-links :is(button,a){text-decoration:none}
+.contact-links-button,.contact-links-secondary,.contact-links-danger{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:40px;padding:9px 12px;border:1px solid transparent;border-radius:8px;font-size:12px;font-weight:650;line-height:1.4;text-align:center}
+.contact-links-button{background:var(--page-accent);color:#fff!important}
+.contact-links-button:hover{filter:brightness(.93)}
+.contact-links-secondary{background:var(--page-surface);border-color:var(--page-border);color:var(--page-text)}
+.contact-links-secondary:hover{background:var(--page-bg)}
+.contact-links-danger{background:#b91c1c;color:#fff}
+.contact-links :disabled{opacity:.6;cursor:wait}
+.contact-links-filters{display:flex;flex-direction:column;gap:11px}
+.contact-links-search{display:flex;align-items:center;gap:9px;min-height:42px;padding:0 12px;background:var(--page-surface);border:1px solid var(--page-border);border-radius:8px;color:var(--page-muted)}
+.contact-links-search:focus-within{border-color:var(--page-accent);box-shadow:0 0 0 2px #2563eb14}
+.contact-links-search input{width:100%;border:0;background:transparent!important;outline:none!important;box-shadow:none!important;padding:9px 0!important;color:var(--page-text);font-size:13px}
+.contact-links-check{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--page-muted);cursor:pointer}
+.contact-links-check input{width:16px;height:16px;flex:none;accent-color:var(--page-accent)}
+.contact-links-list{display:grid;gap:12px}
+.contact-link-card{padding:16px;background:var(--page-surface);border:1px solid var(--page-border);border-radius:12px;box-shadow:0 2px 4px #0f172a03;overflow:hidden}
+.contact-link-card.is-primary{border-left:3px solid #0d9488;padding-left:14px}
+.contact-link-card.is-editing{border-color:var(--page-accent);box-shadow:0 0 0 2px #2563eb1a}
+.contact-link-card-top{display:flex;gap:11px;align-items:flex-start}
+.contact-link-avatar{display:flex;align-items:center;justify-content:center;width:36px;height:36px;flex:none;border-radius:9px;background:var(--page-bg);color:var(--page-muted)}
+.contact-link-identity{flex:1}
+.contact-link-kind{display:block;color:var(--page-muted);font-size:11px;line-height:1.5;margin-bottom:3px;overflow-wrap:anywhere}
+.contact-link-name{display:block;font-size:14px;font-weight:700;line-height:1.5;color:var(--page-text);overflow-wrap:anywhere}
+.contact-link-name:hover{color:var(--page-accent);text-decoration:underline;text-underline-offset:3px}
+.contact-link-identity p{margin:3px 0 0;color:var(--page-muted);font-size:12px;overflow-wrap:anywhere}
+.contact-link-badges{display:flex;align-items:center;flex-wrap:wrap;gap:6px;margin-top:13px}
+.contact-link-badge{display:inline-flex;align-items:center;gap:4px;max-width:100%;padding:3px 8px;border:1px solid var(--page-border);border-radius:6px;background:var(--page-bg);font-size:11px;line-height:1.6;color:var(--page-muted);overflow-wrap:anywhere}
+.contact-link-badge svg{width:12px;height:12px}
+.contact-link-badge.primary{border-color:#99f6e4;background:#f0fdfa;color:#0f766e}
+.contact-link-badge.inactive{border-color:#fde68a;background:#fffbeb;color:#92400e}
+.contact-link-badge.editing{border-color:var(--ui-focus);background:var(--ui-wash);color:var(--ui-primary)}
+.contact-link-channels{display:flex;flex-direction:column;gap:8px;margin-top:14px;padding-top:13px;border-top:1px solid var(--page-border);color:var(--page-muted);font-size:12px}
+.contact-link-channels>div{display:flex;align-items:flex-start;gap:8px}
+.contact-link-channels span{overflow-wrap:anywhere}
+.contact-link-channels svg{width:15px;height:15px;margin-top:1px}
+.contact-link-card-actions{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--page-border)}
+.contact-link-card-actions button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:36px;padding:7px 10px;border:1px solid var(--page-border);border-radius:7px;background:var(--page-surface);color:var(--page-text);font-size:12px}
+.contact-link-card-actions button:hover{border-color:var(--page-accent);color:var(--page-accent)}
+.contact-link-card-actions button.contact-link-unlink{border-color:transparent;color:var(--page-muted)}
+.contact-link-card-actions button.contact-link-unlink:hover{color:#b91c1c;background:#fef2f2}
+.contact-links-notice{display:flex;align-items:flex-start;gap:8px;padding:11px 12px;border:1px solid #99f6e4;border-radius:8px;background:#f0fdfa;color:#0f766e;font-size:12px}
+.contact-links-form{border:1px solid var(--page-accent);border-radius:12px;background:var(--page-surface);overflow:hidden}
+.contact-links-form>header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid var(--page-border)}
+.contact-links-form h4,.contact-links-confirm h4{margin:0;font-size:14px;font-weight:700}
+.contact-links-icon-button{display:flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid var(--page-border);border-radius:7px;color:var(--page-muted);background:var(--page-surface)}
+.contact-links-form-fields{display:flex;flex-direction:column;gap:18px;padding:18px}
+.contact-links-form .record-editor-field{display:flex;flex-direction:column;gap:7px;font-size:12px;font-weight:600;color:var(--page-text)}
+.contact-links-form input:not([type=checkbox]),.contact-links-form select{width:100%;min-height:42px;border:1px solid var(--page-border);border-radius:8px;background:var(--page-surface);padding:9px 10px;color:var(--page-text);font-size:13px;font-weight:400}
+.contact-links-advanced summary{color:var(--page-accent);cursor:pointer;font-size:12px}
+.contact-links-advanced label{margin-top:12px}
+.contact-links-primary-option{padding:12px;border-radius:8px;background:var(--page-bg);border:1px solid var(--page-border)}
+.contact-links-primary-option .contact-links-check{color:var(--page-text);font-weight:600}
+.contact-links-primary-option p{margin:7px 0 0 24px;font-size:11px;color:var(--page-muted);line-height:1.6}
+.contact-links-form-actions{padding:14px 18px;background:var(--page-bg);border-top:1px solid var(--page-border)}
+.contact-links-confirm{padding:16px;border:1px solid #f59e0b;border-radius:12px;background:var(--page-surface)}
+.contact-links-confirm p{margin:8px 0 14px;color:var(--page-muted);font-size:12px;line-height:1.6}
+.contact-links-empty{display:flex;flex-direction:column;align-items:center;padding:28px 18px;border:1px dashed var(--page-border);border-radius:12px;text-align:center}
+.contact-links-empty>svg{width:30px;height:30px;color:var(--page-muted);margin-bottom:12px}
+.contact-links-empty h4{font-size:14px;font-weight:650}
+.contact-links-empty p{margin:6px 0 0;color:var(--page-muted);font-size:12px;max-width:35ch}
+.contact-links-loading{font-size:12px;color:var(--page-muted)}
+.dark .contact-link-badge.primary,.dark .contact-links-notice{background:#042f2e;border-color:#115e59;color:#5eead4}
+.dark .contact-link-badge.inactive{background:#451a03;border-color:#92400e;color:#fcd34d}
+.dark .contact-link-badge.editing{background:#172554;border-color:#1e40af;color:var(--ui-focus)}
+.dark .contact-link-card-actions button.contact-link-unlink:hover{background:#450a0a;color:#fca5a5}
+@container(min-width:720px){.contact-links-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@container(max-width:340px){.contact-links-heading{flex-wrap:wrap}.contact-links-toolbar>*{flex:1}.contact-link-card{padding:13px}.contact-links-form-fields{padding:14px}}
+@media(prefers-reduced-motion:reduce){.contact-links button,.contact-links a{transition:none}}

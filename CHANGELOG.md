@@ -1,3 +1,24 @@
+## v11.49.0 — Logo y favicon del proyecto
+
+Nueva identidad de Maintenance APP: marca M en azul, blanco y turquesa; versiones horizontales clara/oscura, iconos PNG y favicon ICO de varios tamaños. Integrado en portada, login, aplicación y Admin. Se respetan los logos corporativos configurados. No se alteran los logos capturados en los informes.
+
+## v11.48.2 — Feedback del menú lateral
+
+Catálogos de equipos muestra una flecha que gira al abrir o cerrar, submenús con sangría y guía visual, selección activa diferenciada y foco de teclado visible. Recuerda el estado del grupo por usuario en este navegador. Se conservan el menú compacto, móvil, tema oscuro y la corrección de navegación de v11.48.1.
+
+## v11.48.1 — Navegación conserva la pestaña
+
+Las flechas Primero, Anterior, Siguiente y Último conservan la pestaña seleccionada al cambiar de registro. Las relaciones se cargan para el registro de destino. Si una validación impide avanzar, se mantiene el registro actual. Abrir una ficha desde la tabla o crear un registro conserva el comportamiento de apertura habitual.
+
+## v11.39.0 — Primer flujo operativo con seis entidades
+
+- Clientes, equipos, tickets, servicios, actividades e informes técnicos en panel operativo Filament `/workspace`, integrado en el menú existente.
+- Relaciones, validaciones, búsqueda, filtros, creación enlazada, lectura/edición y control de edición concurrente. Sin borrado de historial operativo.
+- Roles: administración completa; técnicos con trabajo asignado y lectura de clientes/equipos; CEO de consulta. Control en consultas, acciones y archivos.
+- Evidencias privadas (PNG/JPEG/WebP, 4 × 1 MiB por actividad), protegidas por servicio. Se impide asociar por ruta archivos ajenos.
+- Informes borrador desde datos registrados y plantilla publicada o borrador actual. Copia cifrada de datos/diseño/logos/evidencias; revisión explícita al guardar. PDF siempre por cola, privado y temporal.
+- No se modifican plantillas existentes, no se importan datos Ninox y no se generan respaldos automáticos. Pendientes enumerados en docs/PENDIENTES_ENTIDADES.md.
+
 ## v11.38.7 — Editor compacto y firma individual
 
 - Columnas e ítems en una lista compacta. Un único panel de contenido y formato para el elemento seleccionado. La configuración completa queda plegada y conserva todas las opciones anteriores.

@@ -1,13 +1,9 @@
 {{-- Cabecera lateral: sin nombre duplicado; el control permanece visible en escritorio. --}}
 <div class="flex h-12 shrink-0 items-center justify-between gap-2 border-b border-slate-200 px-2 dark:border-slate-700">
     <a x-show="!collapsed || mobileOpen" href="{{ route('dashboard') }}"
-       class="sidebar-brand-link flex h-9 w-10 shrink-0 items-center justify-center rounded-lg bg-blue-700 text-white shadow-sm transition hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-500"
+       class="sidebar-brand-link flex h-9 w-10 shrink-0 items-center justify-center rounded-lg transition hover:bg-slate-100 dark:hover:bg-slate-800"
        title="Ir al inicio" aria-label="Volver al inicio">
-        <svg viewBox="0 0 32 32" class="h-6 w-6" fill="none" aria-hidden="true">
-            <path d="M5 25V7l11 11L27 7v18" stroke="currentColor" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M12 26a7 7 0 0 1 8-6" stroke="#93C5FD" stroke-width="3" stroke-linecap="round"/>
-            <circle cx="22" cy="22" r="3" fill="#BFDBFE"/>
-        </svg>
+        <x-ui.project-mark :size="40" />
     </a>
 
     {{-- El control es de escritorio. Su visibilidad no depende del CSS compilado. --}}

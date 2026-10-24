@@ -1,6 +1,28 @@
 @props(['name' => 'panel'])
 @php
 $paths = [
+    'image' => '<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="2"/><path d="m21 15-5-5L5 21"/>',
+    'cpu' => '<rect x="6" y="6" width="12" height="12" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 2v4m6-4v4M9 18v4m6-4v4M2 9h4m-4 6h4m12-6h4m-4 6h4"/>',
+    'file-text' => '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z"/><path d="M14 2v6h6M8 12h8m-8 4h8"/>',
+    'activity' => '<path d="M2 12h5l3-8 4 16 3-8h5"/>',
+    'map-pin' => '<path d="M20 10c0 6-8 12-8 12S4 16 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="3"/>',
+    'mail' => '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 6 9 7 9-7"/>',
+    'unlink' => '<path d="m4 4 16 16M9 15l-2 2a3 3 0 0 1-4-4l3-3M15 9l2-2a3 3 0 0 1 4 4l-3 3M8 2v3M2 8h3m14 3h3m-6 8v3"/>',
+    'phone' => '<path d="M22 16.9v3a2 2 0 0 1-2.2 2A20 20 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7l.5 3a2 2 0 0 1-.6 1.8L7.1 10a16 16 0 0 0 6.9 6.9l1.5-1.9a2 2 0 0 1 1.8-.6l3 .5a2 2 0 0 1 1.7 2Z"/>',
+    'shield' => '<path d="m12 2 9 4v6c0 6-9 10-9 10S3 18 3 12V6Z"/><path d="m8 12 3 3 5-6"/>',
+    'info' => '<circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v1"/>',
+    'calendar' => '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/>',
+    'clock' => '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
+    'check-circle' => '<circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/>',
+    'x-circle' => '<circle cx="12" cy="12" r="9"/><path d="m9 9 6 6m0-6-6 6"/>',
+    'alert' => '<path d="m12 3 10 18H2Z"/><path d="M12 9v5m0 3v1"/>',
+    'archive' => '<rect x="3" y="3" width="18" height="4" rx="1"/><path d="M5 7v14h14V7m-10 5h6"/>',
+    'tag' => '<path d="M3 3h8l10 10-8 8L3 11Z"/><circle cx="7.5" cy="7.5" r="1"/>',
+    'book' => '<path d="M12 5v16M3 3c5-1 7 0 9 2 2-2 4-3 9-2v16c-5-1-7 0-9 2-2-2-4-3-9-2Z"/>',
+    'medical' => '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M12 7v10M7 12h10"/>',
+    'pencil' => '<path d="m16 3 5 5-12 12-6 1 1-6ZM14 5l5 5"/>',
+    'external-link' => '<path d="M14 3h7v7m0-7L10 14M10 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5"/>',
+
     'table' => '<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 9v12M15 9v12M3 15h18"/>',
     'arrow-right' => '<path d="M5 12h14m-6-6 6 6-6 6"/>',
     'check' => '<path d="m5 12 4 4L19 6"/>',
@@ -40,4 +62,4 @@ $paths = [
     'user' => '<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
     'log-out' => '<path d="M10 17l5-5-5-5m5 5H3m9-9h7a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-7"/>'];
 @endphp
-<svg {{ $attributes->class(['h-4 w-4 shrink-0'])->merge(['fill'=>'none','stroke'=>'currentColor','stroke-width'=>'1.8','stroke-linecap'=>'round','stroke-linejoin'=>'round','viewBox'=>'0 0 24 24','aria-hidden'=>'true']) }}>{!! $paths[$name] ?? $paths['panel'] !!}</svg>
+<svg {{ $attributes->class(['h-4 w-4 shrink-0'])->merge(['fill'=>'none','stroke'=>'currentColor','stroke-width'=>'1.8','stroke-linecap'=>'round','stroke-linejoin'=>'round','viewBox'=>'0 0 24 24','aria-hidden'=>'true','data-icon'=>$name]) }}>{!! $paths[$name] ?? $paths['panel'] !!}</svg>

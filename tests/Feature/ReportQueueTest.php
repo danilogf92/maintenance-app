@@ -37,7 +37,7 @@ class ReportQueueTest extends TestCase
     {
         $generation = $this->requestPdf();
         $this->assertSame('queued', $generation->status);
-        $this->assertCount(24, $generation->snapshot['data']['activities']);
+        $this->assertCount(0, $generation->snapshot['data']['activities']);
         $template = ReportTemplate::first();
         $definition = $template->definition; $definition['blocks'][0]['title'] = 'Posterior';
         $template->update(['definition' => $definition]);

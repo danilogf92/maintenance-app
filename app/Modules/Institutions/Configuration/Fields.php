@@ -13,6 +13,7 @@ class Fields
                 'company' => 'Empresa', 'hospital' => 'Hospital', 'clinic' => 'Clínica',
                 'university' => 'Universidad', 'other' => 'Otro']],
             'city' => ['label' => 'Ciudad', 'type' => 'text', 'required' => false, 'max' => 120],
+            'address' => ['label' => 'Dirección', 'type' => 'text', 'required' => false, 'max' => 10000],
             'contact_email' => ['label' => 'Correo de contacto', 'type' => 'email', 'required' => false, 'max' => 255],
             'contact_phone' => ['label' => 'Teléfono', 'type' => 'text', 'required' => false, 'max' => 40],
         ];

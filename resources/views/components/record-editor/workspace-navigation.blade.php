@@ -9,6 +9,7 @@
             class="ops-view-tab {{ $activeId === $view->id ? 'ops-view-tab-active' : '' }}"
             aria-selected="{{ $activeId === $view->id ? 'true' : 'false' }}">
             @if($favoriteId === $view->id)<x-ui.icon name="star" class="ops-tab-star" /><span class="sr-only">Favorita: </span>@endif
+            <x-ui.icon :name="\App\Support\Ui\RecordIcons::forView($view->module, $view->filter_value)" />
             {{ $view->name }}
         </button>
     @endforeach

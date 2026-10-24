@@ -1,9 +1,0 @@
-﻿{
-    "version":  "11.9",
-    "installed_at":  "2026-10-10T12:31:05.7101846-05:00",
-    "files":  [
-                  "resources/views/livewire/operations/users.blade.php",
-                  "resources/views/livewire/operations/institutions.blade.php"
-              ],
-    "backup":  "C:\\Users\\danil\\OneDrive\\Documentos\\DevelopmentDanilo\\maintenance-app\\.maintenance-updates\\backups\\v11.9-20261010-123105"
-}

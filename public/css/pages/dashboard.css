@@ -7,7 +7,7 @@
 .page-section-title { font-size:18px; font-weight:700; margin:0 0 16px; }
 .page-shortcuts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
 .page-link { display:flex; align-items:center; gap:16px; padding:22px; border:1px solid var(--page-border); border-radius:14px; background:var(--page-surface); color:var(--page-text); text-decoration:none; transition:border-color .15s,box-shadow .15s; }
-.page-link:hover { border-color:#93c5fd; box-shadow:0 4px 16px #2563eb0c; }
+.page-link:hover { border-color:var(--ui-focus); box-shadow:0 4px 16px var(--ui-wash); }
 .page-link strong { display:block; margin-bottom:4px; font-size:15px; font-weight:700; }
 .page-link-arrow { margin-left:auto; color:var(--page-muted); }
 .page-link-arrow svg { width:18px; height:18px; }

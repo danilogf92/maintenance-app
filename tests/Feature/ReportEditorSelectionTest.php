@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use App\Models\User;
 use App\Modules\ReportTemplates\Configuration\Blocks;
 use App\Modules\ReportTemplates\Models\ReportTemplate;
-use App\Modules\ReportTemplates\Queries\TemplateSampleData;
+use Tests\Support\ReportFixture as TemplateSampleData;
 use App\Modules\ReportTemplates\Rendering\PreviewRenderer;
 use App\Modules\ReportTemplates\Rendering\TemplateRenderer;
 use App\Modules\ReportTemplates\UI\Pages\EditReportTemplate;

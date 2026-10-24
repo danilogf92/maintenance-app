@@ -12,12 +12,6 @@ class Layout
 
     public static function styles(): string
     {
-        $layout = self::definitions();
-        $gap = ['compact' => 10, 'normal' => 16, 'wide' => 24][$layout['spacing']];
-
-        return '--institution-gap:'.$gap.'px;--institution-padding:'.$layout['padding'].'px;'
-            .'--institution-label-gap:'.$layout['label_gap'].'px;--institution-section-gap:'.$layout['section_gap'].'px;'
-            .'--institution-columns:'.$layout['columns'].';--institution-mobile-columns:'.$layout['mobile_columns'].';'
-            .'--institution-control-height:'.$layout['control_height'].'px;';
+        return \App\Livewire\Shared\EditorLayout::styles(self::definitions());
     }
 }

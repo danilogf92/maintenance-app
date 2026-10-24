@@ -1,0 +1,31 @@
+/* Shared navigation feedback. The application keeps its existing layout. */
+#app-sidebar .nav-item { position:relative; }
+#app-sidebar .nav-item:focus-visible { outline:2px solid var(--ui-primary); outline-offset:-2px; }
+#app-sidebar .nav-item:active { background:var(--ui-wash); color:var(--ui-primary); }
+#app-sidebar .nav-item.nav-active { box-shadow:inset 3px 0 0 var(--ui-primary); }
+.sidebar-group { margin:4px 0; }
+.sidebar-group-toggle { list-style:none; cursor:pointer; user-select:none; }
+.sidebar-group-toggle::-webkit-details-marker { display:none; }
+.sidebar-group-label { min-width:0; flex:1; line-height:1.45; }
+.sidebar-group-chevron { display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; flex:none; margin-left:auto; color:#64748b; border:1px solid #cbd5e1; border-radius:6px; background:#ffffff; }
+.sidebar-group-chevron svg { width:14px; height:14px; transition:transform .15s ease; }
+.sidebar-group[open] > summary .sidebar-group-chevron svg { transform:rotate(90deg); }
+.sidebar-group[open] > summary { color:var(--ui-primary); background:#f1f5f9; }
+.sidebar-group.is-current-group > summary { color:var(--ui-primary); background:var(--ui-wash); }
+.sidebar-group-items { display:grid; gap:3px; margin:6px 0 8px 24px; padding-left:8px; border-left:1px solid #cbd5e1; }
+#app-sidebar .sidebar-group-items .nav-item { min-height:40px; gap:9px; padding:8px 10px; font-size:13px; }
+#app-sidebar .sidebar-group-items .nav-item.nav-active { background:var(--ui-wash); color:var(--ui-primary); }
+.sidebar-group-toggle:hover .sidebar-group-chevron { color:var(--ui-primary); border-color:var(--ui-focus); background:var(--ui-wash); }
+.dark #app-sidebar .nav-item:focus-visible { outline-color:var(--ui-focus); }
+.dark #app-sidebar .nav-item:active { background:#1e3a5f; color:var(--ui-focus); }
+.dark .sidebar-group-chevron { color:#cbd5e1; background:#0f172a; border-color:#475569; }
+.dark .sidebar-group[open] > summary { color:var(--ui-focus); background:#1e293b; }
+.dark .sidebar-group.is-current-group > summary { color:var(--ui-focus); background:#172b46; }
+.dark .sidebar-group-items { border-color:#475569; }
+.dark #app-sidebar .sidebar-group-items .nav-item.nav-active { color:var(--ui-focus); background:#1e3a5f; }
+.dark .sidebar-group-toggle:hover .sidebar-group-chevron { color:var(--ui-focus); background:#1e293b; border-color:var(--ui-focus); }
+@media(min-width:1024px) {
+ [data-sidebar-collapsed="1"] .sidebar-group-items { margin:5px 0; padding:0; border:0; }
+ [data-sidebar-collapsed="1"] #app-sidebar .sidebar-group-items .nav-item { padding:10px 0; min-height:44px; gap:0; }
+}
+@media(prefers-reduced-motion:reduce) { .sidebar-group-chevron svg { transition:none; } }

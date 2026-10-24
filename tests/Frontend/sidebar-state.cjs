@@ -49,5 +49,8 @@ assert.ok(layout.indexOf("@include('components.layouts.sidebar-state')") < layou
 assert.ok(layout.indexOf("@include('components.layouts.sidebar-state')") < layout.indexOf('<body'));
 assert.match(source, /#app-sidebar \{ width:var\(--sidebar-width\)!important; transition:none!important/);
 assert.match(source, /\.app-shell-content \{ padding-left:var\(--sidebar-width\)!important/);
-assert.match(layout, /class="sidebar-label"/);
+const navigation = fs.readFileSync(path.join(root,
+    'resources/views/components/layouts/operations-navigation.blade.php'), 'utf8');
+assert.match(layout, /@include\('components.layouts.operations-navigation'\)/);
+assert.match(navigation, /class="sidebar-label"/);
 console.log('PASS: collapsed/expanded state before paint, navigation persistence, toggle, blocked storage and matching layout.');

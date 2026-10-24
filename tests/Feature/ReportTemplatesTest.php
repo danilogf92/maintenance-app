@@ -109,6 +109,7 @@ class ReportTemplatesTest extends TestCase
         $this->assertStringContainsString('&lt;script&gt;', $html);
         $this->assertStringNotContainsString('<script>', $html);
         $this->assertStringContainsString('table-header-group', $html);
-        $this->assertStringContainsString('Evidencia 24 B', $html);
+        $this->assertSame([], $data['activities']);
+        $this->assertStringNotContainsString('Evidencia 24 B', $html);
     }
 }

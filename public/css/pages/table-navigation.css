@@ -1,8 +1,8 @@
 .ops-record-navigation button { display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border:1px solid transparent; border-radius:8px; background:transparent; color:#475569; cursor:pointer; }
 .ops-record-navigation button svg { width:18px; height:18px; }
-.ops-record-navigation button:hover:not(:disabled) { background:#eff6ff; border-color:#bfdbfe; color:#2563eb; }
-.ops-record-navigation button:focus-visible { outline:2px solid #60a5fa; outline-offset:2px; }
+.ops-record-navigation button:hover:not(:disabled) { background:var(--ui-wash); border-color:var(--ui-focus); color:var(--ui-primary); }
+.ops-record-navigation button:focus-visible { outline:2px solid var(--ui-focus); outline-offset:2px; }
 .ops-record-navigation button:disabled { cursor:wait; opacity:1; }
 .ops-table-wrap { overflow-anchor:none; }
 .dark .ops-record-navigation button { color:#cbd5e1; }
-.dark .ops-record-navigation button:hover:not(:disabled) { background:#1e293b; border-color:#3b82f6; color:#93c5fd; }
+.dark .ops-record-navigation button:hover:not(:disabled) { background:#1e293b; border-color:var(--ui-primary); color:var(--ui-focus); }

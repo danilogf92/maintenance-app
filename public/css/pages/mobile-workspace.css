@@ -14,7 +14,7 @@
     .ops-page .ops-quick-search input { width:100%!important; min-width:0!important; height:40px!important; padding:8px 10px!important; font-size:14px; }
     .ops-page .ops-view-nav { position:absolute; bottom:0; left:0; right:0; z-index:35; display:flex!important; align-items:center; justify-content:flex-start; gap:4px!important; height:calc(60px + env(safe-area-inset-bottom, 0px)); padding:8px 10px calc(8px + env(safe-area-inset-bottom, 0px)); box-sizing:border-box; background:#fff; border-top:1px solid #dbe3ef; box-shadow:0 -2px 10px #0f172a08; }
     .ops-page .ops-view-nav>button { width:40px!important; min-width:40px!important; flex:0 0 40px!important; height:44px!important; border-radius:9px; }
-    .ops-page .ops-view-nav>button:hover:not(:disabled) { background:#eff6ff; color:#2563eb; }
+    .ops-page .ops-view-nav>button:hover:not(:disabled) { background:var(--ui-wash); color:var(--ui-primary); }
     .ops-page .ops-record-delete { order:1; color:#dc2626; }
     .ops-page .ops-record-delete:hover:not(:disabled) { color:#dc2626!important; background:#fff1f2!important; }
     .ops-page .ops-record-create { order:2; }
@@ -23,12 +23,12 @@
     .ops-page .ops-record-navigation { order:4; margin-left:auto; gap:2px!important; }
     .ops-page .ops-record-navigation button { width:38px!important; min-width:38px!important; flex:0 0 38px!important; height:44px!important; }
     .ops-page .ops-view-nav button svg { width:21px!important; height:21px!important; }
-    .ops-page .ops-view-nav button:focus-visible { outline:2px solid #60a5fa; outline-offset:1px; }
+    .ops-page .ops-view-nav button:focus-visible { outline:2px solid var(--ui-focus); outline-offset:1px; }
     .ops-page .ops-detail-panel { box-shadow:none!important; border-left:0!important; }
     .ops-page .ops-detail-panel .ops-fields { padding:18px 16px!important; }
     .ops-page .ops-detail-panel input,.ops-page .ops-detail-panel select,.ops-page .ops-detail-panel textarea { font-size:16px!important; }
     .ops-page .ops-detail-panel footer { padding:10px 16px!important; }
     .dark .ops-page .ops-view-nav { background:#0f172a; border-color:#334155; }
-    .dark .ops-page .ops-view-nav>button:hover:not(:disabled) { background:#1e293b; color:#93c5fd; }
+    .dark .ops-page .ops-view-nav>button:hover:not(:disabled) { background:#1e293b; color:var(--ui-focus); }
 }
 @media print { .ops-page .ops-view-nav { display:none!important; } .ops-page { padding-bottom:0!important; } }

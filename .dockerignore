@@ -13,3 +13,7 @@ bootstrap/cache/*.php
 public/storage
 public/build
 public/hot
+# Runtime files are supplied by mounts, never copied into the PHP image.
+storage
+.maintenance-updates
+backups

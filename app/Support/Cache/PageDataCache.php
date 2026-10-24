@@ -9,6 +9,17 @@ use Illuminate\Support\Str;
 /** Small, versioned data snapshots. Authorization always runs outside this cache. */
 class PageDataCache
 {
+    private array $requestVersions = [];
+    private ?object $activeRequest = null;
+
+    private function requestScope(): void
+    {
+        $request = app('request');
+        if ($this->activeRequest !== $request) {
+            $this->activeRequest = $request; $this->requestVersions = [];
+        }
+    }
+
     private function store()
     {
         return Cache::store(config('page-cache.store', 'page-data'));
@@ -36,6 +47,7 @@ class PageDataCache
             return;
         }
         foreach ($buckets as $bucket) {
+            unset($this->requestVersions[$bucket]);
             $this->store()->put('page-data:version:'.$bucket, (string) Str::uuid(), 86400);
         }
     }
@@ -47,9 +59,11 @@ class PageDataCache
 
     private function version(string $bucket): string
     {
+        $this->requestScope();
+        if (isset($this->requestVersions[$bucket])) { return $this->requestVersions[$bucket]; }
         $key = 'page-data:version:'.$bucket;
         $this->store()->add($key, (string) Str::uuid(), 86400);
 
-        return (string) $this->store()->get($key);
+        return $this->requestVersions[$bucket] = (string) $this->store()->get($key);
     }
 }

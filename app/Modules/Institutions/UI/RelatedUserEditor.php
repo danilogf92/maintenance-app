@@ -50,6 +50,6 @@ class RelatedUserEditor extends UserPage
         $institutions = app(InstitutionQuery::class)->options();
         $roles = app(UserAccess::class)->rolesFor(auth()->user())->orderBy('name')->get(['id', 'name']);
 
-        return view('institutions::Relations.user-editor', compact('institutions', 'roles'));
+        return view('institutions::Relations.user-editor', array_merge(compact('institutions', 'roles'), \App\Modules\Users\UI\UserEditor::configuration()));
     }
 }

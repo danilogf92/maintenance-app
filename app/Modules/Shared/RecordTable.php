@@ -37,8 +37,9 @@ class RecordTable
         return is_bool($value) ? ($value ? '1' : '0') : (string) ($value ?? '');
     }
 
-    public function label(string $column, string $value): string
+    public function label(string $column, string $value, array $labels = []): string
     {
+        if (array_key_exists($value, $labels)) { return (string) $labels[$value]; }
         if ($value === '') {
             return 'Sin dato';
         }
@@ -56,55 +57,81 @@ class RecordTable
         return $value;
     }
 
-    public function prepare(Collection $records, array $columns, array $settings): array
+    private function valueResolver(array $columns): \Closure
     {
-        $settings = $this->normalize($settings, $columns);
+        $values = [];
+        return function ($record, string $column) use (&$values, $columns): string {
+            $id = spl_object_id($record);
+            return $values[$id][$column] ??= $this->value($record, $column, $columns[$column]);
+        };
+    }
+
+    private function categoryOptions(Collection $records, array $columns, \Closure $value): array
+    {
         $options = [];
         foreach ($columns as $key => $definition) {
             if ($definition['kind'] === 'category' && $definition['filterable']) {
-                $options[$key] = $records->map(fn ($record) => $this->value($record, $key, $definition))
-                    ->unique()->sort()->values()->map(fn ($value) => [
-                        'value' => $value === '' ? '__empty__' : $value,
-                        'label' => $this->label($key, $value),
+                $options[$key] = $records->map(fn ($record) => $value($record, $key))
+                    ->unique()->sort()->values()->map(fn ($item) => [
+                        'value' => $item === '' ? '__empty__' : $item,
+                        'label' => $this->label($key, $item, $definition['labels'] ?? []),
                     ])->all();
             }
         }
-        $items = $records->filter(function ($record) use ($settings, $columns) {
-            foreach ($settings['filters'] as $key => $filter) {
-                $value = $this->value($record, $key, $columns[$key]);
+        return $options;
+    }
+
+    private function filterRecords(Collection $records, array $columns, array $filters, \Closure $value): Collection
+    {
+        if (!$filters) { return $records; }
+        return $records->filter(function ($record) use ($filters, $columns, $value) {
+            foreach ($filters as $key => $filter) {
+                $item = $value($record, $key);
                 $exact = in_array($columns[$key]['kind'], ['category', 'number'], true);
-                if ($filter === '__empty__' ? $value !== '' : ($exact
-                    ? $value !== $filter : ! str_contains(mb_strtolower($value), mb_strtolower($filter)))) {
+                if ($filter === '__empty__' ? $item !== '' : ($exact
+                    ? $item !== $filter : ! str_contains(mb_strtolower($item), mb_strtolower($filter)))) {
                     return false;
                 }
             }
-
             return true;
         });
-        if ($settings['sort'] !== '') {
-            $key = $settings['sort'];
-            $items = $items->sort(function ($a, $b) use ($key, $columns, $settings) {
-                $left = $this->value($a, $key, $columns[$key]);
-                $right = $this->value($b, $key, $columns[$key]);
-                $comparison = $columns[$key]['kind'] === 'number'
-                    ? ((float) $left <=> (float) $right) : strnatcasecmp($left, $right);
+    }
 
-                return ($settings['direction'] === 'desc' ? -$comparison : $comparison) ?: ($a->id <=> $b->id);
-            });
-        }
-        $groups = [['key' => '', 'label' => null, 'items' => $items->values()]];
-        if ($settings['group'] !== '') {
-            $key = $settings['group'];
-            $grouped = $items->groupBy(fn ($record) => $this->value($record, $key, $columns[$key]));
-            $grouped = $settings['sort'] === $key && $settings['direction'] === 'desc'
-                ? $grouped->sortKeysDesc(SORT_NATURAL | SORT_FLAG_CASE)
-                : $grouped->sortKeys(SORT_NATURAL | SORT_FLAG_CASE);
-            $groups = $grouped->map(fn ($rows, $value) => [
-                'key' => (string) $value, 'label' => $this->label($key, (string) $value), 'items' => $rows->values(),
-            ])->values()->all();
-            $items = collect($groups)->flatMap(fn ($group) => $group['items']);
-        }
+    private function sortRecords(Collection $items, array $columns, array $settings, \Closure $value): Collection
+    {
+        $key = $settings['sort'];
+        if ($key === '') { return $items; }
+        return $items->sort(function ($a, $b) use ($key, $columns, $settings, $value) {
+            $left = $value($a, $key); $right = $value($b, $key);
+            $comparison = $columns[$key]['kind'] === 'number'
+                ? ((float) $left <=> (float) $right) : strnatcasecmp($left, $right);
+            return ($settings['direction'] === 'desc' ? -$comparison : $comparison) ?: ($a->id <=> $b->id);
+        });
+    }
 
+    private function groupedRecords(Collection $items, array $columns, array $settings, \Closure $value): array
+    {
+        $key = $settings['group'];
+        if ($key === '') { return [['key' => '', 'label' => null, 'items' => $items->values()]]; }
+        $grouped = $items->groupBy(fn ($record) => $value($record, $key));
+        $grouped = $settings['sort'] === $key && $settings['direction'] === 'desc'
+            ? $grouped->sortKeysDesc(SORT_NATURAL | SORT_FLAG_CASE)
+            : $grouped->sortKeys(SORT_NATURAL | SORT_FLAG_CASE);
+        return $grouped->map(fn ($rows, $item) => [
+            'key' => (string) $item, 'label' => $this->label($key, (string) $item, $columns[$key]['labels'] ?? []),
+            'items' => $rows->values(),
+        ])->values()->all();
+    }
+
+    public function prepare(Collection $records, array $columns, array $settings): array
+    {
+        $settings = $this->normalize($settings, $columns);
+        $value = $this->valueResolver($columns);
+        $options = $this->categoryOptions($records, $columns, $value);
+        $items = $this->filterRecords($records, $columns, $settings['filters'], $value);
+        $items = $this->sortRecords($items, $columns, $settings, $value);
+        $groups = $this->groupedRecords($items, $columns, $settings, $value);
+        if ($settings['group'] !== '') { $items = collect($groups)->flatMap(fn ($group) => $group['items']); }
         return ['items' => $items->values(), 'tableGroups' => $groups,
             'tableColumns' => $columns, 'columnOptions' => $options];
     }
